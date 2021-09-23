@@ -1,2 +1,2 @@
-# Trading-platform
+# 3vial
 A web application built to keep track of multiple asset classes (stocks, options, crypto, NFTs…) on multiple platforms (stock brokerages, crypto exchanges, DEX, neobanks, cold storage…). It also provides its users with the world's most unique and efficient portfolio tracking system!
