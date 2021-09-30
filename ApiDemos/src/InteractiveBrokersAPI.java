@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class InteractiveBrokersAPI {
     public static void main(String[] args) {
-        String id = "";
+        String id = "DU446277";
         try {
             connect(id);
         } catch (Exception e) {
