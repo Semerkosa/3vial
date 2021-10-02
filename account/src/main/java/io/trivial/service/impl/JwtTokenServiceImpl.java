@@ -14,11 +14,10 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public String createNewToken() {
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        String jws = Jwts
+        return Jwts
                 .builder()
                 .setSubject("Joe")
                 .signWith(key)
                 .compact();
-        return null;
     }
 }
