@@ -29,20 +29,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel register(UserServiceModel inUser) {
-        System.out.println("Register method!");
         User userForSave = this.modelMapper.map(inUser, User.class);
         this.addRolesToUser(userForSave);
-        return null;
+        User savedUser = this.saveUserToDb(userForSave);
+        return this.modelMapper.map(savedUser, UserServiceModel.class);
     }
 
     private void addRolesToUser(User userForSave) {
+        Collection<Role> roles = new ArrayList<>();
         if (this.userRepository.count() == 0) {
             Role roleAdmin = new Role();
             roleAdmin.setName(RoleEnum.ADMIN.name());
             this.addPrivilegesToRole(roleAdmin);
+            roles.add(roleAdmin);
         } else {
             Role roleUser = new Role();
+            roleUser.setName(RoleEnum.USER.name());
+            this.addPrivilegesToRole(roleUser);
+            roles.add(roleUser);
         }
+        userForSave.setRoles(roles);
     }
 
     private void addPrivilegesToRole(Role role) {
@@ -73,4 +79,9 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel getUserByEmail(String email) {
         return null;
     }
+
+    private User saveUserToDb(User user) {
+        return this.userRepository.saveAndFlush(user);
+    }
+
 }
