@@ -8,7 +8,6 @@ import java.util.Collection;
 public class Role extends BaseEntity {
 
     private String name;
-    private Collection<User> users;
     private Collection<Privilege> privileges;
 
     public Role() {
@@ -23,22 +22,10 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "roles_privileges",
-            joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "privilege_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "roles_privileges",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     public Collection<Privilege> getPrivileges() {
         return privileges;
     }

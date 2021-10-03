@@ -1,8 +1,7 @@
 package io.trivial.models.entites;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "addresses")
@@ -18,7 +17,6 @@ public class Address extends BaseEntity {
         super();
     }
 
-    @Column(name = "city", nullable = false)
     public String getCity() {
         return city;
     }

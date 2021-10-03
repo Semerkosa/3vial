@@ -1,7 +1,9 @@
 package io.trivial.web.controllers;
 
+import io.trivial.exception.UserExistException;
 import io.trivial.models.binding.UserRegisterBindingModel;
 import io.trivial.models.binding.UserUpdateBindingModel;
+import io.trivial.models.services.UserServiceModel;
 import io.trivial.models.views.UserViewModel;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -9,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/user")
 public class UserController {
 
     private final ModelMapper modelMapper;
@@ -27,13 +26,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(
-            value = "/",
+    @PostMapping (
+            value = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> register(UserRegisterBindingModel inUser) {
-        //TODO
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<UserViewModel> register(UserRegisterBindingModel inUser) throws UserExistException {
+        UserServiceModel returnedUser = this.userService.register(this.modelMapper.map(inUser, UserServiceModel.class));
+        return new ResponseEntity<>(this.modelMapper.map(returnedUser, UserViewModel.class), HttpStatus.OK);
     }
 
     @GetMapping(
@@ -54,7 +53,7 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @GetMapping(
+    @PostMapping(
             value = "/update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

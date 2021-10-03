@@ -1,12 +1,16 @@
 package io.trivial.models.services;
 
 import io.trivial.models.entites.Address;
+import io.trivial.models.entites.Role;
+
+import java.util.Collection;
 
 public class UserServiceModel extends BaseServiceModel {
 
     private String email;
     private String password;
     private AddressServiceModel address;
+    private Collection<RoleServiceModel> roles;
 
     public UserServiceModel() {
     }
@@ -35,4 +39,11 @@ public class UserServiceModel extends BaseServiceModel {
         this.address = address;
     }
 
+    public Collection<RoleServiceModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<RoleServiceModel> roles) {
+        this.roles = roles;
+    }
 }

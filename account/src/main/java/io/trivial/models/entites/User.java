@@ -33,7 +33,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public Address getAddress() {
         return address;
     }
@@ -42,7 +42,7 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

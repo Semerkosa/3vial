@@ -2,6 +2,8 @@ package io.trivial.service.impl;
 
 import io.trivial.enums.PrivilegeEnum;
 import io.trivial.enums.RoleEnum;
+import io.trivial.exception.UserDoesNotExistException;
+import io.trivial.exception.UserExistException;
 import io.trivial.models.entites.Privilege;
 import io.trivial.models.entites.Role;
 import io.trivial.models.entites.User;
@@ -10,6 +12,7 @@ import io.trivial.repositories.UserRepository;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,16 +23,23 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
-    public UserServiceModel register(UserServiceModel inUser) {
+    public UserServiceModel register(UserServiceModel inUser) throws UserExistException {
+        if (this.userRepository.findByEmail(inUser.getEmail()).isPresent()){
+            throw new UserExistException("User with this email exist!");
+        }
         User userForSave = this.modelMapper.map(inUser, User.class);
+        userForSave.setPassword(this.bCryptPasswordEncoder.encode(userForSave.getPassword()));
         this.addRolesToUser(userForSave);
         User savedUser = this.saveUserToDb(userForSave);
         return this.modelMapper.map(savedUser, UserServiceModel.class);
@@ -71,8 +81,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel getUserById(String id) {
-        return null;
+    public UserServiceModel getUserById(String id) throws UserDoesNotExistException {
+        User foundedUser = this.userRepository.findById(id).orElse(null);
+        if (foundedUser == null){
+            throw new UserDoesNotExistException("User with this id does not exist!");
+        }
+        return this.modelMapper.map(foundedUser, UserServiceModel.class);
     }
 
     @Override
