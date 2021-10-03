@@ -1,5 +1,9 @@
 package io.trivial.models.binding;
 
+import javax.validation.constraints.Pattern;
+
+import static io.trivial.constants.RegexConstants.*;
+
 public class AddressBindingModel {
 
     private String city;
@@ -11,6 +15,7 @@ public class AddressBindingModel {
     public AddressBindingModel() {
     }
 
+    @Pattern(regexp = CITY_REGEX, message = CITY_REGEX_ERROR)
     public String getCity() {
         return city;
     }
@@ -19,6 +24,7 @@ public class AddressBindingModel {
         this.city = city;
     }
 
+    @Pattern(regexp = COUNTRY_REGEX, message = COUNTRY_REGEX_ERROR)
     public String getCountry() {
         return country;
     }
@@ -27,6 +33,7 @@ public class AddressBindingModel {
         this.country = country;
     }
 
+    @Pattern(regexp = POST_CODE_REGEX, message = POST_CODE_REGEX_ERROR)
     public String getPostCode() {
         return postCode;
     }
@@ -35,6 +42,7 @@ public class AddressBindingModel {
         this.postCode = postCode;
     }
 
+    @Pattern(regexp = STREET_REGEX, message = STREET_REGEX_ERROR)
     public String getStreet() {
         return street;
     }
@@ -43,6 +51,7 @@ public class AddressBindingModel {
         this.street = street;
     }
 
+    @Pattern(regexp = STREET_NUMBER_REGEX, message = STREET_NUMBER_REGEX_ERROR)
     public String getStreetNumber() {
         return streetNumber;
     }

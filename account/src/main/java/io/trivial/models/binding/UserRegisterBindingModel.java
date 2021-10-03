@@ -1,6 +1,12 @@
 package io.trivial.models.binding;
 import io.trivial.models.entites.Address;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+
+import static io.trivial.constants.RegexConstants.PASSWORD_REGEX;
+import static io.trivial.constants.RegexConstants.PASSWORD_REGEX_ERROR;
+
 public class UserRegisterBindingModel extends BaseBindingModel {
 
     private String email;
@@ -10,6 +16,7 @@ public class UserRegisterBindingModel extends BaseBindingModel {
     public UserRegisterBindingModel() {
     }
 
+    @Email
     public String getEmail() {
         return email;
     }
@@ -18,6 +25,7 @@ public class UserRegisterBindingModel extends BaseBindingModel {
         this.email = email;
     }
 
+    @Pattern(regexp = PASSWORD_REGEX, message = PASSWORD_REGEX_ERROR)
     public String getPassword() {
         return password;
     }
