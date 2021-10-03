@@ -1,9 +1,7 @@
 package io.trivial.models.entites;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -12,6 +10,7 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private Address address;
+    private Collection<Role> roles;
 
     public User() {
     }
@@ -41,5 +40,20 @@ public class User extends BaseEntity {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

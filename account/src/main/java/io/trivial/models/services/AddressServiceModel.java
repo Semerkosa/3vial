@@ -1,6 +1,8 @@
 package io.trivial.models.services;
 
-public class AddressServiceModel {
+import io.trivial.models.entites.BaseEntity;
+
+public class AddressServiceModel extends BaseEntity {
 
     private String city;
     private String country;

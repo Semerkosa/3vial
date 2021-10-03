@@ -6,7 +6,7 @@ public class UserServiceModel extends BaseServiceModel {
 
     private String email;
     private String password;
-    private Address address;
+    private AddressServiceModel address;
 
     public UserServiceModel() {
     }
@@ -27,11 +27,11 @@ public class UserServiceModel extends BaseServiceModel {
         this.password = password;
     }
 
-    public Address getAddress() {
+    public AddressServiceModel getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressServiceModel address) {
         this.address = address;
     }
 
