@@ -2,6 +2,8 @@ package io.trivial.constants;
 
 public class RegexConstants {
 
+    //TODO
+
     public static final String PASSWORD_REGEX = "";
     public static final String PASSWORD_REGEX_ERROR = "";
 
