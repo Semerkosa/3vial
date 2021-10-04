@@ -10,10 +10,10 @@ public interface UserService {
 
     UserServiceModel update(UserServiceModel inUser);
 
-    boolean deleteUserById(String id);
+    boolean deleteUserById(String id) throws UserDoesNotExistException;
 
     UserServiceModel getUserById(String id) throws UserDoesNotExistException;
 
-    UserServiceModel getUserByEmail(String email);
+    UserServiceModel getUserByEmail(String email) throws UserDoesNotExistException;
 
 }

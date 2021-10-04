@@ -23,10 +23,7 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_privileges",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public List<Privilege> getPrivileges() {
         return privileges;
     }

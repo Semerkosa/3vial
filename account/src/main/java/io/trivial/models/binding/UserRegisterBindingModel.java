@@ -7,11 +7,11 @@ import javax.validation.constraints.Pattern;
 import static io.trivial.constants.RegexConstants.PASSWORD_REGEX;
 import static io.trivial.constants.RegexConstants.PASSWORD_REGEX_ERROR;
 
-public class UserRegisterBindingModel extends BaseBindingModel {
+public class UserRegisterBindingModel {
 
     private String email;
     private String password;
-    private Address address;
+    private AddressBindingModel address;
 
     public UserRegisterBindingModel() {
     }
@@ -34,11 +34,11 @@ public class UserRegisterBindingModel extends BaseBindingModel {
         this.password = password;
     }
 
-    public Address getAddress() {
+    public AddressBindingModel getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressBindingModel address) {
         this.address = address;
     }
 

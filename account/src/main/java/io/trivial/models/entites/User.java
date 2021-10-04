@@ -34,7 +34,13 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "users_addresses",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "address_id", referencedColumnName = "id"))
     public Address getAddress() {
         return address;
     }
@@ -43,7 +49,7 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

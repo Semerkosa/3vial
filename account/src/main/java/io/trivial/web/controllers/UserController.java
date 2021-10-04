@@ -1,5 +1,6 @@
 package io.trivial.web.controllers;
 
+import io.trivial.exception.UserDoesNotExistException;
 import io.trivial.exception.UserExistException;
 import io.trivial.models.binding.UserRegisterBindingModel;
 import io.trivial.models.binding.UserUpdateBindingModel;
@@ -30,34 +31,38 @@ public class UserController {
             value = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> register(UserRegisterBindingModel inUser) throws UserExistException {
+    public ResponseEntity<UserViewModel> register(@RequestBody UserRegisterBindingModel inUser) throws UserExistException {
         UserServiceModel returnedUser = this.userService.register(this.modelMapper.map(inUser, UserServiceModel.class));
         return new ResponseEntity<>(this.modelMapper.map(returnedUser, UserViewModel.class), HttpStatus.OK);
     }
 
     @GetMapping(
-            value = "/{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            value = "/{email}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> getUserById(@PathVariable String id) {
-        //TODO
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<UserViewModel> getUserByEmail(@PathVariable String email) throws UserDoesNotExistException {
+        UserServiceModel foundedUser = this.userService.getUserByEmail(email);
+        return new ResponseEntity<>(this.modelMapper.map(foundedUser, UserViewModel.class), HttpStatus.OK);
     }
 
     @GetMapping(
-            value = "/{email}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> getUserByEmail(@PathVariable String email) {
-        //TODO
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<UserViewModel> getUserById(@PathVariable String id) throws UserDoesNotExistException {
+        UserServiceModel foundedUser = this.userService.getUserById(id);
+        return new ResponseEntity<>(this.modelMapper.map(foundedUser, UserViewModel.class), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> deleteUserById(@PathVariable String id) throws UserDoesNotExistException {
+        boolean isDeleted = this.userService.deleteUserById(id);
+        return new ResponseEntity<>(isDeleted, HttpStatus.OK);
     }
 
     @PostMapping(
             value = "/update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> updateUser(UserUpdateBindingModel inUser) {
+    public ResponseEntity<UserViewModel> updateUser(@RequestBody UserUpdateBindingModel inUser) {
         //TODO
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

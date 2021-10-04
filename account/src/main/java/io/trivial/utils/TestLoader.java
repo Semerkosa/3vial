@@ -31,9 +31,9 @@ public class TestLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (this.userRepository.count() == 0)
-            this.createAndSaveUser();
-        this.getUserById("c5f47aea-339d-4ad2-97c0-1bdb93329424");
+        //if (this.userRepository.count() == 0)
+            //this.createAndSaveUser();
+        //this.getUserById("2c6c7c5c-f45f-429f-a9ff-0843647f9baf");
     }
 
     private void getUserById(String id) throws UserDoesNotExistException {
