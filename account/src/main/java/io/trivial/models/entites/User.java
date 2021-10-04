@@ -2,6 +2,7 @@ package io.trivial.models.entites;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -10,7 +11,7 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private Address address;
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     public User() {
     }
@@ -42,18 +43,18 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    public Collection<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

@@ -2,7 +2,6 @@ package io.trivial.utils;
 
 import io.trivial.exception.UserDoesNotExistException;
 import io.trivial.exception.UserExistException;
-import io.trivial.models.entites.Role;
 import io.trivial.models.services.AddressServiceModel;
 import io.trivial.models.services.RoleServiceModel;
 import io.trivial.models.services.UserServiceModel;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +33,7 @@ public class TestLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (this.userRepository.count() == 0)
             this.createAndSaveUser();
-        this.getUserById("7c391033-b062-4ff1-833c-888870dbd7e5");
+        this.getUserById("c5f47aea-339d-4ad2-97c0-1bdb93329424");
     }
 
     private void getUserById(String id) throws UserDoesNotExistException {

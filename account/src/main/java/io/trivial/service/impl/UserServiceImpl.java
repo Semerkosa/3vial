@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void addRolesToUser(User userForSave) {
-        Collection<Role> roles = new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
         if (this.userRepository.count() == 0) {
             Role roleAdmin = new Role();
             roleAdmin.setName(RoleEnum.ADMIN.name());
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void addPrivilegesToRole(Role role) {
-        Collection<Privilege> privileges = new ArrayList<>();
+        List<Privilege> privileges = new ArrayList<>();
         privileges.add(new Privilege(PrivilegeEnum.READ_PRIVILEGE.name()));
         if(role.getName().equals("ADMIN")) {
             privileges.add(new Privilege(PrivilegeEnum.WRITE_PRIVILEGE.name()));
