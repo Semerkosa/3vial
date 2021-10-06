@@ -1,13 +1,13 @@
-package trivial;
+package com.jointrivial.Reference;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ReferenceMicroserviceApplicationTests {
+class ReferenceApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
