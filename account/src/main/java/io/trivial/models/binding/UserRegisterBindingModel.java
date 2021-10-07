@@ -1,6 +1,6 @@
 package io.trivial.models.binding;
 
-public class UserRegisterBindingModel extends BaseBindingModel {
+public class UserRegisterBindingModel {
 
     private String email;
     private String password;

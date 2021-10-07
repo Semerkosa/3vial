@@ -1,6 +1,6 @@
 package io.trivial.models.binding;
 
-public class AddressBindingModel extends BaseBindingModel {
+public class AddressBindingModel {
 
     private String city;
     private String country;

@@ -1,6 +1,6 @@
 package io.trivial.models.service;
 
-public class BaseServiceModel {
+public abstract class BaseServiceModel {
 
     private String id;
 
