@@ -1,14 +1,17 @@
 package com.jointrivial.asset.Nordigen.api;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.*;
 import java.net.http.*;
 
+@Component
 public class HttpRequests {
     private static final HttpClient client = HttpClient.newHttpClient();
 
-    // country's alpha 2 code(bg, en, ....)
-    public static String availableBanks(String country) throws IOException, InterruptedException, URISyntaxException {
+    // country's alpha 2 code(bg, de, gb, ....). There are some exceptions(gb == gbr, both work)
+    public String allBanksInCountry(String country) throws IOException, InterruptedException, URISyntaxException {
 
         // HTTP/2 protocol, by default. Another version could be defined.
         HttpRequest request = HttpRequest.newBuilder()
@@ -20,13 +23,12 @@ public class HttpRequests {
         // The Nordigen response bodies' are always in JSON format
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        int responseCode = response.statusCode();
-
-        if (responseCode == 200) {
+        if (response.statusCode() == 200) {
            return response.body();
         }
 
-        return "Something went wrong with the request!";
+        // TODO handle exception properly
+        return null;
     }
 }
 

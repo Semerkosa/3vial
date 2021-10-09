@@ -1,15 +1,23 @@
 package com.jointrivial.asset.Nordigen.models.services;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 // ASPSP = Account Servicing Payment Service Provider(e.g., bank...)
 public class BankServiceModel {
 
+    @Expose
     private String id;
+    @Expose
     private String name;
+    @Expose
     private String bic;
+    @Expose
     private String transactionTotalDays;
+    @Expose
     private List<String> countries;
+    @Expose
     private String logo;
 
     public BankServiceModel() {
