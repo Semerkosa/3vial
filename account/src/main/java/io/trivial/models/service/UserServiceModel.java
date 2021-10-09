@@ -1,10 +1,13 @@
 package io.trivial.models.service;
 
+import java.util.List;
+
 public class UserServiceModel extends BaseServiceModel {
 
     private String email;
     private String password;
     private AddressServiceModel address;
+    private List<KeyOrganizationServiceModel> keysOrganization;
 
     public UserServiceModel() {
     }
@@ -33,4 +36,12 @@ public class UserServiceModel extends BaseServiceModel {
         this.address = address;
     }
 
+	public List<KeyOrganizationServiceModel> getKeysOrganization() {
+		return keysOrganization;
+	}
+
+	public void setKeysOrganization(List<KeyOrganizationServiceModel> keysOrganization) {
+		this.keysOrganization = keysOrganization;
+	}
+    
 }

@@ -1,6 +1,7 @@
 package io.trivial.models.entites;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -9,6 +10,7 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private Address address;
+    private List<KeyOrganization> keysOrganization;
 
     public User() {
     }
@@ -45,4 +47,14 @@ public class User extends BaseEntity {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @OneToMany(fetch = FetchType.EAGER)
+	public List<KeyOrganization> getKeysOrganization() {
+		return keysOrganization;
+	}
+
+	public void setKeysOrganization(List<KeyOrganization> keysOrganization) {
+		this.keysOrganization = keysOrganization;
+	}
+    
 }
