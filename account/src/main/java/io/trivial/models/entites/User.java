@@ -1,9 +1,6 @@
 package io.trivial.models.entites;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +31,13 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "users_addresses",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "address_id", referencedColumnName = "id"))
     public Address getAddress() {
         return address;
     }
