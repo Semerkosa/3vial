@@ -28,6 +28,15 @@ public class UserServiceImpl implements UserService {
         return this.modelMapper.map(savedUser, UserServiceModel.class);
     }
 
+    @Override
+    public UserServiceModel getUserById(String id) {
+        User foundedUser = this.userRepository.findById(id).orElse(null);
+        //TODO Does the user exist?
+        return this.modelMapper.map(foundedUser, UserServiceModel.class);
+    }
+
+    /* PRIVATE METHODS */
+
     private User saveUserToDb(User user) {
         return this.userRepository.saveAndFlush(user);
     }
