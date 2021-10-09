@@ -6,4 +6,6 @@ public interface UserService {
 
     UserServiceModel register(UserServiceModel inUser);
 
+    UserServiceModel getUserById(String id);
+
 }
