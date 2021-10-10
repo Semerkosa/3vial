@@ -4,21 +4,21 @@ import io.trivial.models.entites.BaseEntity;
 
 public class KeyOrganizationViewModel extends BaseEntity {
 
-    private String name;
+    private String organizationName;
     private String organizationKey;
 
     public KeyOrganizationViewModel() {
     }
 
-    public String getName() {
-        return name;
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
-	public String getOrganizationKey() {
+    public String getOrganizationKey() {
 		return organizationKey;
 	}
 

@@ -8,19 +8,19 @@ import javax.persistence.Table;
 @Table(name = "keys_organizations")
 public class KeyOrganization extends BaseEntity {
 
-    private String name;
+    private String organizationName;
     private String organizationKey;
 
     public KeyOrganization() {
     }
 
-    @Column(name = "name", nullable = false, unique = true)
-    public String getName() {
-        return name;
+    @Column(name = "organization_name", nullable = false, unique = true)
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
     @Column(name = "organization_key", nullable = false)
