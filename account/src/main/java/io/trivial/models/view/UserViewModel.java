@@ -4,7 +4,7 @@ import io.trivial.models.service.AddressServiceModel;
 
 import java.util.List;
 
-public class UserViewModel {
+public class UserViewModel extends BaseViewModel {
 
     private String email;
     private AddressServiceModel address;
