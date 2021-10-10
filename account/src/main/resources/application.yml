@@ -19,3 +19,5 @@ spring:
         user:
             name: user;
             password: user;
+server:
+    port: 8084
