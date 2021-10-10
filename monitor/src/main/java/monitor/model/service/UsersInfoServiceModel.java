@@ -4,6 +4,10 @@ public class UsersInfoServiceModel {
 
     private long totalCount;
 
+    public UsersInfoServiceModel() {
+
+    }
+
     public long getTotalCount() {
         return totalCount;
     }

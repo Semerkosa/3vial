@@ -4,6 +4,10 @@ public class UsersInfoViewModel {
 
     private long totalCount;
 
+    public UsersInfoViewModel() {
+
+    }
+
     public long getTotalCount() {
         return totalCount;
     }

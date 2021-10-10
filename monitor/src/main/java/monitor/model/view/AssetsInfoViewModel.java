@@ -7,6 +7,10 @@ public class AssetsInfoViewModel {
     private String currencyType;
     private BigDecimal amount;
 
+    public AssetsInfoViewModel() {
+
+    }
+
     public String getCurrencyType() {
         return currencyType;
     }
