@@ -5,10 +5,8 @@ import com.google.gson.annotations.Expose;
 import java.util.List;
 
 // ASPSP = Account Servicing Payment Service Provider(e.g., bank...)
-public class BankServiceModel {
+public class BankServiceModel extends BaseServiceModel {
 
-    @Expose
-    private String id;
     @Expose
     private String name;
     @Expose
@@ -21,15 +19,6 @@ public class BankServiceModel {
     private String logo;
 
     public BankServiceModel() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public BankServiceModel setId(String id) {
-        this.id = id;
-        return this;
     }
 
     public String getName() {
@@ -80,7 +69,7 @@ public class BankServiceModel {
     @Override
     public String toString() {
         return "BankServiceModel --> " +
-                "id = " + id +
+                "id = " + super.getId() +
                 ", name = " + name +
                 ", bic = " + bic +
                 ", transactionTotalDays = " + transactionTotalDays +
