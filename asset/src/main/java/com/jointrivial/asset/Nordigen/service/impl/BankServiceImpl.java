@@ -37,15 +37,4 @@ public class BankServiceImpl implements BankService {
                 map(BankServiceModel::getName).
                 collect(Collectors.toList());
     }
-
-    public String getBankById(String id) throws IOException, URISyntaxException, InterruptedException {
-        String targetBankJson = this.httpRequests.getBankById(id);
-
-        // TODO handle exception properly
-        if (targetBankJson == null) {
-            return null;
-        }
-
-        return this.gson.fromJson(targetBankJson, BankServiceModel.class).getName();
-    }
 }

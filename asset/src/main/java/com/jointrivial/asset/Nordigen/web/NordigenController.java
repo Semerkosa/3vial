@@ -34,21 +34,4 @@ public class NordigenController {
 
         return new ResponseEntity<>(countries, HttpStatus.OK);
     }
-
-//    @GetMapping("/all-banks/{id}")
-//    public ResponseEntity<String> getBankById(@PathVariable String id) throws IOException, URISyntaxException, InterruptedException {
-//        String bankName = this.bankService.getBankById(id);
-//
-//        // TODO think of a better handler
-//        if (bankName == null) {
-//            return new ResponseEntity<>(
-//                    "Invalid bank id!",
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//
-//        return new ResponseEntity<>(
-//                this.gson.toJson(bankName),
-//                HttpStatus.OK
-//        );
-//    }
 }
