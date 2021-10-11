@@ -1,4 +1,4 @@
-package com.jointrivial.asset.Nordigen.config;
+package com.jointrivial.asset.nordigen.config;
 
 import com.google.gson.*;
 import org.modelmapper.ModelMapper;

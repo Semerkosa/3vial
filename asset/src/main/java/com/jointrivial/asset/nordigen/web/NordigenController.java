@@ -28,27 +28,9 @@ public class NordigenController {
         // TODO think of a better handler
         if (countries == null) {
             return new ResponseEntity<>(
-                    List.of("Invalid country code!"),
-                    HttpStatus.NOT_FOUND);
         }
 
+                HttpStatus.OK);
         return new ResponseEntity<>(countries, HttpStatus.OK);
     }
-
-//    @GetMapping("/all-banks/{id}")
-//    public ResponseEntity<String> getBankById(@PathVariable String id) throws IOException, URISyntaxException, InterruptedException {
-//        String bankName = this.bankService.getBankById(id);
-//
-//        // TODO think of a better handler
-//        if (bankName == null) {
-//            return new ResponseEntity<>(
-//                    "Invalid bank id!",
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//
-//        return new ResponseEntity<>(
-//                this.gson.toJson(bankName),
-//                HttpStatus.OK
-//        );
-//    }
 }

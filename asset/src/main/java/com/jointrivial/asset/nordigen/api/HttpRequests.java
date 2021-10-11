@@ -30,23 +30,6 @@ public class HttpRequests {
         // TODO handle exception properly
         return null;
     }
-
-    public String getBankById(String id) throws IOException, InterruptedException, URISyntaxException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("https://ob.nordigen.com/api/aspsps/" + id))
-                .header("Authorization", "Token 8ebcc40fa36d43bbfc13326817fa42a5824f481a")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
-            return response.body();
-        }
-
-        // TODO handle exception properly
-        return null;
-    }
 }
 
 
