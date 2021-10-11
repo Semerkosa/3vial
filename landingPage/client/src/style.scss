@@ -1,0 +1,301 @@
+//@import 'smaller-screen';
+$background-color: #FFFFFF;
+@mixin flex-container-row-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-container-row-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+@mixin flex-container-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin font($family:'Inter', $style:normal, $weight:normal, $size:16px, $line-height:32, $color:#18191F) {
+    font-family: $family;
+    font-style: $style;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    font-feature-settings: 'salt' on, 'liga' off;
+    color: $color;
+}
+
+body {
+    background-color: $background-color;
+    @include flex-container-column-center;
+}
+
+main {
+    max-width: 1210px;
+    overflow: visible;
+}
+
+header {
+    @include flex-container-row-left;
+    #logo {
+        align-self: flex-start;
+        max-width: 90px;
+        max-height: 47px;
+        height: auto;
+        margin-top: 10px;
+    }
+    nav {
+        @include flex-container-row-center;
+        margin-left: calc(min(32vw, 490px));
+        justify-content: space-between;
+        gap: calc(min(3.7vw, 52px));
+        a {
+            @include font($family: 'DM Sans', $style: normal, $weight: "bold", $size: 15px, $line-height: 20px, $color: #696871);
+            letter-spacing: -0.468947px;
+            text-decoration: none;
+        }
+    }
+    button {
+        height: 48px;
+        padding-left: 32px;
+        padding-right: 32px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        background: #7000FF;
+        border-radius: 6px;
+        @include font($family: 'Inter', $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #FFFFFF);
+        text-align: center;
+        margin-left: 5vw;
+        border: none;
+        outline: none;
+    }
+    .active {
+        border-bottom: 2px solid #9069F6;
+        color: #19191B;
+    }
+}
+
+hr {
+     width: 110%;
+        position: relative;
+        left: -10%;
+    border: 0;
+   // min-width: 130%;
+    box-shadow: 0px 1px 0px #E5E9F2 inset;
+    height: 2px;
+    margin-top: 0;
+    margin-bottom: 0;
+   // margin-left: -20%;
+    //margin-right: 30%
+}
+
+section {
+    @include flex-container-row-left;
+}
+
+#section-1 {
+    padding-top: 4.5%;
+    padding-bottom: 1.5%;
+    #main-text {
+        padding-top: 5%;
+        #text-1 {
+            @include font($family: Inter, $style: normal, $weight: 800, $size: 62px, $line-height: 80px, $color: #18191F);
+        }
+        #text-2,
+        #text-3 {
+            @include font($family: Inter, $style: normal, $weight: normal, $size: 18px, $line-height: 32px, $color: #18191F);
+            margin-top: 1rem;
+        }
+        #form-1 {
+            display: flex;
+            flex-direction: row;
+            margin-top: 7.5%;
+            gap: 1em;
+            #email-1 {
+                width: calc(min(22vw, 340px));
+                background: #FFFFFF;
+                border: 1px solid #E5E9F2;
+                box-sizing: border-box;
+                border-radius: 6px;
+                padding-left: 1em;
+                @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #18191F);
+            }
+            #email-1:focus{
+                outline: #7000FF solid 2px;
+            }
+            #submit-1 {
+                padding: 0.75em 2em;
+                background: #7000FF;
+                border-radius: 6px;
+                @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 1.5em, $color: #FFFFFF);
+                text-align: center;
+                border: none;
+                outline: none;
+            }
+        }
+        #counter,
+        #spots {
+            color: #7000FF;
+            font-weight: bold;
+        }
+    }
+    #circle-picture {
+        position: relative;
+        margin-left: 2em;
+        #circle {
+            height: 640px;
+            width: 640px;
+            background: linear-gradient(253.66deg, #B768F5 0.25%, #7D69F6 112.03%);
+            border-radius: 50%;
+            position: relative;
+        }
+        img {
+            position: absolute;
+            width: 100%;
+            max-width: 581px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-25%, -50%);
+            text-align: center;
+            background: #F5F5FB;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    }
+}
+
+#section-2,
+#section-3,
+#section-4,
+#section-5 {
+    margin-top: 2em;
+    padding-top: 4em;
+    padding-bottom: 4em;
+}
+
+#section-2,
+#section-4 {
+    gap: calc(min(11vw, 160px));
+    .image {
+        max-width: 405px;
+        max-height: 430px;
+        width: 100%;
+        height: auto;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#section-3,
+#section-5 {
+    gap: calc(min(11vw, 160px));
+    .image {
+        max-width: 500px;
+        width: 100%;
+        height: auto;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#section-6 {
+    padding-top: 1em;
+    padding-bottom: 5.0em;
+    display: flex;
+    justify-content: center;
+    #form-2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1em;
+        #email-2 {
+            width: calc(min(22vw, 340px));
+            background: #FFFFFF;
+            border: 1px solid #E5E9F2;
+            box-sizing: border-box;
+            border-radius: 6px;
+            padding-left: 1em;
+            @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #18191F);
+        
+        }
+        #email-2:focus{
+            outline: #7000FF solid 2px;
+        }
+        #submit-2 {
+            background: #7000FF;
+            padding: 0.75em 2em;
+            border-radius: 6px;
+            @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #FFFFFF);
+            text-align: center;
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.headline {
+    @include font($family: Inter, $style: normal, $weight: 800, $size: 40px, $line-height: 54px, $color: #18191F);
+    margin-left: 48px;
+    width: 444px;
+    height: 54px;
+}
+
+.description {
+    @include font($family: Inter, $style: normal, $weight: normal, $size: 18px, $line-height: 32px, $color: #18191F);
+    margin-top: 32px;
+    margin-left: 48px;
+    width: 444px;
+    height: 160px;
+}
+
+.get-started {
+    @include flex-container-row-center;
+    width: 121px;
+    height: 24px;
+    margin-left: 48px;
+    margin-top: 32px;
+    @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #8C30F5);
+    img {
+        margin-left: 9px;
+        width: 22px;
+        height: 14px;
+    }
+}
+
+::placeholder {
+    @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #BBBBBB);
+}
+
+footer {
+    width: 100%;
+    height: 44px;
+    background-color: #0B0D17;
+    
+    bottom: 0;
+    @include flex-container-row-center;
+}
+
+.footer-container {
+    width: 1210px;
+    @include flex-container-row-center;
+    p {
+        @include font($family: Inter, $style: normal, $weight: normal, $size: 14px, $line-height: 24px, $color: #D9DBE1);
+    }
+    div {
+        margin-left: 65%;
+        height: 24px;
+        width: 104px;
+    }
+}
+
