@@ -1,0 +1,97 @@
+@import 'smaller-screen';
+$background-color: #FFFFFF;
+@mixin flex-container-row-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-container-row-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+@mixin flex-container-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin font($family:Inter, $style:normal, $weight:normal, $size:16px, $line-height:32, $color:#18191F) {
+    font-family: $family;
+    font-style: $style;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    font-feature-settings: 'salt' on, 'liga' off;
+    color: $color;
+}
+
+body {
+    @include flex-container-column-center;
+    background-color: $background-color;
+   
+}
+
+main {
+    max-width: 1210px;
+    overflow: visible;
+}
+
+header {
+    @include flex-container-row-left;
+    #logo {
+        align-self: flex-start;
+        max-width: 90px;
+        max-height: 47px;
+        height: auto;
+        margin-top: 10px;
+    }
+    nav {
+        @include flex-container-row-center;
+        margin-left: calc(min(32vw, 490px));
+        justify-content: space-between;
+        gap: calc(min(3.7vw, 52px));
+        a {
+            @include font($family: 'DM Sans', $style: normal, $weight: "bold", $size: 15px, $line-height: 20px, $color: #696871);
+            letter-spacing: -0.468947px;
+            text-decoration: none;
+        }
+    }
+    button {
+        height: 48px;
+        padding-left: 32px;
+        padding-right: 32px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        background: #7000FF;
+        border-radius: 6px;
+        @include font($family: 'Inter', $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #FFFFFF);
+        text-align: center;
+        margin-left: 5vw;
+        border: none;
+        outline: none;
+    }
+    .active {
+        border-bottom: 2px solid #9069F6;
+        color: #19191B;
+    }
+}
+
+hr {
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    box-shadow: 0px 1px 0px #E5E9F2 inset;
+    height: 2px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
