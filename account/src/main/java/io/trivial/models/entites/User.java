@@ -11,6 +11,7 @@ public class User extends BaseEntity {
     private String password;
     private Address address;
     private List<KeyOrganization> keysOrganization;
+    private List<Role> roles;
 
     public User() {
     }
@@ -56,5 +57,19 @@ public class User extends BaseEntity {
 	public void setKeysOrganization(List<KeyOrganization> keysOrganization) {
 		this.keysOrganization = keysOrganization;
 	}
-    
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }

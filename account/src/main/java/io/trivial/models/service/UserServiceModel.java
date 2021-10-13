@@ -1,5 +1,7 @@
 package io.trivial.models.service;
 
+import io.trivial.models.entites.Role;
+
 import java.util.List;
 
 public class UserServiceModel extends BaseServiceModel {
@@ -8,6 +10,7 @@ public class UserServiceModel extends BaseServiceModel {
     private String password;
     private AddressServiceModel address;
     private List<KeyOrganizationServiceModel> keysOrganization;
+    private List<RoleServiceModel> roles;
 
     public UserServiceModel() {
     }
@@ -43,5 +46,12 @@ public class UserServiceModel extends BaseServiceModel {
 	public void setKeysOrganization(List<KeyOrganizationServiceModel> keysOrganization) {
 		this.keysOrganization = keysOrganization;
 	}
-    
+
+    public List<RoleServiceModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleServiceModel> roles) {
+        this.roles = roles;
+    }
 }
