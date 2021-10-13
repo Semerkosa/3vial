@@ -1,0 +1,41 @@
+@media only screen and (max-width: 1250px) {
+    main {
+        header {
+            nav {
+                margin-left: 5vw;
+            }
+        }
+        overflow: hidden;
+        #section-1 {
+            #main-text {
+                width: 60vw;
+            }
+            #circle-picture {
+                #circle {
+                    height: 60vw;
+                    width: 60vw;
+                    margin-left: 0;
+                }
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+    #section-1,#section-2,#section-3,#section-4,#section-5 {
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        padding-left: 1vw;
+    }
+    footer {
+        padding-top: 1vw;
+        padding-bottom: 1vw;
+        .footer-container {
+            flex-direction: column;
+            div {
+                margin-left: 0;
+            }
+        }
+    }
+}
