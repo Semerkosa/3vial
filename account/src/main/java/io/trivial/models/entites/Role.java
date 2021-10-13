@@ -14,6 +14,11 @@ public class Role extends BaseEntity {
     public Role() {
     }
 
+    public Role(String name, List<Privilege> privileges) {
+        this.name = name;
+        this.privileges = privileges;
+    }
+
     @Column(name = "name")
     public String getName() {
         return name;

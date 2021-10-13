@@ -9,6 +9,7 @@ public class UserViewModel extends BaseViewModel {
     private String email;
     private AddressServiceModel address;
     private List<KeyOrganizationViewModel> keysOrganization;
+    private List<RoleViewModel> roles;
 
     public UserViewModel() {
     }
@@ -36,5 +37,12 @@ public class UserViewModel extends BaseViewModel {
 	public void setKeysOrganization(List<KeyOrganizationViewModel> keysOrganization) {
 		this.keysOrganization = keysOrganization;
 	}
-    
+
+    public List<RoleViewModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleViewModel> roles) {
+        this.roles = roles;
+    }
 }
