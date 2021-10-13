@@ -36,6 +36,10 @@ body {
     background-color: $background-color;
    
 }
+#page {
+    @include flex-container-column-center;
+    width: 100%;
+}
 
 main {
     max-width: 1210px;
