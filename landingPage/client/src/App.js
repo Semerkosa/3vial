@@ -19,6 +19,12 @@ function App() {
   return (
     <>
       <Header />
+      <Section1 />
+      <Section2 />
+      <Section3 />
+      <Section2 />
+      <Section3 />
+      <Section6 />
     </>
   );
 }
@@ -41,5 +47,110 @@ class Header extends React.Component {
       </>);
   }
 }
+class Section1 extends React.Component {
+  render() {
+    return (
+      <>
+        <section id="section-1">
+          <div id="main-text">
+            <h1 id="text-1">
+              Managing<br /> your investments<br /> should be Trivial
+            </h1>
+            <p id="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.
+            </p>
+            <EmailForm id='1' />
+            <p id="text-3">
+              Join the <span id="counter">324</span> people that have signed up for our early January launch. Only
+              <span id="spots"> 5,000</span> spots available!
+            </p>
+          </div>
+          <div id="circle-picture">
+            <div id="circle"></div>
+            <img src={group51} alt='group_51' />
+          </div>
+        </section>
+      </>
+    );
+  }
+}
+class EmailForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) { this.setState({ name: event.target.value }); }
+  async handleSubmit(e) {
+    e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: this.state.name })
+    };
+    const response = await fetch('https://reqres.in/api/posts', requestOptions);
+    const data = await response.json();
+    this.setState({ name: '' });
+    console.log(data);
+  }
+  render() {
+    return (<form onSubmit={this.handleSubmit} id={'form-' + this.props.id} action="/sign_up" method="POST">
+      <input value={this.state.name}
+        onChange={this.handleChange} type="email" id={'email-' + this.props.id} name="email" placeholder="Your email" required />
+      <input type="submit" id={'submit-' + this.props.id} value="Get early access" />
+    </form>);
+  }
+}
+class Section2 extends React.Component {
+  render() {
+    return (
+      <>
+        <section id='section-2'>
+          <img className="image" src={group318} alt='group_318' />
+          <div>
+            <h2 className="headline">
+              Feature headline
+            </h2>
+            <p className="description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.
+            </p>
+            <a className="get-started" href="/get_started">Get started <img src={vector} alt='vector' /></a>
+          </div>
+        </section>
+      </>);
+  }
+}
 
+class Section3 extends React.Component {
+  render() {
+    return (
+      <>
+        <section id='section-3'>
+          <div>
+            <h2 className="headline">
+              Feature headline
+            </h2>
+            <p className="description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.
+            </p>
+            <a className="get-started" href="/get_started">Get started <img src={vector} alt='vector' /></a>
+          </div>
+          <img className="image" src={group319} alt='group_319' />
+        </section>
+      </>);
+  }
+}
+
+class Section6 extends React.Component {
+  render() {
+    return (
+      <>
+        <section id="section-6">
+          <EmailForm id='2' />
+        </section>
+      </>);
+  }
+}
 export default App;
