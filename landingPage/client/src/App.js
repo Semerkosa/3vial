@@ -18,13 +18,16 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header />
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      <Section2 />
-      <Section3 />
-      <Section6 />
+      <main>
+        <Header />
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Section2 />
+        <Section3 />
+        <Section6 />
+      </main>
+      <Footer />
     </>
   );
 }
@@ -153,4 +156,25 @@ class Section6 extends React.Component {
       </>);
   }
 }
+
+class Footer extends React.Component {
+  render() {
+    return (
+      <footer id='footer'>
+        <div className="footer-container">
+          <p>
+            © 2021 Trivial. All rights reserved
+          </p>
+          <div className="icons">
+            <a href="https://www.instagram.com/"><img src={instagram} alt='IG' /></a>
+            <a href="https://twitter.com/"><img src={twitter} alt='TW' /></a>
+            <a href="https://www.facebook.com/"><img src={facebook} alt='FB' /></a>
+          </div>
+        </div>
+      </footer>
+
+    );
+  }
+}
+
 export default App;
