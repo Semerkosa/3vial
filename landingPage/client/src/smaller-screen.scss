@@ -1,41 +1,226 @@
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 500px) {
     main {
         header {
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            #logo {
+                align-self: center;
+            }
+
             nav {
-                margin-left: 5vw;
+                margin-left: 0;
+                gap: 10%;
+            }
+
+            button {
+                margin-left: 0;
+                font-size: 14px;
+                line-height: 16px;
             }
         }
-        overflow: hidden;
+
         #section-1 {
             #main-text {
-                width: 60vw;
+                width: 90vw;
+
+                button {
+                    padding-left: 3%;
+                    padding-right: 3%;
+                    margin-bottom: 1%;
+                    margin-top: 1%;
+                    margin-left: 0;
+                }
             }
+
             #circle-picture {
+                margin-top: 5%;
+
                 #circle {
                     height: 60vw;
                     width: 60vw;
                     margin-left: 0;
                 }
+
+                img {
+                    height: 80%;
+                }
+            }
+        }
+
+        #section-1,
+        #section-2,
+        #section-3,
+        #section-4,
+        #section-5 {
+            div {
+                width: 90vw;
+            }
+        }
+
+        .headline {
+            width: 100%;
+
+        }
+
+        .get-started {
+            margin-left: 0;
+        }
+
+        .description {
+            width: 100%;
+        }
+    }
+
+    .modal-body {
+        width: 90%;
+    }
+
+    .modal-content {
+        align-items: center;
+    }
+
+    .modal-footer {
+        padding-left: 25px;
+
+        button {
+            margin-right: 0px;
+        }
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 650px) {
+    main {
+        header {
+            justify-content: center;
+
+            nav {
+                margin-left: 10vw;
+                gap: 10%;
+            }
+
+            button {
+                margin-left: 10vw;
+                font-size: 14px;
+                line-height: 16px;
+            }
+        }
+
+        #section-1 {
+            #main-text {
+                width: 90vw;
+
+                button {
+                    padding-left: 3%;
+                    padding-right: 3%;
+                    margin-bottom: 1%;
+                    margin-top: 1%;
+                    margin-left: 0;
+                }
+            }
+
+            #circle-picture {
+                margin-top: 5%;
+
+                #circle {
+                    height: 60vw;
+                    width: 60vw;
+                    margin-left: 5vw;
+                }
+
+                img {
+                    height: 80%;
+                }
+            }
+        }
+
+        #section-1,
+        #section-2,
+        #section-3,
+        #section-4,
+        #section-5 {
+            div {
+                width: 90vw;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 1250px) {
+    #survey {
+        flex-basis: 200px;
+        flex-wrap: wrap;
+    }
+
+    main {
+        header {
+            nav {
+                margin-left: 15vw;
+            }
+
+            button {
+                margin-left: 5vw;
+            }
+        }
+
+        #section-1 {
+            #main-text {
+                width: 60vw;
+            }
+
+            #circle-picture {
+                margin-top: 5%;
+
+                #circle {
+                    height: 60vw;
+                    width: 60vw;
+                    margin-left: 0;
+                }
+
                 img {
                     max-width: 100%;
                 }
             }
         }
     }
-    #section-1,#section-2,#section-3,#section-4,#section-5 {
+}
+
+@media only screen and (max-width: 1250px) {
+
+    #section-1,
+    #section-2,
+    #section-3,
+    #section-4,
+    #section-5 {
         flex-direction: column;
         align-items: center;
         overflow: hidden;
-        padding-left: 1vw;
     }
+
+    header {
+        button {
+            padding-left: 3%;
+            padding-right: 3%;
+            margin-bottom: 1%;
+            margin-top: 1%;
+        }
+    }
+
     footer {
         padding-top: 1vw;
         padding-bottom: 1vw;
+
         .footer-container {
             flex-direction: column;
-            div {
+            justify-content: center;
+            align-items: center;
+
+            .icons {
                 margin-left: 0;
             }
         }
     }
+
 }
