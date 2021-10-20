@@ -6,6 +6,8 @@ import vector from './Vector.png';
 import facebook from './Social Icons FB.png';
 import instagram from './Social Icons IG.png';
 import twitter from './Social Icons TW.png';
+import endLogo from './Union.png';
+import twit from './twit.png';
 import './reset.css';
 import './style.scss';
 import React from 'react';
@@ -14,17 +16,16 @@ import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-
 function App() {
   return (
     <>
       <main>
         <Header />
         <Section1 />
-        <Section2 />
-        <Section3 />
-        <Section2 />
-        <Section3 />
+        <Section2 id={2} headline='Seamless live feed from all your accounts' description='No more manual inputs. Connect to your bank, stock brokerage and crypto platforms once and get live updates with the latest state of your portfolio' />
+        <Section3 id={3} headline='Secure, Private, Yours' description='Trivial will never sell or use your financial data for advertising. Your accounts and data are private, protected and encrypted at rest and in transit' />
+        <Section2 id={4} headline='Unlock the power of your data' description='With all your financial data in one place, you can make better decisions to achieve your wealth goals. We will continue bringing features to help you reach financial milestones quicker, safer and smoother.' />
+        <Section3 id={5} headline='Feature headline' description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.' />
         <Section6 />
       </main>
       <Footer />
@@ -32,6 +33,9 @@ function App() {
   );
 }
 class Header extends React.Component {
+  focusOnInput = () => {
+    document.querySelector('input').focus();
+  }
   render() {
     return (
       <>
@@ -44,7 +48,7 @@ class Header extends React.Component {
               <NavLink id='contact' to='/contact'  >Contact</NavLink>
             </nav>
           </BrowserRouter>
-          <button>Get early access</button>
+          <button onClick={this.focusOnInput}>Get early access</button>
         </header>
         <hr />
       </>);
@@ -57,9 +61,10 @@ class Section1 extends React.Component {
         <section id="section-1">
           <div id="main-text">
             <h1 id="text-1">
-              Managing<br /> your investments<br /> should be Trivial
+              Unleash your wealth
             </h1>
-            <p id="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.
+            <p id="text-2">New-age wealth builders constantly juggle with multiple investment platforms. Making sense of the big picture is arduous when it really shouldn't be.<br /><br />
+              We bring seamless order to your wealth so you can spend more time growing it.
             </p>
             <EmailForm id='1' />
             <p id="text-3">
@@ -80,44 +85,38 @@ class EmailForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      email: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(event) { this.setState({ name: event.target.value }); }
+  handleChange(event) { this.setState({ email: event.target.value }); }
   async handleSubmit(e) {
     e.preventDefault();
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: this.state.name })
-    };
-    const response = await fetch('https://reqres.in/api/posts', requestOptions);
-    const data = await response.json();
-    this.setState({ name: '' });
-    console.log(data);
+    e.target.getElementsByTagName('input')[0].value = '';
+    ReactDOM.render(<Modal email={this.state.email} />, document.getElementById('modal'));
   }
   render() {
-    return (<form onSubmit={this.handleSubmit} id={'form-' + this.props.id} action="/sign_up" method="POST">
-      <input value={this.state.name}
-        onChange={this.handleChange} type="email" id={'email-' + this.props.id} name="email" placeholder="Your email" required />
-      <input type="submit" id={'submit-' + this.props.id} value="Get early access" />
-    </form>);
+    return (
+      <form onSubmit={this.handleSubmit} id={'form-' + this.props.id} action="/sign_up" method="POST">
+        <input value={this.state.email}
+          onChange={this.handleChange} type="email" id={'email-' + this.props.id} name="email" placeholder="Your email" required />
+        <input type="submit" id={'submit-' + this.props.id} value="Get early access" />
+      </form>);
   }
 }
 class Section2 extends React.Component {
   render() {
     return (
       <>
-        <section id='section-2'>
+        <section id={'section-' + this.props.id}>
           <img className="image" src={group318} alt='group_318' />
           <div>
             <h2 className="headline">
-              Feature headline
+              {this.props.headline}
             </h2>
             <p className="description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.
+              {this.props.description}
             </p>
             <a className="get-started" href="/get_started">Get started <img src={vector} alt='vector' /></a>
           </div>
@@ -125,18 +124,17 @@ class Section2 extends React.Component {
       </>);
   }
 }
-
 class Section3 extends React.Component {
   render() {
     return (
       <>
-        <section id='section-3'>
+        <section id={'section-' + this.props.id}>
           <div>
             <h2 className="headline">
-              Feature headline
+              {this.props.headline}
             </h2>
             <p className="description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.
+              {this.props.description}
             </p>
             <a className="get-started" href="/get_started">Get started <img src={vector} alt='vector' /></a>
           </div>
@@ -145,7 +143,6 @@ class Section3 extends React.Component {
       </>);
   }
 }
-
 class Section6 extends React.Component {
   render() {
     return (
@@ -156,11 +153,10 @@ class Section6 extends React.Component {
       </>);
   }
 }
-
 class Footer extends React.Component {
   render() {
     return (
-      <footer id='footer'>
+      <footer>
         <div className="footer-container">
           <p>
             © 2021 Trivial. All rights reserved
@@ -172,9 +168,30 @@ class Footer extends React.Component {
           </div>
         </div>
       </footer>
-
     );
   }
 }
+class Modal extends React.Component { render() { return; } }
+let text1 = [
+  'What do you hope Trivial will help you with? (Select all that apply)',
+  'Seeing all my investment accounts in one place',
+  'Setting clear and meaningful financial goals',
+  'Making better investment decisions',
+  'Getting my taxes in order',
+  'Other (please specify):'
+];
 
+let text2 = [
+  'What do you use to solve this problem now? (Select only one option)',
+  'Nothing',
+  'Spreadsheets',
+  'I’ve set up my own APIs',
+  'Financial advisor',
+  'Dedicated software (please specify):'
+];
+
+let text3 = [
+  'Please list the names of the investment platforms you use today?',
+  '(some examples for the types of platforms: Traditional banks, Neobanks, Stock brokers, Crypto exchanges and others)'
+];
 export default App;

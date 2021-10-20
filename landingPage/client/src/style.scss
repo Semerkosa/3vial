@@ -1,5 +1,6 @@
 @import 'smaller-screen';
 $background-color: #FFFFFF;
+
 @mixin flex-container-row-center {
     display: flex;
     flex-direction: row;
@@ -27,15 +28,16 @@ $background-color: #FFFFFF;
     font-weight: $weight;
     font-size: $size;
     line-height: $line-height;
-    font-feature-settings: 'salt' on, 'liga' off;
+    font-feature-settings: 'salt'on, 'liga'off;
     color: $color;
 }
 
 body {
     @include flex-container-column-center;
     background-color: $background-color;
-   
+
 }
+
 #page {
     @include flex-container-column-center;
     width: 100%;
@@ -44,28 +46,45 @@ body {
 main {
     max-width: 1210px;
     overflow: visible;
+
+    hr {
+        display: block;
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        box-shadow: 0px 1px 0px #E5E9F2 inset;
+        height: 2px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 
 header {
     @include flex-container-row-left;
+
     #logo {
         align-self: flex-start;
         max-width: 90px;
         max-height: 47px;
-        height: auto;
+        // height: auto;
         margin-top: 10px;
     }
+
     nav {
         @include flex-container-row-center;
-        margin-left: calc(min(32vw, 490px));
-        justify-content: space-between;
-        gap: calc(min(3.7vw, 52px));
+        margin-left: 490px;
+        // justify-content: space-between;
+        gap: 50px;
+
         a {
             @include font($family: 'DM Sans', $style: normal, $weight: "bold", $size: 15px, $line-height: 20px, $color: #696871);
             letter-spacing: -0.468947px;
             text-decoration: none;
         }
     }
+
     button {
         height: 48px;
         padding-left: 32px;
@@ -76,28 +95,23 @@ header {
         border-radius: 6px;
         @include font($family: 'Inter', $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #FFFFFF);
         text-align: center;
-        margin-left: 5vw;
+        margin-left: 85px;
         border: none;
         outline: none;
     }
+
+    button:hover {
+        cursor: pointer;
+        background-color: #8C30F5;
+    }
+
     .active {
         border-bottom: 2px solid #9069F6;
         color: #19191B;
     }
 }
 
-hr {
-    display: block;
-    width: 100%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 0;
-    box-shadow: 0px 1px 0px #E5E9F2 inset;
-    height: 2px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
+
 
 section {
     @include flex-container-row-left;
@@ -106,23 +120,29 @@ section {
 #section-1 {
     padding-top: 4.5%;
     padding-bottom: 1.5%;
+
     #main-text {
         padding-top: 5%;
+        width: 530px;
+
         #text-1 {
             @include font($family: Inter, $style: normal, $weight: 800, $size: 62px, $line-height: 80px, $color: #18191F);
         }
+
         #text-2,
         #text-3 {
             @include font($family: Inter, $style: normal, $weight: normal, $size: 18px, $line-height: 32px, $color: #18191F);
             margin-top: 1rem;
         }
+
         #form-1 {
             display: flex;
             flex-direction: row;
             margin-top: 7.5%;
             gap: 1em;
+
             #email-1 {
-                width: calc(min(22vw, 340px));
+                width: min(40vw, 340px);
                 background: #FFFFFF;
                 border: 1px solid #E5E9F2;
                 box-sizing: border-box;
@@ -130,11 +150,13 @@ section {
                 padding-left: 1em;
                 @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #18191F);
             }
-            #email-1:focus{
+
+            #email-1:focus {
                 outline: #7000FF solid 2px;
             }
+
             #submit-1 {
-                padding: 0.75em 2em;
+                padding: 2% 6%;
                 background: #7000FF;
                 border-radius: 6px;
                 @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 1.5em, $color: #FFFFFF);
@@ -142,16 +164,24 @@ section {
                 border: none;
                 outline: none;
             }
+
+            #submit-1:hover {
+                cursor: pointer;
+                background-color: #8C30F5;
+            }
         }
+
         #counter,
         #spots {
             color: #7000FF;
             font-weight: bold;
         }
     }
+
     #circle-picture {
         position: relative;
-        margin-left: 2em;
+        margin-left: 40px;
+
         #circle {
             height: 640px;
             width: 640px;
@@ -159,11 +189,10 @@ section {
             border-radius: 50%;
             position: relative;
         }
+
         img {
             position: absolute;
-            width: 100%;
             max-width: 581px;
-            height: auto;
             left: 50%;
             top: 50%;
             transform: translate(-25%, -50%);
@@ -179,88 +208,102 @@ section {
 #section-3,
 #section-4,
 #section-5 {
-    margin-top: 2em;
-    padding-top: 4em;
-    padding-bottom: 4em;
+    margin-top: min(2em, 2%);
+    padding-top: min(4em, 2%);
+    padding-bottom: min(4em, 3%);
 }
 
 #section-2,
 #section-4 {
-    gap: calc(min(11vw, 160px));
+    justify-content: space-between;
+
     .image {
         max-width: 405px;
         max-height: 430px;
         width: 100%;
         height: auto;
     }
+
     div {
         display: flex;
         flex-direction: column;
+        width: 540px;
     }
 }
 
 #section-3,
 #section-5 {
-    gap: calc(min(11vw, 160px));
+    justify-content: space-between;
+
     .image {
         max-width: 500px;
         width: 100%;
         height: auto;
     }
+
     div {
         display: flex;
         flex-direction: column;
+        width: 540px;
     }
 }
 
 #section-6 {
     padding-top: 1em;
     padding-bottom: 5.0em;
-    display: flex;
-    justify-content: center;
+    @include flex-container-column-center;
+
     #form-2 {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         gap: 1em;
+
         #email-2 {
-            width: calc(min(22vw, 340px));
+            width: min(40vw, 340px);
             background: #FFFFFF;
             border: 1px solid #E5E9F2;
             box-sizing: border-box;
             border-radius: 6px;
             padding-left: 1em;
             @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #18191F);
-        
+
         }
-        #email-2:focus{
+
+        #email-2:focus {
             outline: #7000FF solid 2px;
         }
+
         #submit-2 {
             background: #7000FF;
-            padding: 0.75em 2em;
+            padding: 2% 6%;
             border-radius: 6px;
             @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #FFFFFF);
             text-align: center;
             border: none;
             outline: none;
         }
+
+        #submit-2:hover {
+            cursor: pointer;
+            background-color: #8C30F5;
+        }
     }
 }
 
 .headline {
     @include font($family: Inter, $style: normal, $weight: 800, $size: 40px, $line-height: 54px, $color: #18191F);
-    margin-left: 48px;
+    margin-left: auto;
+    margin-right: auto;
     width: 444px;
-    height: 54px;
 }
 
 .description {
     @include font($family: Inter, $style: normal, $weight: normal, $size: 18px, $line-height: 32px, $color: #18191F);
     margin-top: 32px;
-    margin-left: 48px;
+    margin-left: auto;
+    margin-right: auto;
     width: 444px;
-    height: 160px;
 }
 
 .get-started {
@@ -270,6 +313,7 @@ section {
     margin-left: 48px;
     margin-top: 32px;
     @include font($family: Inter, $style: normal, $weight: 500, $size: 16px, $line-height: 24px, $color: #8C30F5);
+
     img {
         margin-left: 9px;
         width: 22px;
@@ -282,23 +326,29 @@ section {
 }
 
 footer {
-    width: 100%;
     height: 44px;
+    width: 100%;
     background-color: #0B0D17;
-    
     bottom: 0;
     @include flex-container-row-center;
 }
 
 .footer-container {
     width: 1210px;
-    @include flex-container-row-center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     p {
         @include font($family: Inter, $style: normal, $weight: normal, $size: 14px, $line-height: 24px, $color: #D9DBE1);
     }
-    div {
-        margin-left: 65%;
+
+    .icons {
+        margin-left: 60%;
         height: 24px;
-        width: 104px;
+
+        img {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
     }
 }
