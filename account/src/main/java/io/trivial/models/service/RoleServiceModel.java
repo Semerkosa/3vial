@@ -2,6 +2,7 @@ package io.trivial.models.service;
 
 import java.util.List;
 
+@Deprecated
 public class RoleServiceModel {
 
     private String name;

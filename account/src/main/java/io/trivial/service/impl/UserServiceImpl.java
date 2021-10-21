@@ -7,6 +7,8 @@ import io.trivial.models.entites.Privilege;
 import io.trivial.models.entites.Role;
 import io.trivial.models.entites.User;
 import io.trivial.models.service.UserServiceModel;
+import io.trivial.repositories.PrivilegeRepository;
+import io.trivial.repositories.RoleRepository;
 import io.trivial.repositories.UserRepository;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -24,12 +26,18 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PrivilegeRepository privilegeRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder, 
+                           PrivilegeRepository privilegeRepository, RoleRepository roleRepository) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.privilegeRepository = privilegeRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -57,10 +65,18 @@ public class UserServiceImpl implements UserService {
     }
 
     private void setRoleAndPrivilege(User userForSave) {
-        List<Privilege> privileges = new ArrayList<>();
-        privileges.add(new Privilege(PrivilegeEnum.FREE_USER.name()));
-        List<Role> roles = new ArrayList<>();
-        roles.add(new Role(RoleEnum.USER.name(), privileges));
-        userForSave.setRoles(roles);
+        if(this.userRepository.count() == 0) {
+        	userForSave.setRole(RoleEnum.ADMIN.name());
+        	userForSave.setPrivilege(PrivilegeEnum.SUPER_ADMIN.name());
+        }
+    }
+
+    @Deprecated
+    private Privilege getFreeUserPrivilege() {
+        return this.privilegeRepository
+                .findAll()
+                .stream()
+                .filter(pr -> pr.getName().equals("FREE_USER")).findFirst()
+                .orElse(null);
     }
 }

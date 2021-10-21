@@ -10,6 +10,8 @@ public class UserServiceModel extends BaseServiceModel {
     private String password;
     private AddressServiceModel address;
     private List<KeyOrganizationServiceModel> keysOrganization;
+    private String role;
+    private String privilege;
     private List<RoleServiceModel> roles;
 
     public UserServiceModel() {
@@ -54,4 +56,21 @@ public class UserServiceModel extends BaseServiceModel {
     public void setRoles(List<RoleServiceModel> roles) {
         this.roles = roles;
     }
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
+    
 }

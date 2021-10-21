@@ -1,9 +1,14 @@
 package io.trivial.models.entites;
 
 import javax.persistence.*;
+
+import io.trivial.enums.RoleEnum;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
@@ -19,7 +24,7 @@ public class Role extends BaseEntity {
         this.privileges = privileges;
     }
 
-    @Column(name = "name")
+	@Column(name = "name")
     public String getName() {
         return name;
     }

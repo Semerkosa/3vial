@@ -1,5 +1,6 @@
 package io.trivial.models.service;
 
+@Deprecated
 public class PrivilegeServiceModel {
 
     private String name;
