@@ -1,0 +1,16 @@
+{
+  "balances": [
+    {
+      "balanceAmount": {
+        "amount": 2420.36,
+        "currency": "GBP"
+      }
+    },
+    {
+      "balanceAmount": {
+        "amount": 1980.53,
+        "currency": "GBP"
+      }
+    }
+  ]
+}
