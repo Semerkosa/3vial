@@ -17,7 +17,7 @@ public class TestData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        printSteps();
+//        printSteps();
 
         // FIRST METHOD
 //        System.out.println(api.createRequisition("Pesho", "PeshoReference", "https://assets.sainsburys-groceries.co.uk/gol/7866708/1/640x640.jpg", new ArrayList<>()));
@@ -27,6 +27,13 @@ public class TestData implements CommandLineRunner {
 
         // THIRD METHOD
 //        System.out.println(api.getRequisitionById(""));
+
+
+        System.out.println(api.getAccountBalances(""));
+        System.out.println(api.getAccountTransactions(""));
+        System.out.println(api.getAccountDetails(""));
+        System.out.println(api.getAccountMetadata(""));
+
     }
 
     private void printSteps() {
