@@ -11,6 +11,9 @@ public class User extends BaseEntity {
     private String password;
     private Address address;
     private List<KeyOrganization> keysOrganization;
+    private String role;
+    private String privilege;
+    private List<Role> roles;
 
     public User() {
     }
@@ -56,5 +59,23 @@ public class User extends BaseEntity {
 	public void setKeysOrganization(List<KeyOrganization> keysOrganization) {
 		this.keysOrganization = keysOrganization;
 	}
-    
+
+	@Column(name = "role", nullable = false)
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@Column(name = "privilege", nullable = false)
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
+	
 }

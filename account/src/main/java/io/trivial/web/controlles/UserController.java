@@ -6,6 +6,7 @@ import io.trivial.models.view.UserViewModel;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,10 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserViewModel> getUserById(@PathVariable String id) {
         UserServiceModel returnedUser = this.userService.getUserById(id);
-        return new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
+        ResponseEntity<UserViewModel> response = 
+        		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
+        return response;
     }
 }
