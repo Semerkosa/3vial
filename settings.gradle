@@ -1,0 +1,6 @@
+rootProject.name = '3vial-multiproject'
+include 'client'
+include 'account'
+include 'asset'
+include 'portfolio'
+include 'reference'
