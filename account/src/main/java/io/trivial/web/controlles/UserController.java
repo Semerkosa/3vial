@@ -47,7 +47,7 @@ public class UserController {
     }
     
     //Fake login
-    @GetMapping (
+    @PostMapping (
             value = "/login",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserViewModel> login() {
