@@ -1,18 +1,19 @@
 package com.jointrivial.asset.nordigen.init;
 
 import com.jointrivial.asset.nordigen.api.NordigenAccountInfoAPI;
+import com.jointrivial.asset.nordigen.config.ApplicationProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 @Component
 public class TestData implements CommandLineRunner {
 
     private final NordigenAccountInfoAPI api;
+    private final ApplicationProperties applicationProperties;
 
-    public TestData(NordigenAccountInfoAPI api) {
+    public TestData(NordigenAccountInfoAPI api, ApplicationProperties applicationProperties) {
         this.api = api;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -29,10 +30,8 @@ public class TestData implements CommandLineRunner {
 //        System.out.println(api.getRequisitionById(""));
 
 
-        System.out.println(api.getAccountBalances(""));
-        System.out.println(api.getAccountTransactions(""));
-        System.out.println(api.getAccountDetails(""));
-        System.out.println(api.getAccountMetadata(""));
+//        System.out.println(applicationProperties.setBaseUrl("someUrl"));
+//        System.out.println(applicationProperties.getBaseUrl());
 
     }
 
@@ -62,5 +61,11 @@ public class TestData implements CommandLineRunner {
 //        System.out.println(api.createBankAuthorizationLinkForRequisition("4c8bf6ac-5e3d-4ba2-9e1c-6b8d1e2e51d2", "FIBANK_FINVBGSF"));
 //        System.out.println(api.getRequisitionById(""));
 //        api.deleteRequisitionById("");
+
+
+//        System.out.println(api.getAccountMetadata(""));
+//        System.out.println(api.getAccountBalances(""));
+//        System.out.println(api.getAccountTransactions(""));
+//        System.out.println(api.getAccountDetails(""));
     }
 }
