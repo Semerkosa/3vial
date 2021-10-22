@@ -1,25 +1,15 @@
 package com.jointrivial.asset.nordigen.models.views;
 
-public class BankViewModel {
+public class BankViewModel extends BaseViewModel{
 
-    private String id;
     private String name;
 
     public BankViewModel() {
     }
 
     public BankViewModel(String id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public BankViewModel setId(String id) {
-        this.id = id;
-        return this;
     }
 
     public String getName() {
