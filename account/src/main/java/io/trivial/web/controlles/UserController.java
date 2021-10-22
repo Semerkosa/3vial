@@ -45,4 +45,17 @@ public class UserController {
         		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
     }
+    
+    //Fake login
+    @PostMapping (
+            value = "/login",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserViewModel> login() {
+        UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
+        ResponseEntity<UserViewModel> response = 
+        		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
+        return response;
+    }
 }

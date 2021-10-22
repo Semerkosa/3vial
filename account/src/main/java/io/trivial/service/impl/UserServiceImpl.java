@@ -57,6 +57,14 @@ public class UserServiceImpl implements UserService {
         //TODO Does the user exist?
         return this.modelMapper.map(foundedUser, UserServiceModel.class);
     }
+    
+    @Override
+    @Transactional
+    public UserServiceModel getUserByEmail(String email) {
+        User foundedUser = this.userRepository.findUserByEmail(email).orElse(null);
+        //TODO Does the user exist?
+        return this.modelMapper.map(foundedUser, UserServiceModel.class);
+    }
 
     /* PRIVATE METHODS */
 
