@@ -1,11 +1,13 @@
 package com.jointrivial.web.model;
 
+import java.math.BigDecimal;
+
 public class TestStockViewModel {
 
     private String symbol;
-    private Double price;
+    private BigDecimal price;
 
-    public TestStockViewModel(String symbol, Double price) {
+    public TestStockViewModel(String symbol, BigDecimal price) {
         this.symbol = symbol;
         this.price = price;
     }
@@ -18,11 +20,11 @@ public class TestStockViewModel {
         this.symbol = symbol;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }
