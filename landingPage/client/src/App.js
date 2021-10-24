@@ -16,6 +16,7 @@ import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
+
 function App() {
   return (
     <>
@@ -55,6 +56,14 @@ class Header extends React.Component {
   }
 }
 class Section1 extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={counter:-1};
+  }
+  componentDidMount(){
+     fetch('http://localhost:8080/count').then(response => response.json())
+     .then(data => this.setState({ counter: data}));
+  }
   render() {
     return (
       <>
@@ -68,7 +77,7 @@ class Section1 extends React.Component {
             </p>
             <EmailForm id='1' />
             <p id="text-3">
-              Join the <span id="counter">324</span> people that have signed up for our early January launch. Only
+              Join the <span id="counter">{this.state.counter}</span> people that have signed up for our early January launch. Only
               <span id="spots"> 5,000</span> spots available!
             </p>
           </div>
@@ -124,6 +133,7 @@ class Section2 extends React.Component {
       </>);
   }
 }
+
 class Section3 extends React.Component {
   render() {
     return (
@@ -143,6 +153,7 @@ class Section3 extends React.Component {
       </>);
   }
 }
+
 class Section6 extends React.Component {
   render() {
     return (
@@ -153,6 +164,7 @@ class Section6 extends React.Component {
       </>);
   }
 }
+
 class Footer extends React.Component {
   render() {
     return (
@@ -171,7 +183,187 @@ class Footer extends React.Component {
     );
   }
 }
-class Modal extends React.Component { render() { return; } }
+class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 0,
+      progress: 25,
+      email: props.email,
+      result: [new Array(5).fill(false), '', ''],
+      textInput: new Array(2).fill('')
+    };
+  }
+  close = () => {
+    ReactDOM.unmountComponentAtNode(document.getElementById('modal'));
+  }
+  handleNext = () => {
+    this.setState({
+      progress: this.state.progress + 25,
+      view: this.state.view + 1
+    });
+    if (this.state.view === 2) {
+      this.handleFinish();
+    }
+  }
+  handleBack = () => {
+    this.setState({
+      progress: this.state.progress - 25,
+      view: this.state.view - 1
+    });
+  }
+  handleFinish = async () => {
+    const finalResult = {
+      email: this.state.email,
+      answers_1: this.state.result[0].map((e, i) => e === true ? i : '').filter(String),
+      answer_2:this.state.result[1],
+      answer_3:this.state.result[2],
+      text_input_1:this.state.textInput[0],
+      text_input_2:this.state.textInput[1]
+    };
+    console.log(finalResult);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(finalResult)
+    };
+    const response = await fetch('http://localhost:8080/sign_up', requestOptions);
+    const data = await response.json();
+    console.log(data);
+  }
+  handleChange = (e) => {
+    let editState = {
+      copyState: () => ({ progress: this.state.progress, result: this.state.result }),
+      0: function () {
+        newState.result[0][e] = !newState.result[0][e];
+        this.updateProgress(newState.result[0].includes(true));
+      },
+      1: function () {
+        newState.result[1] = newState.result[1] === e ? '' : e;
+        this.updateProgress(newState.result[1] !== '');
+      },
+      2: function () {
+        newState.result[2] = e;
+        this.updateProgress(newState.result[2] !== '');
+      },
+      updateProgress: (i) => {
+        if (this.state.progress < (this.state.view + 1) * 50 && i) {
+          newState.progress = newState.progress + 25;
+        } else if (this.state.progress > (this.state.view + 1) * 50 - 25 && !i) {
+          newState.progress = newState.progress - 25;
+        }
+      }
+    };
+    let newState = editState.copyState();
+    editState[this.state.view]();
+    this.setState(newState);
+  }
+  handleTextInput = (e) => {
+    let newInput = Array.from(this.state.textInput);
+    newInput[this.state.view] = e;
+    this.setState({ textInput: newInput });
+  }
+  render() {
+    if (this.state.view === 3) {
+      return (
+        <>
+          <div className='modal'>
+            <div className="modal-content">
+              <div className="modal-header">
+                <span className="close-btn" onClick={this.close}>&times;</span>
+              </div>
+              <div className='thank-you'>
+                <img id='logo' src={endLogo} alt='logo' />
+                <h1>Thanks for supporting us!</h1>
+                <p>Don’t forget to tell your friends and keep your eyes peeled for the launch! 🚀</p>
+                <a href='https://twitter.com/'><img src={twit} alt='twitter icon' />Follow us on Twitter</a>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+    return (
+      <>
+        <div className='modal'>
+          <div className="modal-content">
+            <div className="modal-header">
+              <span className="close-btn" onClick={this.close}>&times;</span>
+              <h1>Help us make Trivial more useful for you</h1>
+              <progress id="progress" value={this.state.progress} max="150"></progress>
+            </div>
+            <Questionnaire state={this.state.result[this.state.view]} type={this.state.view === 0 ? 'checkbox' : 'radio'}
+              view={this.state.view} handleNext={this.handleNext} handleBack={this.handleBack}
+              updateProgress={this.updateProgress} handleChange={this.handleChange} handleTextInput={this.handleTextInput}
+              result={this.state.result} textInput={this.state.textInput}
+              text={this.state.view === 0 ? text1 : (this.state.view === 1 ? text2 : text3)} />
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+class Questionnaire extends React.Component {
+  handleChange = (event) => {
+    this.props.handleChange(event.target.value);
+  }
+  handleNext = () => {
+    this.props.handleNext();
+  }
+  handleBack = () => {
+    this.props.handleBack();
+  }
+  shouldBeDisabled = () => {
+    if (this.props.view === 0) {
+      return !this.props.result[0].includes(true);
+    } else {
+      return this.props.result[this.props.view] === '';
+    }
+  }
+  isChecked = (index) => {
+    if (this.props.view === 0) {
+      return this.props.result[0][index];
+    } else {
+      return this.props.result[this.props.view] === index;
+    }
+  }
+  handleTextInput = (e) => {
+    this.props.handleTextInput(e.target.value);
+  }
+  render() {
+    return (
+      <>
+        <div className="modal-body">
+          <p>{this.props.text[0]}</p>
+          {this.props.view !== 2 ?
+            <>
+              <form id="survey">
+                <input type={this.props.type} checked={this.isChecked('0')} id="option-1" name="option" value="0" onChange={this.handleChange} />
+                <label htmlFor="option-1">{this.props.text[1]}</label>
+                <input type={this.props.type} checked={this.isChecked('1')} id="option-2" name="option" value="1" onChange={this.handleChange} />
+                <label htmlFor="option-2">{this.props.text[2]}</label>
+                <input type={this.props.type} checked={this.isChecked('2')} id="option-3" name="option" value="2" onChange={this.handleChange} />
+                <label htmlFor="option-3">{this.props.text[3]}</label>
+                <input type={this.props.type} checked={this.isChecked('3')} id="option-4" name="option" value="3" onChange={this.handleChange} />
+                <label htmlFor="option-4">{this.props.text[4]}</label>
+                <input type={this.props.type} checked={this.isChecked('4')} id="option-5" name="option" value="4" onChange={this.handleChange} />
+                <label htmlFor="option-5">{this.props.text[5]}<input id="text-input" type='text' value={this.props.textInput[this.props.view]} disabled={!this.isChecked('4')} onChange={this.handleTextInput} /></label>
+              </form>
+            </> : <>
+              <label id='eg' htmlFor='textarea'>(some examples for the types of platforms: Traditional banks, Neobanks, Stock brokers, Crypto exchanges and others)</label>
+              <textarea onChange={this.handleChange} id='textarea' mame='textarea' placeholder='...' maxLength='300' value={this.props.result[2]}></textarea>
+            </>}
+        </div>
+        <hr id='line' />
+        <div className="modal-footer">
+          <button type="button" disabled={this.props.view === 0 ? true : false} onClick={this.handleBack}>Back</button>
+          <button type="submit" disabled={this.shouldBeDisabled()} onClick={this.handleNext}>{this.props.view !== 2 ? 'Next' : 'Finish'}</button>
+        </div>
+      </>
+    );
+  }
+}
+
 let text1 = [
   'What do you hope Trivial will help you with? (Select all that apply)',
   'Seeing all my investment accounts in one place',
@@ -194,4 +386,7 @@ let text3 = [
   'Please list the names of the investment platforms you use today?',
   '(some examples for the types of platforms: Traditional banks, Neobanks, Stock brokers, Crypto exchanges and others)'
 ];
+
+
+
 export default App;
