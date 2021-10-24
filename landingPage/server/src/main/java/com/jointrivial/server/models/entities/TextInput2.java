@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "text_input_2")
-public class TextInput_2 extends TextInput {
+public class TextInput2 extends TextInput {
 
-    public TextInput_2(String input, Data data) {
+    public TextInput2(String input, Data data) {
         super(input, data);
     }
 
-    public TextInput_2() {
+    public TextInput2() {
     }
 }

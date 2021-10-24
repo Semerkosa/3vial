@@ -37,17 +37,17 @@ public class DataServiceImpl implements DataService {
         try {
             Data data = new Data();
             data.setEmail(bindingModel.getEmail());
-            data.setAnswer_2(bindingModel.getAnswer_2());
-            data.setAnswer_3(bindingModel.getAnswer_3());
-            data.setAnswers_1(bindingModel.getAnswers_1()
+            data.setAnswer2(bindingModel.getAnswer_2());
+            data.setAnswer3(bindingModel.getAnswer_3());
+            data.setAnswers1(bindingModel.getAnswers_1()
                     .stream().map(e -> new Answer(e, data)).collect(Collectors.toSet()));
             dataRepository.saveAndFlush(data);
             if (!bindingModel.getText_input_1().equals("")) {
-                TextInput_1 textInput_1 = new TextInput_1(bindingModel.getText_input_1(), data);
+                TextInput1 textInput_1 = new TextInput1(bindingModel.getText_input_1(), data);
                 textInputRepository.saveAndFlush(textInput_1);
             }
             if (!bindingModel.getText_input_2().equals("")) {
-                TextInput_2 textInput_2 = new TextInput_2(bindingModel.getText_input_2(), data);
+                TextInput2 textInput_2 = new TextInput2(bindingModel.getText_input_2(), data);
                 textInputRepository.saveAndFlush(textInput_2);
             }
             return true;
