@@ -26,7 +26,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-processResources {
-	dependsOn(':client:assemble')
-}
