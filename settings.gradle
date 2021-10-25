@@ -1,6 +1,3 @@
-rootProject.name = '3vial-multiproject'
-include 'client'
-include 'account'
-include 'asset'
-include 'portfolio'
-include 'reference'
+rootProject.name = '3vial'
+include 'client', 'account', 'asset', 'portfolio', 'reference'
+
