@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from './components/Header'
+import Button from './components/Button'
 
 function App() {
   return (
-    <BalancesButton />
+    <div className="App">
+      <Header />
+      <Button text='Login' onClick={onClick}/>
+      <Button text='Get Balances' onClick={onClick} />
+    </div>
+    
   );
 }
 
-class BalancesButton extends React.Component {
-  render() {
-    return (
-      <button>Get balances</button>
-    );
-  }
+const onClick = () => {
+  console.log('Clicked me')
 }
+
 
 export default App;
