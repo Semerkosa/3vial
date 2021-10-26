@@ -48,6 +48,7 @@ public class Data extends BaseEntity {
         this.answers1 = answers_1;
     }
 
+    @Column(name = "answer_2")
     public String getAnswer2() {
         return answer2;
     }
@@ -56,6 +57,7 @@ public class Data extends BaseEntity {
         this.answer2 = answer_2;
     }
 
+    @Column(name = "answer_3")
     public String getAnswer3() {
         return answer3;
     }
