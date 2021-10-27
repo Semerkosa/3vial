@@ -5,21 +5,20 @@ A web application built to keep track of multiple asset classes (stocks, options
 
 ### Run all services (client and server part)
 
-* <b>Prerequisites</b>
+1. <b>Prerequisites</b>
 
     1. <b>Gradle</b> should be available. If it is not then you should install it.
        If you are on Windows OS then after installing Gradle you can add the absolute path to it's `bin` folder to the `Path` system variable.
     2. <b>MySQL</b> database should be available. If it is not then you should install it.
 
-* <b>Edit Configurations (Optional)</b>
+2. <b>Edit Configurations (Optional)</b>
 
     Below files are stored in the project's root directory:
     
     1. File `settings.gradle` can be modified to include only the projects that you want to start.
     2. File `gradle.properties` can be modified to include different gradle properties.
-
     
-* <b>Run instructions</b>
+3. <b>Run instructions</b>
 
     1. Make sure that you set the proper `database credentials` as environment variables as below services need a running database:
         * account
@@ -31,7 +30,7 @@ A web application built to keep track of multiple asset classes (stocks, options
     4. Execute command `gradle bootRun` (or `gradlew bootRun` if you have added gradle wrapper).
        After you execute the command, `client` project should start first and then the rest of the services.
   
-* <b>Terminating the run</b>
+4. <b>Terminating the run</b>
 
     When you terminate the run with `ctrl + C` and then typing `Y`, the services will still keep running.
     This is because of an issue with the `gradle node plugin` which is used to build and run `React` apps.
