@@ -47,6 +47,7 @@ public class UserController {
     }
     
     //Fake login
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping (
             value = "/login",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +55,8 @@ public class UserController {
         UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
         HttpHeaders headers = new HttpHeaders();
         headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
-        ResponseEntity<UserViewModel> response = 
+        headers.set("Access-Control-Expose-Headers", "token");
+        ResponseEntity<UserViewModel> response =
         		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
     }
