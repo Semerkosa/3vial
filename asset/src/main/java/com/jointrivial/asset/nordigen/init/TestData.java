@@ -5,15 +5,17 @@ import com.jointrivial.asset.nordigen.config.ApplicationProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class TestData implements CommandLineRunner {
 
     private final NordigenAccountInfoAPI api;
-    private final ApplicationProperties applicationProperties;
+    private final ApplicationProperties properties;
 
-    public TestData(NordigenAccountInfoAPI api, ApplicationProperties applicationProperties) {
+    public TestData(NordigenAccountInfoAPI api, ApplicationProperties properties) {
         this.api = api;
-        this.applicationProperties = applicationProperties;
+        this.properties = properties;
     }
 
     @Override
@@ -28,11 +30,6 @@ public class TestData implements CommandLineRunner {
 
         // THIRD METHOD
 //        System.out.println(api.getRequisitionById(""));
-
-
-//        System.out.println(applicationProperties.setBaseUrl("someUrl"));
-//        System.out.println(applicationProperties.getBaseUrl());
-
     }
 
     private void printSteps() {

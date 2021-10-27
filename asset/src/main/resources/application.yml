@@ -5,10 +5,7 @@ spring:
         url: jdbc:mysql://localhost:3306/3vial_app?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
         username: root
     jpa:
-        #For MySQL 8
         database-platform: org.hibernate.dialect.MySQL8Dialect
-        #For MySQL 5
-        #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
         hibernate:
             ddl-auto: update
         open-in-view: false
@@ -20,5 +17,4 @@ server:
     port: 8082
 
 arguments:
-    realNordigenUrl: https://ob.nordigen.com/
-    fakeNordigenUrl: http://localhost:8086/
+    baseUrl: https://ob.nordigen.com/
