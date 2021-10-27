@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        let chartData_1 = /*[[${chartData_1}]]*/ null;
+        let chartData_2 =/*[[${chartData_2}]]*/ null;
+        /*]]>*/
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body th:onload="loadCharts(chartData_1,chartData_2);">
+<div class="container-column" >
+    <h1>Trivial Landing Page Statistics</h1>
+    <h2>Users count:<span th:text="*{count}"></span></h2>
+    <div class="container-row">
+        <div id="chart_div_1"></div>
+        <div id="chart_div_2"></div>
+    </div>
+    <div >
+        <table>
+            <thead>
+            <tr>
+                <th> Please list the names of the investment platforms you use today?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${answers_3.isEmpty()}">
+                <td colspan="2"> No Entries Available</td>
+            </tr>
+            <tr th:each="a : ${answers_3}">
+                <td><span th:text="${a}"> Title </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

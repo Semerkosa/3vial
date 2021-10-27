@@ -1,0 +1,25 @@
+plugins {
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+// Below task tells gradle to start first the client service and after that the rest
+// This is needed because for some reason only the spring services start and the react app
+// is never started.
+
+subprojects {
+    if (name != 'client') {
+        tasks.all { task ->
+            task.dependsOn { project(':client').tasks.getByName('assemble')}
+        }
+    }
+}
