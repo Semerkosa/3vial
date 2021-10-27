@@ -56,3 +56,6 @@ MockTwelveData/.gradle
 MockTwelveData/.idea/misc.xml
 MockTwelveData/.idea/vcs.xml
 .DS_Store
+*.lock
+*.properties
+*.bin
