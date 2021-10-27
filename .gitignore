@@ -56,3 +56,8 @@ MockTwelveData/.gradle
 MockTwelveData/.idea/misc.xml
 MockTwelveData/.idea/vcs.xml
 .DS_Store
+*.bin
+reference/.gradle/vcs-1/gc.properties
+*.lock
+reference/.gradle/buildOutputCleanup/cache.properties
+*.properties
