@@ -1,16 +1,38 @@
 {
-  "balances": [
+  "userBalances": [
     {
-      "balanceAmount": {
-        "amount": 2420.36,
-        "currency": "GBP"
-      }
+      "organizationName": "Fibank",
+      "balances": [
+        {
+          "balanceAmount": {
+            "amount": 2420.36,
+            "currency": "GBP"
+          }
+        },
+        {
+          "balanceAmount": {
+            "amount": 1980.53,
+            "currency": "GBP"
+          }
+        }
+      ]
     },
     {
-      "balanceAmount": {
-        "amount": 1980.53,
-        "currency": "GBP"
-      }
+      "organizationName": "UniCredit Bulbank",
+      "balances": [
+        {
+          "balanceAmount": {
+            "amount": 620.00,
+            "currency": "EUR"
+          }
+        },
+        {
+          "balanceAmount": {
+            "amount": 720.00,
+            "currency": "EUR"
+          }
+        }
+      ]
     }
   ]
 }

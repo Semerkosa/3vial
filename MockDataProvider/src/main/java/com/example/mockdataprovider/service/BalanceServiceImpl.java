@@ -1,18 +1,16 @@
 package com.example.mockdataprovider.service;
 
-import com.example.mockdataprovider.models.dtos.BalanceRootDto;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.mockdataprovider.models.dtos.*;
+import com.google.gson.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 
 @Service
 public class BalanceServiceImpl implements BalanceService {
 
-    private static final String BALANCES_PATH = "src/main/resources/files/balances.json";
+    private static final String BALANCES_PATH = "MockDataProvider/src/main/resources/files/balances.json";
 
     @Override
     public String readJsonFile() throws IOException {
@@ -20,9 +18,9 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public BalanceRootDto getAllBalances() throws IOException {
+    public UserBalancesRootDto getAllBalances() throws IOException {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-        return gson.fromJson(readJsonFile(), BalanceRootDto.class);
+        return gson.fromJson(readJsonFile(), UserBalancesRootDto.class);
     }
 }
