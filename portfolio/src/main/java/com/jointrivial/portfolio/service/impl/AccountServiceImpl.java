@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    private static final String ACCOUNT_URL = "http://localhost:8084/account/provider_api_keys/";
+    private static final String ACCOUNT_URL = "http://localhost:8084/account/provider_api_keys";
 
     @Override
     public String getAllKeyOrganizations(String userToken) throws IOException, InterruptedException, URISyntaxException {
@@ -20,7 +20,8 @@ public class AccountServiceImpl implements AccountService {
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(ACCOUNT_URL + userToken))
+                .uri(new URI(ACCOUNT_URL))
+                .header("User-Token", userToken)
                 .GET()
                 .build();
 
