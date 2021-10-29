@@ -17,9 +17,9 @@ public class BalanceController {
         this.balanceService = balanceService;
     }
 
-    @GetMapping(value = "/api/accounts/123/balances/",
+    @GetMapping(value = "/api/accounts/{id}/balances/",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BalanceRootDto> getAllBalances() throws IOException {
+    public ResponseEntity<BalanceRootDto> getAllBalances(@PathVariable String id) throws IOException {
         BalanceRootDto balances = this.balanceService.getAllBalances();
 
         return new ResponseEntity<>(balances, HttpStatus.OK);
