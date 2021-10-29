@@ -1,20 +1,20 @@
 spring:
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/3vial_app?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-    username: root
-    password: "${TRIVIAL_DB_PASSWORD}"
-  jpa:
-    #For MySQL 8
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    #For MySQL 5
-    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        password: "${TRIVIAL_DB_PASSWORD}"
+        url: jdbc:mysql://localhost:3306/3vial_app?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        hibernate:
+            ddl-auto: update
+        open-in-view: false
+        properties:
+            hibernate:
+                format_sql: true
 
 server:
-  port: 8082
+    port: 8082
+
+arguments:
+    baseUrl: https://ob.nordigen.com/

@@ -26,6 +26,12 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
+}
+
 test {
     useJUnitPlatform()
 }
