@@ -22,7 +22,7 @@ A web application built to keep track of multiple asset classes (stocks, options
     
 3. <b>Run instructions</b>
 
-    1. Make sure that you set the `"PASSWORD"` environment variable to the password you set for the root user earlier, e.g. 1234. 
+    1. Make sure that you set the `"TRIVIAL_DB_PASSWORD"` environment variable to the password you set for the root user earlier, e.g. 1234. 
        The following services need it to connect to MySQL::
         * account
         * asset
