@@ -19,6 +19,7 @@ public class BalanceController {
 
     @GetMapping(value = "/api/accounts/{id}/balances/",
             produces = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<UserBalancesRootDto> getAllBalances(@PathVariable String id) throws IOException {
         UserBalancesRootDto balances = this.balanceService.getAllBalances();
 
