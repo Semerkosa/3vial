@@ -1,8 +1,6 @@
 package io.trivial.models.view;
 
-import io.trivial.models.entites.BaseEntity;
-
-public class KeyOrganizationViewModel extends BaseEntity {
+public class KeyOrganizationViewModel {
 
     private String organizationName;
     private String organizationKey;
