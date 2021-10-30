@@ -1,12 +1,16 @@
 package com.jointrivial.server.services;
 
-import com.google.gson.*;
-import com.jointrivial.server.models.binding.BindingModel;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.jointrivial.server.models.binding.DataBindingModel;
+import com.jointrivial.server.models.binding.SurveyBindingModel;
 import com.jointrivial.server.models.entities.*;
 import com.jointrivial.server.repositories.DataRepository;
 import com.jointrivial.server.repositories.QuestionRepository;
+import com.jointrivial.server.repositories.SurveyRepository;
 import com.jointrivial.server.repositories.TextInputRepository;
 import com.jointrivial.server.utils.CustomLocalDateTimeSerializer;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,32 +26,50 @@ public class DataServiceImpl implements DataService {
     private final DataRepository dataRepository;
     private final QuestionRepository questionRepository;
     private final TextInputRepository textInputRepository;
+    private final SurveyRepository surveyRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public DataServiceImpl(DataRepository dataRepository, QuestionRepository questionRepository, TextInputRepository textInputRepository) {
+    public DataServiceImpl(DataRepository dataRepository, QuestionRepository questionRepository,
+                           TextInputRepository textInputRepository, SurveyRepository surveyRepository,
+                           ModelMapper modelMapper) {
         this.dataRepository = dataRepository;
         this.questionRepository = questionRepository;
         this.textInputRepository = textInputRepository;
+        this.surveyRepository = surveyRepository;
+        this.modelMapper = modelMapper;
     }
 
 
     @Override
-    @Transactional
-    public boolean create(BindingModel bindingModel) {
+    public boolean create(DataBindingModel dataBindingModel) {
         try {
-            Data data = new Data();
-            data.setEmail(bindingModel.getEmail());
-            data.setAnswer2(bindingModel.getAnswer_2());
-            data.setAnswer3(bindingModel.getAnswer_3());
-            data.setAnswers1(bindingModel.getAnswers_1()
-                    .stream().map(e -> new Answer(e, data)).collect(Collectors.toSet()));
+            Data data = modelMapper.map(dataBindingModel, Data.class);
             dataRepository.saveAndFlush(data);
-            if (!bindingModel.getText_input_1().equals("")) {
-                TextInput1 textInput_1 = new TextInput1(bindingModel.getText_input_1(), data);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean addSurvey(SurveyBindingModel surveyBindingModel) {
+        try {
+            Survey survey = new Survey();
+            Data data = dataRepository.getDataByEmail(surveyBindingModel.getEmail());
+            survey.setData(data);
+            survey.setAnswer2(surveyBindingModel.getAnswer_2());
+            survey.setAnswer3(surveyBindingModel.getAnswer_3());
+            survey.setAnswers1(surveyBindingModel.getAnswers_1()
+                    .stream().map(e -> new Answer(e, survey)).collect(Collectors.toSet()));
+            surveyRepository.saveAndFlush(survey);
+            if (!surveyBindingModel.getText_input_1().equals("")) {
+                TextInput1 textInput_1 = new TextInput1(surveyBindingModel.getText_input_1(), survey);
                 textInputRepository.saveAndFlush(textInput_1);
             }
-            if (!bindingModel.getText_input_2().equals("")) {
-                TextInput2 textInput_2 = new TextInput2(bindingModel.getText_input_2(), data);
+            if (!surveyBindingModel.getText_input_2().equals("")) {
+                TextInput2 textInput_2 = new TextInput2(surveyBindingModel.getText_input_2(), survey);
                 textInputRepository.saveAndFlush(textInput_2);
             }
             return true;
@@ -88,11 +110,13 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public long getQuestion2Statistics(String answer) {
-        return this.dataRepository.getAllAnswersToQuestion2(answer);
+        return this.surveyRepository.getAllAnswersToQuestion2(answer);
     }
 
     @Override
     public List<String> getQuestion3Statistics() {
-        return this.dataRepository.getAllAnswersToQuestion3();
+        return this.surveyRepository.getAllAnswersToQuestion3();
     }
+
+
 }

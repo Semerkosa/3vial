@@ -1,6 +1,7 @@
 package com.jointrivial.server.controllers;
 
-import com.jointrivial.server.models.binding.BindingModel;
+import com.jointrivial.server.models.binding.DataBindingModel;
+import com.jointrivial.server.models.binding.SurveyBindingModel;
 import com.jointrivial.server.services.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +19,26 @@ public class SignUpController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(value = "/sign_up", consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @PostMapping(value = "/survey_result", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.TEXT_PLAIN_VALUE})
-    public ResponseEntity<String> signUp(@RequestBody BindingModel bindingModel) {
-        boolean created = dataService.create(bindingModel);
+    public ResponseEntity<String> getSurveyResult(@RequestBody SurveyBindingModel surveyBindingModel) {
+        boolean created = dataService.addSurvey(surveyBindingModel);
         if (created) {
             return new ResponseEntity<>("Success!", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/sign_up", consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.TEXT_PLAIN_VALUE})
+    public ResponseEntity<String> signUp(@RequestBody DataBindingModel dataBindingModel) {
+        boolean created = dataService.create(dataBindingModel);
+        if (created) {
+            return new ResponseEntity<>("Success!", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Error!", HttpStatus.BAD_REQUEST);
         }
     }
 

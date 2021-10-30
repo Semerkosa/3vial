@@ -10,7 +10,7 @@ public class TextInput1 extends TextInput {
     public TextInput1() {
     }
 
-    public TextInput1(String input, Data data) {
-        super(input, data);
+    public TextInput1(String input, Survey survey) {
+        super(input, survey);
     }
 }

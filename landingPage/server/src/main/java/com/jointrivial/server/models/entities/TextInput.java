@@ -5,11 +5,11 @@ import javax.persistence.*;
 @MappedSuperclass
 public abstract class TextInput extends BaseEntity{
     private String value;
-    private transient Data data;
+    private transient Survey survey;
 
-    public TextInput(String value, Data data) {
+    public TextInput(String value, Survey survey) {
         this.value = value;
-        this.data = data;
+        this.survey=survey;
     }
 
     public TextInput() {
@@ -25,12 +25,12 @@ public abstract class TextInput extends BaseEntity{
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "data_id", referencedColumnName = "id")
-    public Data getData() {
-        return data;
+    @JoinColumn(name = "survey_id", referencedColumnName = "data_id")
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

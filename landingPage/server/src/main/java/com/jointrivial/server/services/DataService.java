@@ -1,13 +1,16 @@
 package com.jointrivial.server.services;
 
-import com.jointrivial.server.models.binding.BindingModel;
+import com.jointrivial.server.models.binding.DataBindingModel;
+import com.jointrivial.server.models.binding.SurveyBindingModel;
 
 import java.util.List;
 
 public interface DataService {
 
-    boolean create(BindingModel bindingModel);
+    boolean create(DataBindingModel dataBindingModel);
+
     String getAllData();
+
     long count();
 
     List<String> getAllEmails();
@@ -19,4 +22,7 @@ public interface DataService {
     long getQuestion2Statistics(String answer);
 
     List<String> getQuestion3Statistics();
+
+    boolean addSurvey(SurveyBindingModel surveyBindingModel);
+
 }

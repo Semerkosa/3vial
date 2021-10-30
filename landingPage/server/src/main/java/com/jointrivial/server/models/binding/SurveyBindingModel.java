@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class BindingModel {
+public class SurveyBindingModel {
     private String email;
     private Set<String> answers_1;
     private String answer_2;
@@ -14,7 +14,7 @@ public class BindingModel {
     private String text_input_1;
     private String text_input_2;
 
-    public BindingModel() {
+    public SurveyBindingModel() {
         this.answers_1 = new HashSet<>();
     }
 
