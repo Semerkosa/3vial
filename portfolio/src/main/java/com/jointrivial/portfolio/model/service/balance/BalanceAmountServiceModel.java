@@ -1,8 +1,8 @@
-package com.jointrivial.portfolio.model.dto;
+package com.jointrivial.portfolio.model.service.balance;
 
 import java.math.BigDecimal;
 
-public class BalanceAmountDto {
+public class BalanceAmountServiceModel {
 
     private BigDecimal amount;
     private String currency;
@@ -11,7 +11,7 @@ public class BalanceAmountDto {
         return amount;
     }
 
-    public BalanceAmountDto setAmount(BigDecimal amount) {
+    public BalanceAmountServiceModel setAmount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -20,7 +20,7 @@ public class BalanceAmountDto {
         return currency;
     }
 
-    public BalanceAmountDto setCurrency(String currency) {
+    public BalanceAmountServiceModel setCurrency(String currency) {
         this.currency = currency;
         return this;
     }
