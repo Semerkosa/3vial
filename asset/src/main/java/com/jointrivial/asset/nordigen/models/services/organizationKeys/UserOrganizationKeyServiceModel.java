@@ -7,17 +7,17 @@ import java.util.List;
 public class UserOrganizationKeyServiceModel {
 
     @Expose
-    private List<OrganizationKeyServiceModel> organizationKeys;
+    private List<OrganizationKeyServiceModel> keysOrganization;
 
     public UserOrganizationKeyServiceModel() {
     }
 
     public List<OrganizationKeyServiceModel> getOrganizationKeys() {
-        return organizationKeys;
+        return keysOrganization;
     }
 
     public UserOrganizationKeyServiceModel setOrganizationKeys(List<OrganizationKeyServiceModel> organizationKeys) {
-        this.organizationKeys = organizationKeys;
+        this.keysOrganization = organizationKeys;
         return this;
     }
 }

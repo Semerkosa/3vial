@@ -4,17 +4,17 @@ import java.util.List;
 
 public class UserOrganizationKeyViewModel {
 
-    private List<OrganizationKeyViewModel> organizationKeys;
+    private List<OrganizationKeyViewModel> keysOrganization;
 
     public UserOrganizationKeyViewModel() {
     }
 
-    public List<OrganizationKeyViewModel> getOrganizationKeys() {
-        return organizationKeys;
+    public List<OrganizationKeyViewModel> getKeysOrganization() {
+        return keysOrganization;
     }
 
-    public UserOrganizationKeyViewModel setOrganizationKeys(List<OrganizationKeyViewModel> organizationKeys) {
-        this.organizationKeys = organizationKeys;
+    public UserOrganizationKeyViewModel setKeysOrganization(List<OrganizationKeyViewModel> keysOrganization) {
+        this.keysOrganization = keysOrganization;
         return this;
     }
 }
