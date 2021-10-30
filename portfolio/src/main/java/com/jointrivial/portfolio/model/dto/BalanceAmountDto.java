@@ -6,6 +6,7 @@ public class BalanceAmountDto {
 
     private BigDecimal amount;
     private String currency;
+    private BigDecimal amountInWantedCurrency;
 
     public BigDecimal getAmount() {
         return amount;
@@ -22,6 +23,15 @@ public class BalanceAmountDto {
 
     public BalanceAmountDto setCurrency(String currency) {
         this.currency = currency;
+        return this;
+    }
+
+    public BigDecimal getAmountInWantedCurrency() {
+        return amountInWantedCurrency;
+    }
+
+    public BalanceAmountDto setAmountInWantedCurrency(BigDecimal amountInWantedCurrency) {
+        this.amountInWantedCurrency = amountInWantedCurrency;
         return this;
     }
 }
