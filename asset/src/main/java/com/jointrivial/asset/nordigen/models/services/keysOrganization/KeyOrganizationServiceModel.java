@@ -1,4 +1,4 @@
-package com.jointrivial.asset.nordigen.models.services.organizationKeys;
+package com.jointrivial.asset.nordigen.models.services.keysOrganization;
 
 import com.google.gson.annotations.Expose;
 
