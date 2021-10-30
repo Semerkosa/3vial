@@ -2,7 +2,7 @@ package com.jointrivial.portfolio.model.service.balance;
 
 import java.util.List;
 
-public class BalancesRootServiceModel {
+public class BalanceRootServiceModel {
 
     private String organizationName;
     private List<BalanceServiceModel> balances;
@@ -11,7 +11,7 @@ public class BalancesRootServiceModel {
         return organizationName;
     }
 
-    public BalancesRootServiceModel setOrganizationName(String organizationName) {
+    public BalanceRootServiceModel setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
         return this;
     }
@@ -20,7 +20,7 @@ public class BalancesRootServiceModel {
         return balances;
     }
 
-    public BalancesRootServiceModel setBalances(List<BalanceServiceModel> balances) {
+    public BalanceRootServiceModel setBalances(List<BalanceServiceModel> balances) {
         this.balances = balances;
         return this;
     }
