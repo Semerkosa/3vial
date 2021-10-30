@@ -1,18 +1,22 @@
-package com.jointrivial.asset.nordigen.models.views.organizationKeys;
+package com.jointrivial.asset.nordigen.models.services.organizationKeys;
 
-public class OrganizationKeyViewModel {
+import com.google.gson.annotations.Expose;
 
+public class KeyOrganizationServiceModel {
+
+    @Expose
     private String organizationName;
+    @Expose
     private String organizationKey;
 
-    public OrganizationKeyViewModel() {
+    public KeyOrganizationServiceModel() {
     }
 
     public String getOrganizationName() {
         return organizationName;
     }
 
-    public OrganizationKeyViewModel setOrganizationName(String organizationName) {
+    public KeyOrganizationServiceModel setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
         return this;
     }
@@ -21,7 +25,7 @@ public class OrganizationKeyViewModel {
         return organizationKey;
     }
 
-    public OrganizationKeyViewModel setOrganizationKey(String organizationKey) {
+    public KeyOrganizationServiceModel setOrganizationKey(String organizationKey) {
         this.organizationKey = organizationKey;
         return this;
     }

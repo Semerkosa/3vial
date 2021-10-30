@@ -3,8 +3,8 @@ package com.jointrivial.asset.nordigen.service.impl;
 import com.google.gson.Gson;
 import com.jointrivial.asset.nordigen.api.NordigenAccountInfoAPI;
 import com.jointrivial.asset.nordigen.models.services.balances.BalanceRootServiceModel;
-import com.jointrivial.asset.nordigen.models.services.organizationKeys.OrganizationKeyServiceModel;
-import com.jointrivial.asset.nordigen.models.services.organizationKeys.UserOrganizationKeyServiceModel;
+import com.jointrivial.asset.nordigen.models.services.organizationKeys.KeyOrganizationServiceModel;
+import com.jointrivial.asset.nordigen.models.services.organizationKeys.UserKeyOrganizationServiceModel;
 import com.jointrivial.asset.nordigen.models.views.balances.BalanceRootViewModel;
 import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewModel;
 import com.jointrivial.asset.nordigen.service.AccountService;
@@ -12,9 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -61,14 +59,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private Map<String, String> getOrganizationKeyPairs(String organizationKeysJson) {
-        UserOrganizationKeyServiceModel userOrganizationKeyServiceModel =
-                this.gson.fromJson(organizationKeysJson, UserOrganizationKeyServiceModel.class);
+        UserKeyOrganizationServiceModel userKeyOrganizationServiceModel =
+                this.gson.fromJson(organizationKeysJson, UserKeyOrganizationServiceModel.class);
 
         Map<String, String> map = new HashMap<>();
 
         // TODO: Check what is the organizationName in a base controller
         // currently working with nordigen providers only
-        for (OrganizationKeyServiceModel pair : userOrganizationKeyServiceModel.getOrganizationKeys()) {
+        for (KeyOrganizationServiceModel pair : userKeyOrganizationServiceModel.getOrganizationKeys()) {
             map.put(pair.getOrganizationName(), pair.getOrganizationKey());
         }
 
