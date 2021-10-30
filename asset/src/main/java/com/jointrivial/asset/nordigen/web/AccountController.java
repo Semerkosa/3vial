@@ -22,9 +22,9 @@ public class AccountController {
     @GetMapping(value = "/balances",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserBalancesViewModel> getAllAccountBalances
-            (@RequestHeader("Key-Organization") String organizationKeysJson) throws IOException, InterruptedException {
+            (@RequestHeader("Key-Organization") String keyOrganizationJson) throws IOException, InterruptedException {
 
-        UserBalancesViewModel accountBalances = this.accountService.getUserBalances(organizationKeysJson);
+        UserBalancesViewModel accountBalances = this.accountService.getUserBalances(keyOrganizationJson);
 
         // TODO add exc handler
 

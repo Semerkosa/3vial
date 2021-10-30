@@ -3,17 +3,14 @@ package com.jointrivial.asset.nordigen.service.impl;
 import com.google.gson.Gson;
 import com.jointrivial.asset.nordigen.api.NordigenAccountInfoAPI;
 import com.jointrivial.asset.nordigen.models.services.balances.BalanceRootServiceModel;
-import com.jointrivial.asset.nordigen.models.services.keysOrganization.KeyOrganizationServiceModel;
-import com.jointrivial.asset.nordigen.models.services.keysOrganization.UserKeyOrganizationServiceModel;
-import com.jointrivial.asset.nordigen.models.views.balances.BalanceRootViewModel;
-import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewModel;
+import com.jointrivial.asset.nordigen.models.services.keysOrganization.*;
+import com.jointrivial.asset.nordigen.models.views.balances.*;
 import com.jointrivial.asset.nordigen.service.AccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -29,10 +26,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public UserBalancesViewModel getUserBalances(String organizationKeysJson) throws IOException, InterruptedException {
+    public UserBalancesViewModel getUserBalances(String keyOrganizationJson) throws IOException, InterruptedException {
         UserBalancesViewModel userBalances = new UserBalancesViewModel();
 
-        final Map<String, String> organizationKeyPairs = getOrganizationKeyPairs(organizationKeysJson);
+        final Map<String, String> organizationKeyPairs = getOrganizationKeyPairs(keyOrganizationJson);
 
         for (Map.Entry<String, String> entry : organizationKeyPairs.entrySet()) {
             String organizationName = entry.getKey();
@@ -58,9 +55,9 @@ public class AccountServiceImpl implements AccountService {
         return userBalances;
     }
 
-    private Map<String, String> getOrganizationKeyPairs(String organizationKeysJson) {
+    private Map<String, String> getOrganizationKeyPairs(String keyOrganizationJson) {
         UserKeyOrganizationServiceModel userKeyOrganizationServiceModel =
-                this.gson.fromJson(organizationKeysJson, UserKeyOrganizationServiceModel.class);
+                this.gson.fromJson(keyOrganizationJson, UserKeyOrganizationServiceModel.class);
 
         Map<String, String> map = new HashMap<>();
 

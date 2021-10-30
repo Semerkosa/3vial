@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface AccountService {
 
-    UserBalancesViewModel getUserBalances(String organizationKeysJson) throws IOException, InterruptedException;
+    UserBalancesViewModel getUserBalances(String keyOrganizationJson) throws IOException, InterruptedException;
 }
