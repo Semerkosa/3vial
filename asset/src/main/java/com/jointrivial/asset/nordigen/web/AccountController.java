@@ -21,7 +21,7 @@ public class AccountController {
 
     @GetMapping(value = "/balances",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserBalancesViewModel> getAllBankIDsAndNamesForCountry
+    public ResponseEntity<UserBalancesViewModel> getAllAccountBalances
             (@RequestHeader("Key-Organization") String organizationKeysJson) throws IOException, InterruptedException {
 
         UserBalancesViewModel accountBalances = this.accountService.getUserBalances(organizationKeysJson);
