@@ -2,7 +2,7 @@ package io.trivial.web.controlles;
 
 import io.trivial.models.binding.UserRegisterBindingModel;
 import io.trivial.models.service.UserServiceModel;
-import io.trivial.models.view.UserOrganizationViewModel;
+import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -50,10 +50,10 @@ public class UserController {
     @GetMapping (
             value = "/account/provider_api_keys",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserOrganizationViewModel> getUserOrganizationByToken(@RequestHeader("User-Token") String token) {
+    public ResponseEntity<UserKeyOrganizationViewModel> getUserOrganizationByToken(@RequestHeader("User-Token") String token) {
         UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
-        ResponseEntity<UserOrganizationViewModel> response = 
-        		new ResponseEntity<UserOrganizationViewModel>(this.modelMapper.map(returnedUser, UserOrganizationViewModel.class), HttpStatus.OK);
+        ResponseEntity<UserKeyOrganizationViewModel> response =
+        		new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
         return response;
     }
     

@@ -1,11 +1,12 @@
 package com.jointrivial.asset.nordigen.service;
 
-import com.jointrivial.asset.nordigen.models.views.balances.BalanceRootViewModel;
+import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewModel;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface AccountService {
 
-    BalanceRootViewModel getAccountBalances(String accountId) throws IOException, InterruptedException;
+    UserBalancesViewModel getUserBalances(String keyOrganizationJson) throws IOException, InterruptedException;
 }

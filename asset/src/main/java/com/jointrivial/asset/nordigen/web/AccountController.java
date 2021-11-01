@@ -1,16 +1,15 @@
 package com.jointrivial.asset.nordigen.web;
 
-import com.jointrivial.asset.nordigen.models.views.balances.BalanceRootViewModel;
+import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewModel;
 import com.jointrivial.asset.nordigen.service.AccountService;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 @Controller
-@RequestMapping("/nordigen/account")
+@RequestMapping("/asset")
 public class AccountController {
 
     private final AccountService accountService;
@@ -19,11 +18,12 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-
-    @GetMapping(value = "/{accountId}/balances",
+    @GetMapping(value = "/balances",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BalanceRootViewModel> getAllBankIDsAndNamesForCountry(@PathVariable String accountId) throws IOException, URISyntaxException, InterruptedException {
-        BalanceRootViewModel accountBalances = this.accountService.getAccountBalances(accountId);
+    public ResponseEntity<UserBalancesViewModel> getAllAccountBalances
+            (@RequestHeader("Key-Organization") String keyOrganizationJson) throws IOException, InterruptedException {
+
+        UserBalancesViewModel accountBalances = this.accountService.getUserBalances(keyOrganizationJson);
 
         // TODO add exc handler
 

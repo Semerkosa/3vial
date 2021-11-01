@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/nordigen")
+@RequestMapping("/asset")
 public class BankController {
 
     private final BankService bankService;
