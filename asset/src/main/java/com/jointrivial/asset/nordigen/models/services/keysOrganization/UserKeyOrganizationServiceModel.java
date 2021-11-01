@@ -12,12 +12,12 @@ public class UserKeyOrganizationServiceModel {
     public UserKeyOrganizationServiceModel() {
     }
 
-    public List<KeyOrganizationServiceModel> getOrganizationKeys() {
+    public List<KeyOrganizationServiceModel> getKeysOrganization() {
         return keysOrganization;
     }
 
-    public UserKeyOrganizationServiceModel setOrganizationKeys(List<KeyOrganizationServiceModel> organizationKeys) {
-        this.keysOrganization = organizationKeys;
+    public UserKeyOrganizationServiceModel setKeysOrganization(List<KeyOrganizationServiceModel> keysOrganization) {
+        this.keysOrganization = keysOrganization;
         return this;
     }
 }
