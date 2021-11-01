@@ -8,4 +8,6 @@ public interface TwelveFinanceService {
 
 
    TwelveDataStockViewModel getCurrentPrice(String symbol);
+   TwelveDataStockViewModel test(String symbol, String currency);
+
 }

@@ -48,4 +48,23 @@ public class TwelveFinanceServiceImpl implements TwelveFinanceService {
 
         return  new TwelveDataStockViewModel(symbol,new BigDecimal(jsonObject.get("price").toString()));
     }
+
+    @Override
+    public TwelveDataStockViewModel test(String symbol, String currency) {
+
+        StringBuilder sb = new StringBuilder();
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8090/twelve-data/gerPrice?symbol="+symbol+"-"+currency)).build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(sb::append)
+                .join();
+
+        JSONObject jsonObject = new JSONObject(sb.toString());
+
+        //TODO Exception Handling
+
+        return  new TwelveDataStockViewModel(symbol,new BigDecimal(jsonObject.get("price").toString()));
+    }
 }
