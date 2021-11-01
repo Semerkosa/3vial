@@ -32,11 +32,11 @@ public class TwelveFinanceController {
     }
 
     @GetMapping("/prices")
-    public ResponseEntity<ReferencesViewModel> test(@RequestHeader String currency, @RequestHeader List<String> symbols){
+    public ResponseEntity<ReferencesViewModel> test(@RequestHeader String currency, @RequestHeader List<String> currencies){
 
         ReferencesViewModel references = new ReferencesViewModel();
 
-        for (String symbol : symbols) {
+        for (String symbol : currencies) {
 
             TwelveDataStockViewModel currentPrice = this.twelveFinanceService.test(symbol, currency);
             references.addModel(currentPrice);
