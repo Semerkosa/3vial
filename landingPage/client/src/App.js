@@ -174,9 +174,9 @@ class Footer extends React.Component {
             © 2021 Trivial. All rights reserved
           </p>
           <div className="icons">
-            <a href="https://www.instagram.com/"><img src={instagram} alt='IG' /></a>
-            <a href="https://twitter.com/"><img src={twitter} alt='TW' /></a>
-            <a href="https://www.facebook.com/"><img src={facebook} alt='FB' /></a>
+            <a href={instagramLink}><img src={instagram} alt='IG' /></a>
+            <a href={twitterLink}><img src={twitter} alt='TW' /></a>
+            <a href={facebookLink}><img src={facebook} alt='FB' /></a>
           </div>
         </div>
       </footer>
@@ -276,7 +276,7 @@ class Modal extends React.Component {
                 <img id='logo' src={endLogo} alt='logo' />
                 <h1>Thanks for supporting us!</h1>
                 <p>Don’t forget to tell your friends and keep your eyes peeled for the launch! 🚀</p>
-                <a href='https://twitter.com/'><img src={twit} alt='twitter icon' />Follow us on Twitter</a>
+                <a href={twitterLink}><img src={twit} alt='twitter icon' />Follow us on Twitter</a>
               </div>
             </div>
           </div>
@@ -386,6 +386,10 @@ let text3 = [
   'Please list the names of the investment platforms you use today?',
   '(some examples for the types of platforms: Traditional banks, Neobanks, Stock brokers, Crypto exchanges and others)'
 ];
+
+let twitterLink='https://twitter.com/joinTrivial?ref_src=twsrc%5Etfw';
+let instagramLink='https://www.instagram.com/';
+let facebookLink='https://www.facebook.com/';
 
 
 

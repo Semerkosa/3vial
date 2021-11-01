@@ -10,17 +10,22 @@ import java.nio.file.*;
 @Service
 public class BalanceServiceImpl implements BalanceService {
 
-    private static final String BALANCES_PATH = "MockDataProvider/src/main/resources/files/balances.json";
+    private static final String FIBANK_PATH = "src/main/resources/files/Fibank-balances.json";
+    private static final String UNICREDIT_PATH = "src/main/resources/files/UniCredit-balances.json";
 
     @Override
-    public String readJsonFile() throws IOException {
-        return String.join("", Files.readAllLines(Path.of(BALANCES_PATH)));
+    public String readJsonFile(String filePath) throws IOException {
+        return String.join("", Files.readAllLines(Path.of(filePath)));
     }
 
     @Override
-    public UserBalancesRootDto getAllBalances() throws IOException {
+    public BalancesRootDto getBalances(String bankName) throws IOException {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-        return gson.fromJson(readJsonFile(), UserBalancesRootDto.class);
+        if ("Fibank".equals(bankName)) {
+            return gson.fromJson(readJsonFile(FIBANK_PATH), BalancesRootDto.class);
+        }
+
+        return gson.fromJson(readJsonFile(UNICREDIT_PATH), BalancesRootDto.class);
     }
 }
