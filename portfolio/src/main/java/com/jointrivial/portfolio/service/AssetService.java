@@ -1,11 +1,11 @@
 package com.jointrivial.portfolio.service;
 
-import com.jointrivial.portfolio.model.service.balance.BalancesRootServiceModel;
+import com.jointrivial.portfolio.model.service.balance.UserBalancesServiceModel;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public interface AssetService {
 
-    BalancesRootServiceModel getAllBalances(String keyOrganizations) throws URISyntaxException, IOException, InterruptedException;
+    UserBalancesServiceModel getAllBalances(String keyOrganization) throws URISyntaxException, IOException, InterruptedException;
 }

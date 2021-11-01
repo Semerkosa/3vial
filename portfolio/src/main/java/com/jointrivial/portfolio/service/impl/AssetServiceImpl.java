@@ -1,7 +1,7 @@
 package com.jointrivial.portfolio.service.impl;
 
 import com.google.gson.Gson;
-import com.jointrivial.portfolio.model.service.balance.BalancesRootServiceModel;
+import com.jointrivial.portfolio.model.service.balance.UserBalancesServiceModel;
 import com.jointrivial.portfolio.service.AssetService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public BalancesRootServiceModel getAllBalances(String keyOrganization) throws URISyntaxException, IOException, InterruptedException {
+    public UserBalancesServiceModel getAllBalances(String keyOrganization) throws URISyntaxException, IOException, InterruptedException {
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -36,6 +36,6 @@ public class AssetServiceImpl implements AssetService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return gson.fromJson(response.body(), BalancesRootServiceModel.class);
+        return gson.fromJson(response.body(), UserBalancesServiceModel.class);
     }
 }
