@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 @Controller
 @RequestMapping("/asset")
@@ -21,8 +20,7 @@ public class AccountController {
 
     @GetMapping(value = "/balances",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserBalancesViewModel> getAllAccountBalances
-            (@RequestHeader("Key-Organization") String keyOrganizationJson) throws IOException, InterruptedException {
+    public ResponseEntity<UserBalancesViewModel> getAllAccountBalances (@RequestHeader("Key-Organization") String keyOrganizationJson) throws IOException, InterruptedException {
 
         UserBalancesViewModel accountBalances = this.accountService.getUserBalances(keyOrganizationJson);
 
