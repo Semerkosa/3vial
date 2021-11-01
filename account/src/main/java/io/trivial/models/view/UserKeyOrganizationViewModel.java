@@ -2,7 +2,7 @@ package io.trivial.models.view;
 
 import java.util.List;
 
-public class UserKeyOrganizationViewMode {
+public class UserKeyOrganizationViewModel {
 
     private List<KeyOrganizationViewModel> keysOrganization;
 
