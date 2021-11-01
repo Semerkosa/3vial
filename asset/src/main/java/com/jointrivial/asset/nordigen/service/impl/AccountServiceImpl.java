@@ -30,11 +30,14 @@ public class AccountServiceImpl implements AccountService {
     public UserBalancesViewModel getUserBalances(String keyOrganizationJson) throws IOException, InterruptedException {
         UserBalancesViewModel userBalances = new UserBalancesViewModel();
 
-        final Map<String, String> keyOrganizationMap = getOrganizationKeyPairs(keyOrganizationJson);
+        // TODO: Check what is the organizationName in a base controller
+        // currently working with nordigen providers only
+        UserKeyOrganizationServiceModel userKeyOrganizationServiceModel =
+                this.gson.fromJson(keyOrganizationJson, UserKeyOrganizationServiceModel.class);
 
-        for (Map.Entry<String, String> entry : keyOrganizationMap.entrySet()) {
-            String organizationName = entry.getKey();
-            String accountId = entry.getValue();
+        for (KeyOrganizationServiceModel model : userKeyOrganizationServiceModel.getKeysOrganization()) {
+            String organizationName = model.getOrganizationName();
+            String accountId = model.getOrganizationKey();
 
             String accountBalancesJson = nordigenAccountInfoAPI.getAccountBalances(accountId);
 
@@ -54,20 +57,5 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return userBalances;
-    }
-
-    private Map<String, String> getOrganizationKeyPairs(String keyOrganizationJson) {
-        UserKeyOrganizationServiceModel userKeyOrganizationServiceModel =
-                this.gson.fromJson(keyOrganizationJson, UserKeyOrganizationServiceModel.class);
-
-        Map<String, String> map = new HashMap<>();
-
-        // TODO: Check what is the organizationName in a base controller
-        // currently working with nordigen providers only
-        for (KeyOrganizationServiceModel pair : userKeyOrganizationServiceModel.getKeysOrganization()) {
-            map.put(pair.getOrganizationName(), pair.getOrganizationKey());
-        }
-
-        return map;
     }
 }
