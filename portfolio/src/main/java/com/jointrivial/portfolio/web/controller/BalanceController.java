@@ -24,6 +24,7 @@ public class BalanceController {
         this.assetService = assetService;
     }
 
+    @CrossOrigin("http://localhost:3000")
     @GetMapping(value = "/balances", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserBalancesViewModel> getAllBalances(
             @RequestHeader(value = "User-Token") String userToken,
