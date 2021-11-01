@@ -26,8 +26,6 @@ public class MockTwelveDataController {
     @GetMapping("/gerPrice")
     public ResponseEntity<TwelveDataStockViewModel> getPrice(@RequestParam String symbol){
 
-
-
         return new ResponseEntity<>( this.testingService.getPriceBySymbol(symbol), HttpStatus.OK);
     }
 

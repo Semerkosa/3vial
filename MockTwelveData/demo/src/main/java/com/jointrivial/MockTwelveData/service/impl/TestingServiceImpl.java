@@ -24,6 +24,6 @@ public class TestingServiceImpl implements TestingService {
 
         String symbol = thicker.split("-")[0];
 
-        return new TwelveDataStockViewModel(symbol+"-BGN",this.references.get(symbol));
+        return new TwelveDataStockViewModel(symbol,this.references.get(symbol));
     }
 }
