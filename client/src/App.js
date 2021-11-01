@@ -62,7 +62,7 @@ function App() {
     };
 
     const response = await fetch(LOGIN_URL, requestOptions);
-    var tokenString = response.headers.get('token');
+    var tokenString = response.headers.get('User-Token');
     setToken(tokenString);
   }
 
@@ -70,7 +70,7 @@ function App() {
 
     const requestOptions = {
       method: 'GET',
-      headers: { 'token': token }
+      headers: { 'User-Token': token }
     };
 
     let urlBalancesCurrencyRequest = BALANCES_URL + "?currency=" + currency;

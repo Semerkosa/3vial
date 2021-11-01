@@ -54,8 +54,8 @@ public class UserController {
     public ResponseEntity<UserViewModel> login() {
         UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
         HttpHeaders headers = new HttpHeaders();
-        headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
-        headers.set("Access-Control-Expose-Headers", "token");
+        headers.set("User-Token", "9s78dhfs78tfaysd6ftausdygf6asd67");
+        headers.set("Access-Control-Expose-Headers", "User-Token");
         ResponseEntity<UserViewModel> response =
         		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
