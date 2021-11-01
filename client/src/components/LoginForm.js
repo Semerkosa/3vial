@@ -1,43 +1,40 @@
 import Button from './Button'
 import { useState } from 'react'
 
-const LoginForm = ({Login}) => {
+
+const LoginForm = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const requestOptions = {
-        method: 'POST',
-        headers: {'Content-Type' : 'application/json'}
-    };
+    const submitHandler = async event => {
+        event.preventDefault();
 
-    const submitHandler = async e => {
-        e.preventDefault();     
-
-        const response = await fetch('http://localhost:8084/user/login', requestOptions);
-        var tokenString = response.headers.get('token');
-        Login(tokenString)
-        console.log(tokenString);
+        props.onLogin()
     }
 
-    return(
+    return (
         <form onSubmit={submitHandler} method="POST">
             <div>
                 <h2>Login</h2>
+                <p style={{ color: 'grey' }}>
+                    (For the current tests email and password can be skipped. Directly click on Login button.)
+
+                </p>
                 <div>
                     <label htmlFor="email">Email:</label>
                     <input type="text" name="email" id="email"
-                    onChange = {e => setEmail(e.target.value)}
-                    value = {email} />
+                        onChange={e => setEmail(e.target.value)}
+                        value={email} />
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>
                     <input type="password" name="password" id="password"
-                    onChange = {e => setPassword(e.target.value)}
-                    value = {password} />
+                        onChange={e => setPassword(e.target.value)}
+                        value={password} />
                 </div>
                 <div>
-                    <Button text='Login'/>
+                    <Button type="submit">Login</Button>
                 </div>
             </div>
         </form>

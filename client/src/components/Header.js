@@ -1,5 +1,5 @@
 const Header = () => {
-    return(
+    return (
         <header>
             <h1>Welcome to Trivial</h1>
         </header>
