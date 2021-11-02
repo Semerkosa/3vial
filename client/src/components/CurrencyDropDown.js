@@ -6,7 +6,7 @@ const CurrencyDropDown = (props) => {
 
     useEffect(() => {
         props.onSelectCurrency(currency);
-      }, []);
+    }, []);
 
 
     const currencyChangeHandler = event => {
@@ -22,6 +22,10 @@ const CurrencyDropDown = (props) => {
                 <option value="BGN">BGN</option>
                 <option value="GBP">GBP</option>
             </select>
+            {currency !== 'BGN' &&
+                <p style={{ color: 'red', fontSize: 12 }}>
+                    Conversion to {currency} is currently not supported!
+                </p>}
         </div>
     )
 }
