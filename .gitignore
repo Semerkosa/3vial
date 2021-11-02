@@ -59,5 +59,4 @@ MockTwelveData/.idea/vcs.xml
 *.bin
 reference/.gradle/vcs-1/gc.properties
 *.lock
-reference/.gradle/buildOutputCleanup/cache.properties
-*.properties
+
