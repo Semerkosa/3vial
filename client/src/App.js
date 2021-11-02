@@ -49,7 +49,7 @@ const DUMMY_BALANCES = {
 function App() {
 
   const [token, setToken] = useState('');
-  const [balancesData, setBalancesData] = useState('');
+  const [balancesData, setBalancesData] = useState([]);
   const [sampleData, setSampleData] = useState(DUMMY_BALANCES);
   const [currency, setCurrency] = useState('');
 
@@ -75,13 +75,29 @@ function App() {
 
     let urlBalancesCurrencyRequest = BALANCES_URL + "?currency=" + currency;
 
-    await fetch(urlBalancesCurrencyRequest, requestOptions)
-      .then((response) => response.json())
-      .then((responseJSON) => {
-        setBalancesData(responseJSON);
-        // ToDo: Change sampleData to balancesData when portfolio provides the structure
-        setSampleData({...sampleData, wantedCurrency: currency});
-      });
+    const response = await fetch(urlBalancesCurrencyRequest, requestOptions);
+    const data = await response.json();
+
+
+    const transformedBalances = {
+      userBalances: data.userBalances.map((balanceData) => {
+
+        return {
+          organizationName: balanceData.organizationName,
+          balances: balanceData.balances.map((balance) => {
+            return {
+              balanceAmount: {
+                amount: balance.balanceAmount.amount,
+                currency: balance.balanceAmount.currency,
+                amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
+              }
+            }
+          })
+        };
+      }), wantedCurrency: currency
+    };
+
+    setBalancesData(transformedBalances);
 
   }
 
@@ -98,10 +114,11 @@ function App() {
         </div>
       ) : (
         <div>
-          <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler}/></h1>
+          <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
           <Button type="button" onClick={balancesHandler}>Get Balances</Button>
           {/* ToDo: Change sampleData to balancesData when portfolio provides the structure */}
-          {balancesData !== '' && <Providers items={sampleData.userBalances} wantedCurrency={sampleData.wantedCurrency}/>}
+          {balancesData.length !== 0 && <Providers items={balancesData.userBalances}
+            wantedCurrency={balancesData.wantedCurrency} />}
         </div>
       )}
     </div>
