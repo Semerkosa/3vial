@@ -51,7 +51,7 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<KeyOrganization> getKeysOrganization() {
 		return keysOrganization;
 	}
