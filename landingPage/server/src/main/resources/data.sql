@@ -22,8 +22,8 @@ values ('a8f56739-f5a1-44c5-bad2-09fwpt9a51rt', '0', '2947c292-fb1f-4157-817c-0f
        ('a8f56739-f5a1-44c5-bad2-09fwpt9a56rt', '4', '1137e39e-cdc6-4160-849f-bfa5506e7ba4'),
        ('a8f56739-f5a1-44c5-bad2-09fwpt9a57rt', '0', '318ee786-4f1c-430a-8ac4-17f0393a38f1');
 
-insert ignore into text_input_1(value,survey_id)
+insert ignore into text_input_first_question(value,survey_id)
 values ('TEST_INPUT_1','1137e39e-cdc6-4160-849f-bfa5506e7ba4');
 
-insert ignore into text_input_2(value, survey_id)
+insert ignore into text_input_second_question(value, survey_id)
 values ('TEST_INPUT_2','318ee786-4f1c-430a-8ac4-17f0393a38f1');
