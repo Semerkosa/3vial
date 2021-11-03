@@ -11,8 +11,8 @@ public class Survey extends BaseEntity {
     private Set<Answer> answers1 = new HashSet<>();
     private String answer2;
     private String answer3;
-    private TextInput1 textInput1;
-    private TextInput2 textInput2;
+    private TextInputFirstQuestion textInputFirstQuestion;
+    private TextInputSecondQuestion textInputSecondQuestion;
 
     public Survey() {
     }
@@ -33,8 +33,8 @@ public class Survey extends BaseEntity {
         return answers1;
     }
 
-    public void setAnswers1(Set<Answer> answers_1) {
-        this.answers1 = answers_1;
+    public void setAnswers1(Set<Answer> answers1) {
+        this.answers1 = answers1;
     }
 
     @Column(name = "answer_2")
@@ -42,8 +42,8 @@ public class Survey extends BaseEntity {
         return answer2;
     }
 
-    public void setAnswer2(String answer_2) {
-        this.answer2 = answer_2;
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
     }
 
     @Column(name = "answer_3")
@@ -51,27 +51,27 @@ public class Survey extends BaseEntity {
         return answer3;
     }
 
-    public void setAnswer3(String answer_3) {
-        this.answer3 = answer_3;
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
     }
 
-    @OneToOne(mappedBy = "survey", targetEntity = TextInput1.class)
+    @OneToOne(mappedBy = "survey", targetEntity = TextInputFirstQuestion.class)
     @PrimaryKeyJoinColumn
-    public TextInput1 getTextInput1() {
-        return textInput1;
+    public TextInputFirstQuestion getTextInput1() {
+        return textInputFirstQuestion;
     }
 
-    public void setTextInput1(TextInput1 textInput_1) {
-        this.textInput1 = textInput_1;
+    public void setTextInput1(TextInputFirstQuestion textInput1) {
+        this.textInputFirstQuestion = textInput1;
     }
 
-    @OneToOne(mappedBy = "survey", targetEntity = TextInput2.class)
+    @OneToOne(mappedBy = "survey", targetEntity = TextInputSecondQuestion.class)
     @PrimaryKeyJoinColumn
-    public TextInput2 getTextInput2() {
-        return textInput2;
+    public TextInputSecondQuestion getTextInput2() {
+        return textInputSecondQuestion;
     }
 
-    public void setTextInput2(TextInput2 textInput_2) {
-        this.textInput2 = textInput_2;
+    public void setTextInput2(TextInputSecondQuestion textInput2) {
+        this.textInputSecondQuestion = textInput2;
     }
 }

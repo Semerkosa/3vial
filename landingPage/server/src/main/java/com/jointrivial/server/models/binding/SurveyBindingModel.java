@@ -8,23 +8,23 @@ import java.util.Set;
 
 public class SurveyBindingModel {
     private String email;
-    private Set<String> answers_1;
-    private String answer_2;
-    private String answer_3;
-    private String text_input_1;
-    private String text_input_2;
+    private Set<String> answers1;
+    private String answer2;
+    private String answer3;
+    private String textInput1;
+    private String textInput2;
 
     public SurveyBindingModel() {
-        this.answers_1 = new HashSet<>();
+        this.answers1 = new HashSet<>();
     }
 
     @NotEmpty
-    public Set<String> getAnswers_1() {
-        return answers_1;
+    public Set<String> getAnswers1() {
+        return answers1;
     }
 
-    public void setAnswers_1(Set<String> answers_1) {
-        this.answers_1 = answers_1;
+    public void setAnswers1(Set<String> answers1) {
+        this.answers1 = answers1;
     }
 
     @Email(regexp = "^(.+)@(\\S+)$")
@@ -37,36 +37,36 @@ public class SurveyBindingModel {
     }
 
     @NotEmpty
-    public String getAnswer_2() {
-        return answer_2;
+    public String getAnswer2() {
+        return answer2;
     }
 
-    public void setAnswer_2(String answer_2) {
-        this.answer_2 = answer_2;
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
     }
 
     @NotEmpty
-    public String getAnswer_3() {
-        return answer_3;
+    public String getAnswer3() {
+        return answer3;
     }
 
-    public void setAnswer_3(String answer_3) {
-        this.answer_3 = answer_3;
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
     }
 
-    public String getText_input_1() {
-        return text_input_1;
+    public String getTextInput1() {
+        return textInput1;
     }
 
-    public void setText_input_1(String text_input_1) {
-        this.text_input_1 = text_input_1;
+    public void setTextInput1(String textInput1) {
+        this.textInput1 = textInput1;
     }
 
-    public String getText_input_2() {
-        return text_input_2;
+    public String getTextInput2() {
+        return textInput2;
     }
 
-    public void setText_input_2(String text_input_2) {
-        this.text_input_2 = text_input_2;
+    public void setTextInput2(String textInput2) {
+        this.textInput2 = textInput2;
     }
 }

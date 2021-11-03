@@ -34,7 +34,7 @@ public class SignUpController {
     @PostMapping(value = "/sign_up", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> signUp(@RequestBody DataBindingModel dataBindingModel) {
-        boolean created = dataService.create(dataBindingModel);
+        boolean created = dataService.createData(dataBindingModel);
         if (created) {
             return new ResponseEntity<>("Success!", HttpStatus.CREATED);
         } else {

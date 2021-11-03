@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DataService {
 
-    boolean create(DataBindingModel dataBindingModel);
+    boolean createData(DataBindingModel dataBindingModel);
 
     String getAllData();
 

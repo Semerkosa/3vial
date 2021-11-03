@@ -42,7 +42,7 @@ public class DataServiceImpl implements DataService {
 
 
     @Override
-    public boolean create(DataBindingModel dataBindingModel) {
+    public boolean createData(DataBindingModel dataBindingModel) {
         try {
             Data data = modelMapper.map(dataBindingModel, Data.class);
             dataRepository.saveAndFlush(data);
@@ -59,18 +59,18 @@ public class DataServiceImpl implements DataService {
             Survey survey = new Survey();
             Data data = dataRepository.getDataByEmail(surveyBindingModel.getEmail());
             survey.setData(data);
-            survey.setAnswer2(surveyBindingModel.getAnswer_2());
-            survey.setAnswer3(surveyBindingModel.getAnswer_3());
-            survey.setAnswers1(surveyBindingModel.getAnswers_1()
+            survey.setAnswer2(surveyBindingModel.getAnswer2());
+            survey.setAnswer3(surveyBindingModel.getAnswer3());
+            survey.setAnswers1(surveyBindingModel.getAnswers1()
                     .stream().map(e -> new Answer(e, survey)).collect(Collectors.toSet()));
             surveyRepository.saveAndFlush(survey);
-            if (!surveyBindingModel.getText_input_1().equals("")) {
-                TextInput1 textInput_1 = new TextInput1(surveyBindingModel.getText_input_1(), survey);
-                textInputRepository.saveAndFlush(textInput_1);
+            if (!surveyBindingModel.getTextInput1().equals("")) {
+                TextInputFirstQuestion textInput1 = new TextInputFirstQuestion(surveyBindingModel.getTextInput1(), survey);
+                textInputRepository.saveAndFlush(textInput1);
             }
-            if (!surveyBindingModel.getText_input_2().equals("")) {
-                TextInput2 textInput_2 = new TextInput2(surveyBindingModel.getText_input_2(), survey);
-                textInputRepository.saveAndFlush(textInput_2);
+            if (!surveyBindingModel.getTextInput2().equals("")) {
+                TextInputSecondQuestion textInput2 = new TextInputSecondQuestion(surveyBindingModel.getTextInput2(), survey);
+                textInputRepository.saveAndFlush(textInput2);
             }
             return true;
         } catch (Exception e) {
