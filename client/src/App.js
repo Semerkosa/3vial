@@ -52,18 +52,32 @@ function App() {
   const [balancesData, setBalancesData] = useState([]);
   const [sampleData, setSampleData] = useState(DUMMY_BALANCES);
   const [currency, setCurrency] = useState('');
+  const [userLoginData, setUserLoginData] = useState({email: '', password: ''});
 
 
-  const loginHandler = async () => {
+  const loginHandler = (userEmail, userPassword) => {
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    };
 
-    const response = await fetch(LOGIN_URL, requestOptions);
-    var tokenString = response.headers.get('User-Token');
-    setToken(tokenString);
+    const loginRequestHandler = async (loginData) => {
+
+
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData)
+      };
+  
+      const response = await fetch(LOGIN_URL, requestOptions);
+      var tokenString = response.headers.get('User-Token');
+      setToken(tokenString);
+    }
+
+    const loginData = {email: userEmail, password: userPassword};
+
+    setUserLoginData(loginData);
+
+    loginRequestHandler(loginData);
+    
   }
 
   const balancesHandler = async () => {
