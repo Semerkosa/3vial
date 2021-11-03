@@ -1,7 +1,8 @@
 import logo from './Logo-1.png';
 import group51 from './Group 51.png';
-import group318 from './Group 318.png';
-import group319 from './Group 319.png';
+import image1 from './image 1.png';
+import image2 from './image 2.png';
+import image3 from './image 3.png';
 import vector from './Vector.png';
 import facebook from './Social Icons FB.png';
 import instagram from './Social Icons IG.png';
@@ -23,10 +24,9 @@ function App() {
       <main>
         <Header />
         <Section1 />
-        <Section2 id={2} headline='Seamless live feed from all your accounts' description='No more manual inputs. Connect to your bank, stock brokerage and crypto platforms once and get live updates with the latest state of your portfolio' />
-        <Section3 id={3} headline='Secure, Private, Yours' description='Trivial will never sell or use your financial data for advertising. Your accounts and data are private, protected and encrypted at rest and in transit' />
-        <Section2 id={4} headline='Unlock the power of your data' description='With all your financial data in one place, you can make better decisions to achieve your wealth goals. We will continue bringing features to help you reach financial milestones quicker, safer and smoother.' />
-        <Section3 id={5} headline='Feature headline' description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.' />
+        <Section2 id={2} headline='Seamless live feed from all your accounts' description='No more manual inputs. Connect to your bank, stock brokerage and crypto platforms once and get live updates with the latest state of your portfolio' img={image1} />
+        <Section3 id={3} headline='Secure, Private, Yours' description='Trivial will never sell or use your financial data for advertising. Your accounts and data are private, protected and encrypted at rest and in transit' img={image2} />
+        <Section2 id={4} headline='Unlock the power of your data' description='With all your financial data in one place, you can make better decisions to achieve your wealth goals. We will continue bringing features to help you reach financial milestones quicker, safer and smoother.' img={image3} />
         <Section6 />
       </main>
       <Footer />
@@ -58,11 +58,11 @@ class Header extends React.Component {
 class Section1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { counter: -1 };
+    this.state = { counter: null };
   }
   componentDidMount() {
     fetch('http://localhost:8080/count').then(response => response.json())
-      .then(data => this.setState({ counter: data }));
+      .then(data => this.setState({ counter: data })).catch((error) => console.log(error));
   }
   render() {
     return (
@@ -102,23 +102,26 @@ class EmailForm extends React.Component {
   handleChange(event) { this.setState({ email: event.target.value }); }
   async handleSubmit(e) {
     e.preventDefault();
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 2500);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.email)
+      body: JSON.stringify(this.state.email),
+      signal: controller.signal
     };
+
+
     await fetch('http://localhost:8080/sign_up', requestOptions)
       .then(response => {
         if (!response.ok) {
-          alert('Status code: '+response.status);
+          response.text().then((text) => alert('Message: '+text));
         } else {
           e.target.getElementsByTagName('input')[0].value = '';
           ReactDOM.render(<Modal email={this.state.email} />, document.getElementById('modal'));
         }
       })
       .catch((error) => alert(error));
-
-
   }
   render() {
     return (
@@ -134,7 +137,7 @@ class Section2 extends React.Component {
     return (
       <>
         <section id={'section-' + this.props.id}>
-          <img className="image" src={group318} alt='group_318' />
+          <img className="image" src={this.props.img} alt='group_318' />
           <div>
             <h2 className="headline">
               {this.props.headline}
@@ -163,7 +166,7 @@ class Section3 extends React.Component {
             </p>
             <a className="get-started" href="/get_started">Get started <img src={vector} alt='vector' /></a>
           </div>
-          <img className="image" src={group319} alt='group_319' />
+          <img className="image" src={this.props.img} alt='group_319' />
         </section>
       </>);
   }
@@ -230,11 +233,11 @@ class Modal extends React.Component {
   handleFinish = async () => {
     const finalResult = {
       email: this.state.email,
-      answers_1: this.state.result[0].map((e, i) => e === true ? i : '').filter(String),
-      answer_2: this.state.result[1],
-      answer_3: this.state.result[2],
-      text_input_1: this.state.textInput[0],
-      text_input_2: this.state.textInput[1]
+      answers1: this.state.result[0].map((e, i) => e === true ? i : '').filter(String),
+      answer2: this.state.result[1],
+      answer3: this.state.result[2],
+      textInput1: this.state.textInput[0],
+      textInput2: this.state.textInput[1]
     };
     console.log(finalResult);
     const requestOptions = {
