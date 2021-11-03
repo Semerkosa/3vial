@@ -7,10 +7,18 @@ const LoginForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const emailChangeHandler = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const passwordChangeHandler = (e) => {
+        setPassword(e.target.value);
+    }
+
     const submitHandler = async event => {
         event.preventDefault();
 
-        props.onLogin()
+        props.onLogin(email, password)
     }
 
     return (
@@ -24,13 +32,13 @@ const LoginForm = (props) => {
                 <div>
                     <label htmlFor="email">Email:</label>
                     <input type="text" name="email" id="email"
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={emailChangeHandler}
                         value={email} />
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>
                     <input type="password" name="password" id="password"
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={passwordChangeHandler}
                         value={password} />
                 </div>
                 <div>
