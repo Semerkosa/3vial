@@ -24,26 +24,13 @@ public class TwelveFinanceController {
 
 
     @GetMapping("/twelve/getPrice")
-    public ResponseEntity<TwelveDataStockViewModel> getPrice(@RequestParam String symbol){
+    public ResponseEntity<ReferencesViewModel> getPrice(@RequestHeader String currency, @RequestHeader List<String> currencies){
 
 
-        return new ResponseEntity<>(this.twelveFinanceService.getCurrentPrice(symbol),
+        return new ResponseEntity<>(this.twelveFinanceService.getCurrentPrice(currency,currencies),
                 HttpStatus.OK);
     }
 
-    @GetMapping("/prices")
-    public ResponseEntity<ReferencesViewModel> test(@RequestHeader String currency, @RequestHeader List<String> currencies){
 
-        ReferencesViewModel references = new ReferencesViewModel();
-
-        for (String symbol : currencies) {
-
-            TwelveDataStockViewModel currentPrice = this.twelveFinanceService.test(symbol, currency);
-            references.addModel(currentPrice);
-
-        }
-
-        return new ResponseEntity<>(references, HttpStatus.OK);
-    }
 
 }
