@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/twelve-data")
 public class MockTwelveDataController {
 
     private final TestingService testingService;
@@ -23,7 +22,7 @@ public class MockTwelveDataController {
     }
 
 
-    @GetMapping("/gerPrice")
+    @GetMapping("/exchange_rate")
     public ResponseEntity<TwelveDataStockViewModel> getPrice(@RequestParam String symbol){
 
         return new ResponseEntity<>( this.testingService.getPriceBySymbol(symbol), HttpStatus.OK);
