@@ -21,7 +21,7 @@ import static javax.swing.UIManager.get;
 public class TwelveFinanceServiceImpl implements TwelveFinanceService {
 
     private final static String URL_TWELVE_DATA = "https://api.twelvedata.com/exchange_rate?symbol=%s/%s&apikey=%s";
-    private final static String TEST_URL = "http://localhost:8090/twelve-data/gerPrice?symbol=%s";
+    private final static String TEST_URL = "http://localhost:8090/exchange_rate?symbol=%s";
 
     @Override
     public ReferencesViewModel getCurrentPrice(String currency,List<String> symbols) {

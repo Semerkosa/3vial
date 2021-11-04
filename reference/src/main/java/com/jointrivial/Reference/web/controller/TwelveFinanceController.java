@@ -23,7 +23,7 @@ public class TwelveFinanceController {
     }
 
 
-    @GetMapping("/twelve/getPrice")
+    @GetMapping("/twelve/prices")
     public ResponseEntity<ReferencesViewModel> getPrice(@RequestHeader String currency, @RequestHeader List<String> currencies){
 
 
