@@ -3,11 +3,11 @@ package com.jointrivial.MockTwelveData.web.model;
 public class TwelveDataStockViewModel {
 
     private String symbol;
-    private Double price;
+    private Double rate;
 
-    public TwelveDataStockViewModel(String symbol, Double price) {
+    public TwelveDataStockViewModel(String symbol, Double rate) {
         this.symbol = symbol;
-        this.price = price;
+        this.rate = rate;
     }
 
     public String getSymbol() {
@@ -18,11 +18,11 @@ public class TwelveDataStockViewModel {
         this.symbol = symbol;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getRate() {
+        return rate;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 }
