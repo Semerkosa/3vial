@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel register(UserServiceModel inUser) {
         User userForSave = this.modelMapper.map(inUser, User.class);
         userForSave.setPassword(this.bCryptPasswordEncoder.encode(inUser.getPassword()));
-        userForSave.setKeysOrganization(new ArrayList<KeyOrganization>());
+        //userForSave.setKeysOrganization(new ArrayList<KeyOrganization>());
         this.setRoleAndPrivilege(userForSave);
         User savedUser = this.saveUserToDb(userForSave);
         return this.modelMapper.map(savedUser, UserServiceModel.class);

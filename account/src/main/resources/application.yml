@@ -1,9 +1,9 @@
 spring:
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
-        password: a4o9ym46nzt6ne0
         url: jdbc:mysql://localhost:3306/3vial_app_account?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
         username: root
+        password: "${TRIVIAL_DB_PASSWORD}"
     jpa:
         #For MySQL 8
         database-platform: org.hibernate.dialect.MySQL8Dialect

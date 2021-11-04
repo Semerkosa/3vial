@@ -2,6 +2,7 @@ package io.trivial.web.controlles;
 
 import io.trivial.models.binding.UserRegisterBindingModel;
 import io.trivial.models.service.UserServiceModel;
+import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -46,15 +47,27 @@ public class UserController {
         return response;
     }
     
+    @GetMapping (
+            value = "/account/provider_api_keys",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserKeyOrganizationViewModel> getUserOrganizationByToken(@RequestHeader("User-Token") String token) {
+        UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
+        ResponseEntity<UserKeyOrganizationViewModel> response =
+        		new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
+        return response;
+    }
+    
     //Fake login
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping (
             value = "/login",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserViewModel> login() {
         UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
         HttpHeaders headers = new HttpHeaders();
-        headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
-        ResponseEntity<UserViewModel> response = 
+        headers.set("User-Token", "9s78dhfs78tfaysd6ftausdygf6asd67");
+        headers.set("Access-Control-Expose-Headers", "User-Token");
+        ResponseEntity<UserViewModel> response =
         		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
     }

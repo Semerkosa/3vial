@@ -1,8 +1,6 @@
 package io.trivial.models.service;
 
-import io.trivial.models.entites.BaseEntity;
-
-public class KeyOrganizationServiceModel extends BaseEntity {
+public class KeyOrganizationServiceModel {
 
     private String organizationName;
     private String organizationKey;

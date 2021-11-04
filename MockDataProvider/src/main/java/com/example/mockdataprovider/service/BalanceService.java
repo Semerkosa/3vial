@@ -1,11 +1,12 @@
 package com.example.mockdataprovider.service;
 
-import com.example.mockdataprovider.models.dtos.BalanceRootDto;
+import com.example.mockdataprovider.models.dtos.BalancesRootDto;
 
 import java.io.IOException;
 
 public interface BalanceService {
 
-    String readJsonFile() throws IOException;
-    BalanceRootDto getAllBalances() throws IOException;
+    String readJsonFile(String filePath) throws IOException;
+
+    BalancesRootDto getBalances(String bankName) throws IOException;
 }

@@ -1,28 +1,31 @@
 package com.example.mockdataprovider.service;
 
-import com.example.mockdataprovider.models.dtos.BalanceRootDto;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.mockdataprovider.models.dtos.*;
+import com.google.gson.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 
 @Service
 public class BalanceServiceImpl implements BalanceService {
 
-    private static final String BALANCES_PATH = "src/main/resources/files/balances.json";
+    private static final String FIBANK_PATH = "src/main/resources/files/Fibank-balances.json";
+    private static final String UNICREDIT_PATH = "src/main/resources/files/UniCredit-balances.json";
 
     @Override
-    public String readJsonFile() throws IOException {
-        return String.join("", Files.readAllLines(Path.of(BALANCES_PATH)));
+    public String readJsonFile(String filePath) throws IOException {
+        return String.join("", Files.readAllLines(Path.of(filePath)));
     }
 
     @Override
-    public BalanceRootDto getAllBalances() throws IOException {
+    public BalancesRootDto getBalances(String bankName) throws IOException {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-        return gson.fromJson(readJsonFile(), BalanceRootDto.class);
+        if ("Fibank".equals(bankName)) {
+            return gson.fromJson(readJsonFile(FIBANK_PATH), BalancesRootDto.class);
+        }
+
+        return gson.fromJson(readJsonFile(UNICREDIT_PATH), BalancesRootDto.class);
     }
 }

@@ -56,13 +56,13 @@ class Header extends React.Component {
   }
 }
 class Section1 extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={counter:-1};
+    this.state = { counter: -1 };
   }
-  componentDidMount(){
-     fetch('http://localhost:8080/count').then(response => response.json())
-     .then(data => this.setState({ counter: data}));
+  componentDidMount() {
+    fetch('http://localhost:8080/count').then(response => response.json())
+      .then(data => this.setState({ counter: data }));
   }
   render() {
     return (
@@ -102,8 +102,23 @@ class EmailForm extends React.Component {
   handleChange(event) { this.setState({ email: event.target.value }); }
   async handleSubmit(e) {
     e.preventDefault();
-    e.target.getElementsByTagName('input')[0].value = '';
-    ReactDOM.render(<Modal email={this.state.email} />, document.getElementById('modal'));
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state.email)
+    };
+    await fetch('http://localhost:8080/sign_up', requestOptions)
+      .then(response => {
+        if (!response.ok) {
+          alert('Status code: '+response.status);
+        } else {
+          e.target.getElementsByTagName('input')[0].value = '';
+          ReactDOM.render(<Modal email={this.state.email} />, document.getElementById('modal'));
+        }
+      })
+      .catch((error) => alert(error));
+
+
   }
   render() {
     return (
@@ -174,9 +189,9 @@ class Footer extends React.Component {
             © 2021 Trivial. All rights reserved
           </p>
           <div className="icons">
-            <a href="https://www.instagram.com/"><img src={instagram} alt='IG' /></a>
-            <a href="https://twitter.com/"><img src={twitter} alt='TW' /></a>
-            <a href="https://www.facebook.com/"><img src={facebook} alt='FB' /></a>
+            <a href={instagramLink}><img src={instagram} alt='IG' /></a>
+            <a href={twitterLink}><img src={twitter} alt='TW' /></a>
+            <a href={facebookLink}><img src={facebook} alt='FB' /></a>
           </div>
         </div>
       </footer>
@@ -216,18 +231,18 @@ class Modal extends React.Component {
     const finalResult = {
       email: this.state.email,
       answers_1: this.state.result[0].map((e, i) => e === true ? i : '').filter(String),
-      answer_2:this.state.result[1],
-      answer_3:this.state.result[2],
-      text_input_1:this.state.textInput[0],
-      text_input_2:this.state.textInput[1]
+      answer_2: this.state.result[1],
+      answer_3: this.state.result[2],
+      text_input_1: this.state.textInput[0],
+      text_input_2: this.state.textInput[1]
     };
     console.log(finalResult);
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(finalResult)
     };
-    const response = await fetch('http://localhost:8080/sign_up', requestOptions);
+    const response = await fetch('http://localhost:8080/survey_result', requestOptions);
     const data = await response.json();
     console.log(data);
   }
@@ -276,7 +291,7 @@ class Modal extends React.Component {
                 <img id='logo' src={endLogo} alt='logo' />
                 <h1>Thanks for supporting us!</h1>
                 <p>Don’t forget to tell your friends and keep your eyes peeled for the launch! 🚀</p>
-                <a href='https://twitter.com/'><img src={twit} alt='twitter icon' />Follow us on Twitter</a>
+                <a href={twitterLink}><img src={twit} alt='twitter icon' />Follow us on Twitter</a>
               </div>
             </div>
           </div>
@@ -386,6 +401,10 @@ let text3 = [
   'Please list the names of the investment platforms you use today?',
   '(some examples for the types of platforms: Traditional banks, Neobanks, Stock brokers, Crypto exchanges and others)'
 ];
+
+let twitterLink = 'https://twitter.com/joinTrivial?ref_src=twsrc%5Etfw';
+let instagramLink = 'https://www.instagram.com/';
+let facebookLink = 'https://www.facebook.com/';
 
 
 

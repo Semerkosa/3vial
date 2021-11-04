@@ -1,6 +1,8 @@
 package com.jointrivial.asset.nordigen.api;
 
+import com.jointrivial.asset.nordigen.config.ApplicationProperties;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.*;
@@ -16,9 +18,12 @@ public class NordigenAccountInfoAPI {
     private static HttpResponse<String> response;
     private static HttpRequest request;
 
+    @Autowired
+    private ApplicationProperties properties;
+
     // country's 2-digit code(bg, de, gb, ro....). There are some exceptions(gb == gbr, both work)
     public String getAllBanksForCountry(String country) throws IOException, InterruptedException {
-        return baseGetHttpRequest(GET_ALL_BANKS_FOR_COUNTRY_URL + country);
+        return baseGetHttpRequest(getBaseUrl() + GET_ALL_BANKS_FOR_COUNTRY_URL + country);
     }
 
     // this step could be skipped
@@ -27,22 +32,22 @@ public class NordigenAccountInfoAPI {
         String bodyUrlEncodedString = String.format(
                 "max_historical_days=%d&enduser_id=%s&aspsp_id=%s", maxHistoricalDays, userId, bankId);
 
-        return basePostHttpRequest(END_USER_AGREEMENT_URL, bodyUrlEncodedString, "application/x-www-form-urlencoded");
+        return basePostHttpRequest(getBaseUrl() + END_USER_AGREEMENT_URL, bodyUrlEncodedString, "application/x-www-form-urlencoded");
     }
 
     // 2 more parameters can be set in the URL:
     // - limit(the number of results to return per page)
     // - offset(the initial index from which to return the results)
     public String getAllEndUserAgreementsForUserByUserId(String id) throws IOException, InterruptedException {
-        return baseGetHttpRequest(ALL_END_USER_AGREEMENTS_BY_USER_ID_URL + id);
+        return baseGetHttpRequest(getBaseUrl() + ALL_END_USER_AGREEMENTS_BY_USER_ID_URL + id);
     }
 
     public String getEndUserAgreementById(String id) throws IOException, InterruptedException {
-        return baseGetHttpRequest(END_USER_AGREEMENT_URL + id + "/");
+        return baseGetHttpRequest(getBaseUrl() + END_USER_AGREEMENT_URL + id + "/");
     }
 
     public void deleteEndUserAgreementById(String id) throws IOException, InterruptedException {
-        baseDeleteHttpRequest(END_USER_AGREEMENT_URL, id);
+        baseDeleteHttpRequest(getBaseUrl() + END_USER_AGREEMENT_URL, id);
     }
 
     // language could be set in the body
@@ -65,48 +70,52 @@ public class NordigenAccountInfoAPI {
             bodyJsonString = sb.toString();
         }
 
-        return basePostHttpRequest(REQUISITION_URL, bodyJsonString + "\n}", "application/json");
+        return basePostHttpRequest(getBaseUrl() + REQUISITION_URL, bodyJsonString + "\n}", "application/json");
     }
 
     public void deleteRequisitionById(String id) throws IOException, InterruptedException {
-        baseDeleteHttpRequest(REQUISITION_URL, id);
+        baseDeleteHttpRequest(getBaseUrl() + REQUISITION_URL, id);
     }
 
     public String getRequisitionById(String id) throws IOException, InterruptedException {
         System.err.println("IN THE \"accounts\" IN THAT RESPONSE ---> ARE THERE ANY ACCOUNT_IDS?");
-        return baseGetHttpRequest(REQUISITION_URL + id + "/");
+        return baseGetHttpRequest(getBaseUrl() + REQUISITION_URL + id + "/");
     }
 
     // 2 more parameters can be set in the URL:
     // - limit(the number of results to return per page)
     // - offset(the initial index from which to return the results)
     public String getAllRequisitions() throws IOException, InterruptedException {
-        return baseGetHttpRequest(REQUISITION_URL);
+        return baseGetHttpRequest(getBaseUrl() + REQUISITION_URL);
     }
 
     public String createBankAuthorizationLinkForRequisition(String requisitionId, String bankId) throws IOException, InterruptedException {
         String bodyUrlEncodedString = String.format(
                 "aspsp_id=%s", bankId);
 
-        String linkUrl = REQUISITION_URL + requisitionId + "/links/";
+        String linkUrl = getBaseUrl() + REQUISITION_URL + requisitionId + "/links/";
 
         return basePostHttpRequest(linkUrl, bodyUrlEncodedString, "application/x-www-form-urlencoded");
     }
 
     public String getAccountMetadata(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(ACCOUNT_URL + accountId + "/");
+        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/");
     }
 
     public String getAccountBalances(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(ACCOUNT_URL + accountId + "/balances/");
+        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/balances/");
     }
 
     public String getAccountDetails(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(ACCOUNT_URL + accountId + "/details/");
+        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/details/");
     }
 
     public String getAccountTransactions(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(ACCOUNT_URL + accountId + "/transactions/");
+        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/transactions/");
+    }
+
+    private String getBaseUrl() {
+        return this.properties.getBaseUrl();
     }
 
     private String basePostHttpRequest(String url, String bodyString, String bodyFormat) throws IOException, InterruptedException {

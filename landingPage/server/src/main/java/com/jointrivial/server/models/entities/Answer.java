@@ -6,15 +6,15 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "question_1_answers")
 public class Answer extends BaseEntity{
-    private transient Data data;
+    private transient Survey survey;
     private String value;
 
     public Answer() {
     }
 
-    public Answer(String value, Data data) {
+    public Answer(String value, Survey survey) {
         this.value=value;
-        this.data = data;
+        this.survey=survey;
     }
     @NotEmpty
     @Column(columnDefinition = "varchar(1)")
@@ -26,12 +26,12 @@ public class Answer extends BaseEntity{
         this.value = value;
     }
     @ManyToOne
-    @JoinColumn(name = "data_id", referencedColumnName = "id")
-    public Data getData() {
-        return data;
+    @JoinColumn(name = "survey_id", referencedColumnName = "data_id")
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 }

@@ -1,11 +1,15 @@
 package com.jointrivial.Reference.service;
 
+import com.jointrivial.Reference.web.model.ReferencesViewModel;
 import com.jointrivial.Reference.web.model.TwelveDataStockViewModel;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface TwelveFinanceService {
 
 
-   TwelveDataStockViewModel getCurrentPrice(String symbol);
+   ReferencesViewModel getCurrentPrice(String symbol, List<String> currencies);
+
+
 }

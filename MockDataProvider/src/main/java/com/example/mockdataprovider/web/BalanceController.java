@@ -1,6 +1,6 @@
 package com.example.mockdataprovider.web;
 
-import com.example.mockdataprovider.models.dtos.BalanceRootDto;
+import com.example.mockdataprovider.models.dtos.BalancesRootDto;
 import com.example.mockdataprovider.service.BalanceService;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -17,10 +17,17 @@ public class BalanceController {
         this.balanceService = balanceService;
     }
 
-    @GetMapping(value = "/api/accounts/123/balances/",
+    @GetMapping(value = "/api/accounts/{id}/balances/",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BalanceRootDto> getAllBalances() throws IOException {
-        BalanceRootDto balances = this.balanceService.getAllBalances();
+
+    public ResponseEntity<BalancesRootDto> getAllBalances(@PathVariable String id) throws IOException {
+        BalancesRootDto balances = null;
+
+        if ("123".equals(id)) {
+            balances = this.balanceService.getBalances("Fibank");
+        } else if ("456".equals(id)){
+            balances = this.balanceService.getBalances("UniCredit Bulbank");
+        }
 
         return new ResponseEntity<>(balances, HttpStatus.OK);
     }

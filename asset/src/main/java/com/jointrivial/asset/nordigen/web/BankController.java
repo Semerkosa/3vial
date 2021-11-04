@@ -1,6 +1,5 @@
 package com.jointrivial.asset.nordigen.web;
 
-import com.google.gson.Gson;
 import com.jointrivial.asset.nordigen.models.views.BankViewModel;
 import com.jointrivial.asset.nordigen.service.BankService;
 import org.springframework.http.*;
@@ -12,12 +11,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/nordigen")
+@RequestMapping("/asset")
 public class BankController {
 
     private final BankService bankService;
 
-    public BankController(BankService bankService, Gson gson) {
+    public BankController(BankService bankService) {
         this.bankService = bankService;
     }
 
