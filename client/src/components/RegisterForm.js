@@ -27,17 +27,17 @@ const RegisterForm = (props) => {
         <form onSubmit={submitHandler}>
             <h2>Register</h2>
             <div>
-                <label htmlFor="">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input type="email" name="email" id="email"
                     onChange={emailChangeHandler} value={email} />
             </div>
             <div>
-                <label htmlFor="">Password:</label>
+                <label htmlFor="password">Password:</label>
                 <input type="password" name="password" id="password"
                     onChange={passwordChangeHandler} value={password} />
             </div>
             <div>
-                <label htmlFor="">Confirm Password:</label>
+                <label htmlFor="passwordConfirm">Confirm Password:</label>
                 <input type="password" name="passwordConfirm" id="passwordConfirm"
                     onChange={passwordConfirmChangeHandler} value={passwordConfirm} />
             </div>
