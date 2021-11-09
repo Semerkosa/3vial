@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DataService {
 
-    boolean createData(DataBindingModel dataBindingModel);
+    void createData(DataBindingModel dataBindingModel);
 
-    String getAllData();
+    String getAllData(int page);
 
     long count();
 
@@ -23,6 +23,6 @@ public interface DataService {
 
     List<String> getQuestion3Statistics();
 
-    boolean addSurvey(SurveyBindingModel surveyBindingModel);
+    void addSurvey(SurveyBindingModel surveyBindingModel);
 
 }

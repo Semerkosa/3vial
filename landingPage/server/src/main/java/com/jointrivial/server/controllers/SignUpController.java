@@ -22,11 +22,11 @@ public class SignUpController {
     @PostMapping(value = "/survey_result", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> getSurveyResult(@RequestBody SurveyBindingModel surveyBindingModel) {
-        boolean created = dataService.addSurvey(surveyBindingModel);
-        if (created) {
+        try {
+            dataService.addSurvey(surveyBindingModel);
             return new ResponseEntity<>("Success!", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("Error!", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -34,17 +34,17 @@ public class SignUpController {
     @PostMapping(value = "/sign_up", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> signUp(@RequestBody DataBindingModel dataBindingModel) {
-        boolean created = dataService.createData(dataBindingModel);
-        if (created) {
+        try {
+            dataService.createData(dataBindingModel);
             return new ResponseEntity<>("Success!", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("Error!", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping(value = "/get_all")
-    public String getAllData() {
-        return this.dataService.getAllData();
+    @GetMapping(value = "/get_all/{page}")
+    public String getAllData(@PathVariable int page) {
+        return this.dataService.getAllData(page);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -52,6 +52,4 @@ public class SignUpController {
     public long getCount() {
         return this.dataService.count();
     }
-
-
 }

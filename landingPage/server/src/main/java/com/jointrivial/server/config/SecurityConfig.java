@@ -13,11 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
-    @Value("${username}")
+    @Value("${trivial.username}")
     private String username;
-    @Value("${password}")
+    @Value("${trivial.password}")
     private String password;
-    @Value("${ip}")
+    @Value("${trivial.ip}")
     private String allowedIPAddress;
 
     @Autowired
@@ -38,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/get_all").fullyAuthenticated()
                 .antMatchers("/count").hasIpAddress(allowedIPAddress)
                 .antMatchers("/sign_up").hasIpAddress(allowedIPAddress)
-               .antMatchers("/login").permitAll()
-              .anyRequest().authenticated().and()
+                .antMatchers("/survey_result").hasIpAddress(allowedIPAddress)
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated().and()
                 .formLogin()
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/home", true)

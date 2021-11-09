@@ -12,6 +12,7 @@ import com.jointrivial.server.repositories.TextInputRepository;
 import com.jointrivial.server.utils.CustomLocalDateTimeSerializer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,49 +43,42 @@ public class DataServiceImpl implements DataService {
 
 
     @Override
-    public boolean createData(DataBindingModel dataBindingModel) {
-        try {
-            Data data = modelMapper.map(dataBindingModel, Data.class);
-            dataRepository.saveAndFlush(data);
-            return true;
-        } catch (Exception e) {
-            return false;
+    public void createData(DataBindingModel dataBindingModel) {
+        if (dataRepository.getDataByEmail(dataBindingModel.getEmail()) != null) {
+            throw new IllegalArgumentException("User already exists!");
         }
+        Data data = modelMapper.map(dataBindingModel, Data.class);
+        dataRepository.saveAndFlush(data);
     }
 
     @Override
     @Transactional
-    public boolean addSurvey(SurveyBindingModel surveyBindingModel) {
-        try {
-            Survey survey = new Survey();
-            Data data = dataRepository.getDataByEmail(surveyBindingModel.getEmail());
-            survey.setData(data);
-            survey.setAnswer2(surveyBindingModel.getAnswer2());
-            survey.setAnswer3(surveyBindingModel.getAnswer3());
-            survey.setAnswers1(surveyBindingModel.getAnswers1()
-                    .stream().map(e -> new Answer(e, survey)).collect(Collectors.toSet()));
-            surveyRepository.saveAndFlush(survey);
-            if (!surveyBindingModel.getTextInput1().equals("")) {
-                TextInputFirstQuestion textInput1 = new TextInputFirstQuestion(surveyBindingModel.getTextInput1(), survey);
-                textInputRepository.saveAndFlush(textInput1);
-            }
-            if (!surveyBindingModel.getTextInput2().equals("")) {
-                TextInputSecondQuestion textInput2 = new TextInputSecondQuestion(surveyBindingModel.getTextInput2(), survey);
-                textInputRepository.saveAndFlush(textInput2);
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
+    public void addSurvey(SurveyBindingModel surveyBindingModel) {
+        Survey survey = new Survey();
+        Data data = dataRepository.getDataByEmail(surveyBindingModel.getEmail());
+        survey.setData(data);
+        survey.setAnswer2(surveyBindingModel.getAnswer2());
+        survey.setAnswer3(surveyBindingModel.getAnswer3());
+        survey.setAnswers1(surveyBindingModel.getAnswers1()
+                .stream().map(e -> new Answer(e, survey)).collect(Collectors.toSet()));
+        surveyRepository.saveAndFlush(survey);
+        if (!surveyBindingModel.getTextInput1().equals("")) {
+            TextInputFirstQuestion textInput1 = new TextInputFirstQuestion(surveyBindingModel.getTextInput1(), survey);
+            textInputRepository.saveAndFlush(textInput1);
+        }
+        if (!surveyBindingModel.getTextInput2().equals("")) {
+            TextInputSecondQuestion textInput2 = new TextInputSecondQuestion(surveyBindingModel.getTextInput2(), survey);
+            textInputRepository.saveAndFlush(textInput2);
         }
     }
 
     @Override
-    public String getAllData() {
+    public String getAllData(int page) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new CustomLocalDateTimeSerializer())
                 .setPrettyPrinting()
                 .create();
-        return gson.toJson(dataRepository.findAll());
+        return gson.toJson(dataRepository.findAll(PageRequest.of(page, 5)));
     }
 
     @Override
