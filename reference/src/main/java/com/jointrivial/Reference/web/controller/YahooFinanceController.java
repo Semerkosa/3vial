@@ -26,7 +26,7 @@ public class YahooFinanceController {
     }
 
 
-    @GetMapping("/getPrice")
+    @GetMapping("/price")
     public ResponseEntity<YahooFinanceViewModel> getPriceOfStock(@RequestParam String symbol){
 
         //TODO
