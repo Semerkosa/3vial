@@ -1,4 +1,4 @@
 rootProject.name = '3vial'
-include 'client', 'account', 'asset', 'portfolio', 'reference'
+include 'client', 'account', 'asset', 'portfolio', 'reference', 'source-manager'
 include 'MockDataProvider', 'MockTwelveData:demo'
 
