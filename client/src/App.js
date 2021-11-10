@@ -1,145 +1,40 @@
 import React from 'react';
-import Header from './components/Header'
-import Button from './components/Button'
-import LoginForm from './components/LoginForm'
 import { useState } from 'react';
-import Providers from './components/Providers/Providers';
-import CurrencyDropDown from './components/CurrencyDropDown';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { ApplicationRoutes } from './ApplicationVariables';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Balances from './pages/Balances';
+import Profile from './pages/Profile';
 
-
-const LOGIN_URL = 'http://localhost:8084/user/login';
-const BALANCES_URL = 'http://localhost:8083/portfolio/balances';
-
-const DUMMY_BALANCES = {
-  userBalances: [
-    {
-      organizationName: 'Fibank',
-      balances: [
-        {
-          balanceAmount: {
-            amount: 2420.36,
-            currency: 'GBP',
-            amountInWantedCurrency: 2000.40
-          }
-        },
-        {
-          balanceAmount: {
-            amount: 2420.36,
-            currency: 'GBP',
-            amountInWantedCurrency: 2000.20
-          }
-        }
-      ]
-    },
-    {
-      organizationName: 'UniCredit Bulbank',
-      balances: [
-        {
-          balanceAmount: {
-            amount: 620.00,
-            currency: 'EUR',
-            amountInWantedCurrency: 2230.02
-          }
-        }
-      ]
-    }
-  ]
-}
-
+export const UserContext = React.createContext();
 function App() {
-
   const [token, setToken] = useState('');
-  const [balancesData, setBalancesData] = useState([]);
-  const [sampleData, setSampleData] = useState(DUMMY_BALANCES);
-  const [currency, setCurrency] = useState('');
-  const [userLoginData, setUserLoginData] = useState({email: '', password: ''});
-
-
-  const loginHandler = (userEmail, userPassword) => {
-
-
-    const loginRequestHandler = async (loginData) => {
-
-
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData)
-      };
-  
-      const response = await fetch(LOGIN_URL, requestOptions);
-      var tokenString = response.headers.get('User-Token');
-      setToken(tokenString);
-    }
-
-    const loginData = {email: userEmail, password: userPassword};
-
-    setUserLoginData(loginData);
-
-    loginRequestHandler(loginData);
-    
-  }
-
-  const balancesHandler = async () => {
-
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'User-Token': token }
-    };
-
-    let urlBalancesCurrencyRequest = BALANCES_URL + "?currency=" + currency;
-
-    const response = await fetch(urlBalancesCurrencyRequest, requestOptions);
-    const data = await response.json();
-
-
-    const transformedBalances = {
-      userBalances: data.userBalances.map((balanceData) => {
-
-        return {
-          organizationName: balanceData.organizationName,
-          balances: balanceData.balances.map((balance) => {
-            return {
-              balanceAmount: {
-                amount: balance.balanceAmount.amount,
-                currency: balance.balanceAmount.currency,
-                amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
-              }
-            }
-          })
-        };
-      }), wantedCurrency: currency
-    };
-
-    setBalancesData(transformedBalances);
-
-  }
-
-  const selectCurrencyHandler = selectedCurrency => {
-    setCurrency(selectedCurrency);
-  }
-
   return (
-    <div className="App">
-      {(token === '') ? (
-        <div>
-          <Header />
-          <LoginForm onLogin={loginHandler} />
-        </div>
-      ) : (
-        <div>
-          <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
-          <Button type="button" onClick={balancesHandler}>Get Balances</Button>
-          {/* ToDo: Change sampleData to balancesData when portfolio provides the structure */}
-          {balancesData.length !== 0 && <Providers items={balancesData.userBalances}
-            wantedCurrency={balancesData.wantedCurrency} />}
-        </div>
-      )}
-    </div>
-
+    <UserContext.Provider value={{ token, setToken }}>
+      <h1>Trivial</h1>
+      <Router>
+        <nav>
+        {token === '' ?
+          <>
+            <NavLink to={ApplicationRoutes.Register_Route}>Register</NavLink>
+            <NavLink to={ApplicationRoutes.Login_Route}>Login</NavLink></> :
+          <>
+            <NavLink to={ApplicationRoutes.Balances_Route}>Balances</NavLink>
+            <NavLink to={ApplicationRoutes.Profile_Route}>Profile</NavLink>
+          </>
+        }
+        </nav>
+        <hr/>
+        <Routes>
+          <Route exact path={ApplicationRoutes.Login_Route} element={<Login />} />
+          <Route exact path={ApplicationRoutes.Register_Route} element={<Register />} />
+          <Route exact path={ApplicationRoutes.Balances_Route} element={<Balances />} />
+          <Route exact path={ApplicationRoutes.Profile_Route} element={<Profile />} />
+        </Routes>
+      </Router>
+    </UserContext.Provider >
   );
 }
-
-
 
 export default App;
