@@ -58,17 +58,17 @@ public class UserController {
     }
     
     //Fake login
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping (
-            value = "/login",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserViewModel> login() {
-        UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("User-Token", "9s78dhfs78tfaysd6ftausdygf6asd67");
-        headers.set("Access-Control-Expose-Headers", "User-Token");
-        ResponseEntity<UserViewModel> response =
-        		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
-        return response;
-    }
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @PostMapping (
+//            value = "/login",
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<UserViewModel> login() {
+//        UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("User-Token", "9s78dhfs78tfaysd6ftausdygf6asd67");
+//        headers.set("Access-Control-Expose-Headers", "User-Token");
+//        ResponseEntity<UserViewModel> response =
+//        		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
+//        return response;
+//    }
 }

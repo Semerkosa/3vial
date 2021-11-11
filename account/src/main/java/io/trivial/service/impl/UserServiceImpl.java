@@ -13,6 +13,8 @@ import io.trivial.repositories.UserRepository;
 import io.trivial.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -87,4 +89,11 @@ public class UserServiceImpl implements UserService {
                 .filter(pr -> pr.getName().equals("FREE_USER")).findFirst()
                 .orElse(null);
     }
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = this.userRepository.findUserByEmail(email).orElse(null);
+		//Exception...
+		return user;
+	}
 }

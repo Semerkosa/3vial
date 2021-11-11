@@ -1,11 +1,18 @@
 package io.trivial.models.entites;
 
 import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     private String email;
     private String password;
@@ -76,6 +83,44 @@ public class User extends BaseEntity {
 
 	public void setPrivilege(String privilege) {
 		this.privilege = privilege;
+	}
+
+	@Transient
+	@Override
+	public List<GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(this.getRole()));
+		return authorities;
+	}
+
+	@Transient
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Transient
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Transient
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Transient
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Transient
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 	
 }
