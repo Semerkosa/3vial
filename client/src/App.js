@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationVariables';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,27 +10,34 @@ import Profile from './pages/Profile';
 export const UserContext = React.createContext();
 function App() {
   const [token, setToken] = useState('');
+  let isLoggedIn = () => token !== '';
   return (
     <UserContext.Provider value={{ token, setToken }}>
       <h1>Trivial</h1>
       <Router>
         <nav>
-        {token === '' ?
-          <>
-            <NavLink to={ApplicationRoutes.Register_Route}>Register</NavLink>
-            <NavLink to={ApplicationRoutes.Login_Route}>Login</NavLink></> :
-          <>
-            <NavLink to={ApplicationRoutes.Balances_Route}>Balances</NavLink>
-            <NavLink to={ApplicationRoutes.Profile_Route}>Profile</NavLink>
-          </>
-        }
+          {isLoggedIn() ?
+            <>
+              <NavLink to={ApplicationRoutes.Balances_Route}>Balances</NavLink>
+              <NavLink to={ApplicationRoutes.Profile_Route}>Profile</NavLink>
+            </>
+            :
+            <>
+              <NavLink to={ApplicationRoutes.Register_Route}>Register</NavLink>
+              <NavLink to={ApplicationRoutes.Login_Route}>Login</NavLink>
+            </>
+          }
         </nav>
-        <hr/>
+        <hr />
         <Routes>
-          <Route exact path={ApplicationRoutes.Login_Route} element={<Login />} />
-          <Route exact path={ApplicationRoutes.Register_Route} element={<Register />} />
-          <Route exact path={ApplicationRoutes.Balances_Route} element={<Balances />} />
-          <Route exact path={ApplicationRoutes.Profile_Route} element={<Profile />} />
+          <Route path={ApplicationRoutes.Login_Route} element={!isLoggedIn() ? <Login />
+            : <Navigate to={ApplicationRoutes.Balances_Route} replace={true} />} />
+          <Route path={ApplicationRoutes.Register_Route} element={!isLoggedIn() ? <Register />
+            : <Navigate to={ApplicationRoutes.Balances_Route} replace={true} />} />
+          <Route path={ApplicationRoutes.Balances_Route} element={isLoggedIn() ? <Balances />
+            : <Navigate to={ApplicationRoutes.Login_Route} replace={true} />} />
+          <Route path={ApplicationRoutes.Profile_Route} element={isLoggedIn() ? <Profile />
+            : <Navigate to={ApplicationRoutes.Login_Route} replace={true} />} />
         </Routes>
       </Router>
     </UserContext.Provider >

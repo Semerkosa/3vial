@@ -9,3 +9,4 @@ export const ApplicationRoutes = {
 export const BALANCES_URL = 'http://localhost:8083/portfolio/balances';
 export const LOGIN_URL = 'http://localhost:8084/user/login';
 export const REGISTER_URL = 'http://localhost:8084/user/register';
+export const PROVIDER_API_KEYS='http://localhost:8084/user/account/provider_api_keys';
