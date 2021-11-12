@@ -101,22 +101,6 @@ public class NordigenAccountInfoAPI {
         return basePostHttpRequest(linkUrl, bodyUrlEncodedString, "application/x-www-form-urlencoded");
     }
 
-    public String getAccountMetadata(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/");
-    }
-
-    public String getAccountBalances(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/balances/");
-    }
-
-    public String getAccountDetails(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/details/");
-    }
-
-    public String getAccountTransactions(String accountId) throws IOException, InterruptedException {
-        return baseGetHttpRequest(getBaseUrl() + ACCOUNT_URL + accountId + "/transactions/");
-    }
-
     private String getBaseUrl() {
         return this.properties.getBaseUrl();
     }
