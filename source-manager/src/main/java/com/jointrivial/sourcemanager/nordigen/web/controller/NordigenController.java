@@ -15,7 +15,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/banks")
 public class NordigenController {
 
     private final BankService bankService;
@@ -24,7 +23,7 @@ public class NordigenController {
         this.bankService = bankService;
     }
 
-    @GetMapping(value = "/{countryCode}",
+    @GetMapping(value = "/banks/{countryCode}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BankViewModel>> getAvailableBanks(@PathVariable(name = "countryCode") String country) throws InterruptedException, IOException, URISyntaxException {
         List<BankViewModel> bankViewModels = this.bankService.getAllBankIDsAndNamesForCountry(country);
