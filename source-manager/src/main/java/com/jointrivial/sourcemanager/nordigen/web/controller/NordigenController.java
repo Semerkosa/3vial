@@ -16,11 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/banks")
-public class BankController {
+public class NordigenController {
 
     private final BankService bankService;
 
-    public BankController(BankService bankService) {
+    public NordigenController(BankService bankService) {
         this.bankService = bankService;
     }
 
