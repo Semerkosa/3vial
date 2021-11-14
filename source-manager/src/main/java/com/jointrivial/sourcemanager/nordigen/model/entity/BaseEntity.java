@@ -1,4 +1,4 @@
-package com.jointrivial.sourcemanager.model.entity;
+package com.jointrivial.sourcemanager.nordigen.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
