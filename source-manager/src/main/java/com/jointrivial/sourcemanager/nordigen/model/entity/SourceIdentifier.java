@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "source_manager")
+@Table(name = "source_identifiers")
 public class SourceIdentifier {
 
     private String referenceId;
