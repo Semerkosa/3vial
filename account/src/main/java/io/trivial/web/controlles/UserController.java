@@ -46,7 +46,8 @@ public class UserController {
         		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
     }
-    
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping (
             value = "/account/provider_api_keys",
             produces = MediaType.APPLICATION_JSON_VALUE)

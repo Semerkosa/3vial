@@ -11,3 +11,4 @@ export const LOGIN_URL = 'http://localhost:8084/user/login';
 export const REGISTER_URL = 'http://localhost:8084/user/register';
 export const NORDIGEN_COUNTRIES_URL = 'http://localhost:8087/source_manager/nordigen_countries';
 export const BANKS_URL = 'http://localhost:8087/source_manager/banks';
+export const PROVIDER_API_KEYS='http://localhost:8084/user/account/provider_api_keys';
