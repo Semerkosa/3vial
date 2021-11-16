@@ -35,7 +35,7 @@ const CountriesDropDown = (props) => {
             const data = JSON.parse(dataInText);
             console.log(data);
 
-            const transformedCountries = data.countries.map(country => {
+            const transformedCountries = data.map(country => {
                 return {
                     label: country.countryName,
                     value: country.countryCode
