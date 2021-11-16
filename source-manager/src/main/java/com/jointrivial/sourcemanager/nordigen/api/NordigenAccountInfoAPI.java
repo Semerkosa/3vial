@@ -1,28 +1,14 @@
 package com.jointrivial.sourcemanager.nordigen.api;
 
-import com.jointrivial.sourcemanager.nordigen.config.ApplicationProperties;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 import static com.jointrivial.sourcemanager.nordigen.constants.ApiURLs.*;
 
-public class NordigenAccountInfoAPI {
-
-    // The Nordigen responses are always in JSON format
-    private static final HttpClient client = HttpClient.newHttpClient();
-    private static HttpResponse<String> response;
-    private static HttpRequest request;
-
-    @Autowired
-    private ApplicationProperties properties;
+public class NordigenAccountInfoAPI extends BaseNordigen {
 
     // country's 2-digit code(bg, de, gb, ro....). There are some exceptions(gb == gbr, both work)
     public String getAllBanksForCountry(String country) throws IOException, InterruptedException {
@@ -99,61 +85,5 @@ public class NordigenAccountInfoAPI {
         String linkUrl = getBaseUrl() + REQUISITION_URL + requisitionId + "/links/";
 
         return basePostHttpRequest(linkUrl, bodyUrlEncodedString, "application/x-www-form-urlencoded");
-    }
-
-    private String getBaseUrl() {
-        return this.properties.getBaseUrl();
-    }
-
-    private String token() {
-        return "Bearer " + this.properties.getAccessToken();
-    }
-
-    private String basePostHttpRequest(String url, String bodyString, String bodyFormat) throws IOException, InterruptedException {
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .headers("Authorization", token(),
-                        "Content-Type", bodyFormat)
-                .POST(HttpRequest.BodyPublishers.ofString(bodyString))
-                .build();
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        if (response.statusCode() == 201 || response.statusCode() == 200) {
-            return response.body();
-        }
-
-        // TODO exc handler
-        return null;
-    }
-
-    private void baseDeleteHttpRequest(String url, String id) throws IOException, InterruptedException {
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(url + id + "/"))
-                .header("Authorization", token())
-                .DELETE()
-                .build();
-
-        client.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    private String baseGetHttpRequest(String url) throws IOException, InterruptedException {
-
-        // HTTP/2 protocol, by default. Another version could be defined.
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Authorization", token())
-                .GET()
-                .build();
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
-            return response.body();
-        }
-
-        // TODO handle exception properly
-        return null;
     }
 }

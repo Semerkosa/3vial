@@ -1,31 +1,25 @@
 package com.jointrivial.sourcemanager.nordigen.model.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    private String id;
+    private int id;
 
     public BaseEntity() {
     }
 
     @Id
-    @GeneratedValue(generator = "uuid-string")
-    @GenericGenerator(
-            name = "uuid-string",
-            strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", nullable = false, unique = true)
-    public String getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

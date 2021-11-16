@@ -23,11 +23,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<CountryViewModel> getAllAvailableCountries() {
 
-        List<CountryViewModel> countries = countryRepository.findAll()
-                .stream().map(nordigenSupportedCountries -> {
-                    return modelMapper.map(nordigenSupportedCountries, CountryViewModel.class);
-                }).collect(Collectors.toList());
-
-        return countries;
+        return countryRepository.findAll()
+                .stream().map(country ->
+                        modelMapper.map(country, CountryViewModel.class)
+                ).collect(Collectors.toList());
     }
 }
