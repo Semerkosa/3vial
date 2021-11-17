@@ -1,20 +1,20 @@
-package com.jointrivial.asset.nordigen.service.impl;
+package com.jointrivial.sourcemanager.nordigen.service.impl;
 
 import com.google.gson.Gson;
-import com.jointrivial.asset.nordigen.api.NordigenAccountInfoAPI;
-import com.jointrivial.asset.nordigen.models.services.BankServiceModel;
-import com.jointrivial.asset.nordigen.models.views.BankViewModel;
-import com.jointrivial.asset.nordigen.service.BankService;
+import com.jointrivial.sourcemanager.nordigen.api.NordigenAccountInfoAPI;
+import com.jointrivial.sourcemanager.nordigen.model.service.BankServiceModel;
+import com.jointrivial.sourcemanager.nordigen.model.view.BankViewModel;
+import com.jointrivial.sourcemanager.nordigen.service.BankService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class BankServiceImpl implements BankService {
-
     private final Gson gson;
     private final NordigenAccountInfoAPI nordigenAccountInfoAPI;
 
@@ -23,6 +23,7 @@ public class BankServiceImpl implements BankService {
         this.nordigenAccountInfoAPI = nordigenAccountInfoAPI;
     }
 
+    @Override
     public List<BankViewModel> getAllBankIDsAndNamesForCountry(String country) throws IOException, URISyntaxException, InterruptedException{
         String banksJson = nordigenAccountInfoAPI.getAllBanksForCountry(country);
 

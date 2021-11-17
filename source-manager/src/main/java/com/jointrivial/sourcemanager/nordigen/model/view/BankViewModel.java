@@ -1,6 +1,6 @@
-package com.jointrivial.asset.nordigen.models.views;
+package com.jointrivial.sourcemanager.nordigen.model.view;
 
-public class BankViewModel extends BaseViewModel{
+public class BankViewModel extends BaseViewModel {
 
     private String name;
 

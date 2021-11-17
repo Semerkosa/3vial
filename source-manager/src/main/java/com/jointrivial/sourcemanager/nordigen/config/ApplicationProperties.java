@@ -1,10 +1,10 @@
-package com.jointrivial.asset.nordigen.config;
+package com.jointrivial.sourcemanager.nordigen.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "arguments")
+@ConfigurationProperties(prefix = "arguments.source-manager")
 public class ApplicationProperties {
 
     private String baseUrl;
@@ -27,4 +27,6 @@ public class ApplicationProperties {
         this.accessToken = accessToken;
         return this;
     }
+
+
 }

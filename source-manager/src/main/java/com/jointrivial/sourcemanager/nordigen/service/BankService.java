@@ -1,6 +1,6 @@
-package com.jointrivial.asset.nordigen.service;
+package com.jointrivial.sourcemanager.nordigen.service;
 
-import com.jointrivial.asset.nordigen.models.views.BankViewModel;
+import com.jointrivial.sourcemanager.nordigen.model.view.BankViewModel;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

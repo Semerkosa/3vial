@@ -1,4 +1,4 @@
-package com.jointrivial.asset.nordigen.models.services;
+package com.jointrivial.sourcemanager.nordigen.model.service;
 
 import com.google.gson.annotations.Expose;
 

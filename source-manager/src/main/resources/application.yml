@@ -12,6 +12,16 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+        defer-datasource-initialization: true
+    sql:
+        init:
+            mode: always
 
 server:
     port: 8087
+    servlet:
+        contextPath: /source_manager
+
+arguments.source-manager:
+    baseUrl: https://ob.nordigen.com/
+    accessToken: "${TRIVIAL_NORDIGEN_ACCESS_TOKEN}"
