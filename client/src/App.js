@@ -9,7 +9,7 @@ import Profile from './pages/Profile';
 
 export const UserContext = React.createContext();
 function App() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState('abc');
   let isLoggedIn = () => token !== '';
   return (
     <UserContext.Provider value={{ token, setToken }}>
