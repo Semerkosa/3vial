@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.jointrivial.sourcemanager.nordigen.constants.ApiURLs.*;
 
-public class NordigenAccountInfoAPI extends BaseNordigen {
+public class NordigenSourceLinkAPI extends BaseNordigen {
 
     // country's 2-digit code(bg, de, gb, ro....). There are some exceptions(gb == gbr, both work)
     public String getAllBanksForCountry(String country) throws IOException, InterruptedException {
@@ -40,26 +40,14 @@ public class NordigenAccountInfoAPI extends BaseNordigen {
     }
 
     // language could be set in the body
-    public String createRequisition(String userId, String referenceId, String redirectUrl, @NotNull List<String> EuaIDs) throws IOException, InterruptedException {
-        String bodyJsonString = String.format("{\n" +
-                        "\"enduser_id\": \"%s\",\n" +
-                        "\"reference\": \"%s\",\n" +
-                        "\"redirect\": \"%s\"",
-                userId, referenceId, redirectUrl);
+    public String createRequisition(String bankId, String referenceId, String redirectUrl) throws IOException, InterruptedException {
+        String bodyJsonString = String.format("{%n" +
+                        "\"institution_id\": \"%s\",%n" +
+                        "\"reference\": \"%s\",%n" +
+                        "\"redirect\": \"%s\"%n}",
+                bankId, referenceId, redirectUrl);
 
-        if (!EuaIDs.isEmpty()) {
-            StringBuilder sb = new StringBuilder(bodyJsonString);
-
-            sb.append(",\n\"agreements\": [\n");
-
-            EuaIDs.forEach(id -> sb.append(String.format("\"%s\", ", id)));
-
-            sb.replace(sb.length() - 2, sb.length(), "\n]");
-
-            bodyJsonString = sb.toString();
-        }
-
-        return basePostHttpRequest(getBaseUrl() + REQUISITION_URL, bodyJsonString + "\n}", "application/json");
+        return basePostHttpRequest(getBaseUrl() + REQUISITION_URL, bodyJsonString, "application/json");
     }
 
     public void deleteRequisitionById(String id) throws IOException, InterruptedException {
