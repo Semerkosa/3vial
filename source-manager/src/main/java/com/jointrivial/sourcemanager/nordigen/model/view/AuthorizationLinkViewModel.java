@@ -7,6 +7,10 @@ public class AuthorizationLinkViewModel {
     public AuthorizationLinkViewModel() {
     }
 
+    public AuthorizationLinkViewModel(String authorizationLink) {
+        this.link = authorizationLink;
+    }
+
     public String getLink() {
         return link;
     }

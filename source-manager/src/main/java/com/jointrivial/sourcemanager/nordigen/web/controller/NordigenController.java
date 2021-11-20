@@ -59,12 +59,12 @@ public class NordigenController {
     public ResponseEntity<AuthorizationLinkViewModel> getAuthorizationLink(
             @RequestHeader("User-Token") String userToken,
             @RequestHeader("Bank-Id") String bankId,
-            @RequestHeader("Redirect-Link-Prefix") String redirectLinkPrefix) {
+            @RequestHeader("Redirect-Link-Prefix") String redirectLinkPrefix) throws IOException, InterruptedException {
 
         // TODO check if userToken is valid with a request to account microservice
 
         AuthorizationLinkViewModel authorizationLinkViewModel =
-                this.sourceIdentifierService.getAuthorizationLink(bankId, redirectLinkPrefix);
+                this.sourceIdentifierService.getAuthorizationLink(userToken, bankId, redirectLinkPrefix);
 
         // TODO add exc handler
 

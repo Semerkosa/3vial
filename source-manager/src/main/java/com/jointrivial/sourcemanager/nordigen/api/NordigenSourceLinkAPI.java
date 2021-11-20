@@ -1,10 +1,7 @@
 package com.jointrivial.sourcemanager.nordigen.api;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import static com.jointrivial.sourcemanager.nordigen.constants.ApiURLs.*;
 
@@ -41,10 +38,10 @@ public class NordigenSourceLinkAPI extends BaseNordigen {
 
     // language could be set in the body
     public String createRequisition(String bankId, String referenceId, String redirectUrl) throws IOException, InterruptedException {
-        String bodyJsonString = String.format("{%n" +
-                        "\"institution_id\": \"%s\",%n" +
-                        "\"reference\": \"%s\",%n" +
-                        "\"redirect\": \"%s\"%n}",
+        String bodyJsonString = String.format("{\n" +
+                        "\"institution_id\": \"%s\",\n" +
+                        "\"reference\": \"%s\",\n" +
+                        "\"redirect\": \"%s\"\n}",
                 bankId, referenceId, redirectUrl);
 
         return basePostHttpRequest(getBaseUrl() + REQUISITION_URL, bodyJsonString, "application/json");
