@@ -1,78 +1,61 @@
 package io.trivial.filters;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.trivial.constants.SecurityConstant;
+import io.trivial.service.JwtToken;
 
+@Component
 public class CustomAuhtorizationFilter extends OncePerRequestFilter {
+	
+	private final JwtToken jwtToken;
+
+	@Autowired
+    public CustomAuhtorizationFilter(JwtToken jwtToken) {
+        this.jwtToken = jwtToken;
+    }
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		if (request.getServletPath().equals("/login") || request.getServletPath().equals("/user/token/refresh/**")) {
-			filterChain.doFilter(request, response);
-		} else {
-			String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-				try {
-					String token = authorizationHeader.substring("Bearer ".length());
-					Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-					JWTVerifier verifier = JWT.require(algorithm).build();
-					DecodedJWT decodedJWT = verifier.verify(token);
-					String email = decodedJWT.getSubject();
-					String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
-					List<SimpleGrantedAuthority> authorities = Arrays.stream(roles)
-							.map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
-					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-							email, null, authorities);
-					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-					filterChain.doFilter(request, response);
-				} catch (Exception e) {
-					response.setHeader("error", e.getMessage());
-					response.setStatus(HttpStatus.FORBIDDEN.value());
-//					response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.name());
-					Map<String, String> error = new HashMap<>();
-					error.put("error-message", e.getMessage());
-					response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-					new ObjectMapper().writeValue(response.getOutputStream(), error);
-					filterChain.doFilter(request, response);
-				}
-			}
-//			else {
-//				System.out.println("The token is missing or is not correct!");
-//				response.setHeader("error", "The token is missing or is not correct!");
-//				response.setStatus(HttpStatus.FORBIDDEN.value());
-//				Map<String, String> error = new HashMap<>();
-//				error.put("error-message", "The token is missing or is not correct!");
-//				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//				new ObjectMapper().writeValue(response.getOutputStream(), error);
-//				filterChain.doFilter(request, response);
-//			}
-			
-		}
-
-	}
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) 
+    		throws ServletException, IOException {
+		
+		System.out.println("9812764168732481");
+		
+        if (request.getMethod().equalsIgnoreCase(SecurityConstant.HTTP_METHOD_OPTIONS)) {
+            response.setStatus(HttpStatus.OK.value());
+        } else {
+            String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if (authHeader == null || !authHeader.startsWith(SecurityConstant.TOKEN_PREFIX)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            String token = authHeader.substring(SecurityConstant.TOKEN_PREFIX.length());
+            String email = jwtToken.getSubject(token);
+            boolean isTokenValid = jwtToken.isTokenValid(email, token);
+            boolean isAuthenticationIsNull = SecurityContextHolder.getContext().getAuthentication() == null;
+            if(isTokenValid && isAuthenticationIsNull) {
+            	List<GrantedAuthority> authorities = jwtToken.getAuthorities(token);
+                Authentication authentication = jwtToken.getAuthentication(email, authorities, request);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                SecurityContextHolder.clearContext();
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
 }

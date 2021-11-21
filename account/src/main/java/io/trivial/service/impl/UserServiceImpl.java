@@ -2,7 +2,6 @@ package io.trivial.service.impl;
 
 import io.trivial.enums.PrivilegeEnum;
 import io.trivial.enums.RoleEnum;
-import io.trivial.models.entites.KeyOrganization;
 import io.trivial.models.entites.Privilege;
 import io.trivial.models.entites.Role;
 import io.trivial.models.entites.User;
@@ -19,8 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
