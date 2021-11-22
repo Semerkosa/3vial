@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         	.authorizeRequests()
-        	.antMatchers("**")
+        	.antMatchers("**")  // TODO(issue #233): figure out how to limit to just login and register
         	.permitAll()
         	.anyRequest()
         	.authenticated()

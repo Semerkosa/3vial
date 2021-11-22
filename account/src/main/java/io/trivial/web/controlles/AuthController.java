@@ -52,7 +52,7 @@ public class AuthController {
         this.jwtToken = jwtToken;
     }
 
-	@PostMapping("/login")
+	@PostMapping("/user/login")
     public ResponseEntity<UserServiceModel> login(@Valid @RequestBody UserLoginBindingModel user) {
         String email = this.authenticate(user.getEmail(), user.getPassword());
         UserServiceModel returnedUser = this.userService.getUserByEmail(email);
@@ -61,7 +61,7 @@ public class AuthController {
     }
     
     @PostMapping(
-            value = "/register",
+            value = "/user/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserViewModel> register(@RequestBody UserRegisterBindingModel inUser) {
@@ -83,8 +83,8 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         User user = this.modelMapper.map(usm, User.class);
         String[] tokens = jwtToken.generateJwtTokens(user);
-        List<String> listTokens = Arrays.asList(tokens);
-        headers.addAll(SecurityConstant.TOKEN_PREFIX, listTokens);
+        headers.add(SecurityConstant.USER_TOKEN_KEY, tokens[0]);
+        headers.add(SecurityConstant.REFRESH_TOKEN_KEY, tokens[1]);
         return headers;
     }
 	

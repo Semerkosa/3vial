@@ -10,7 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 import io.trivial.models.entites.User;
 
 public interface JwtToken {
-	
+
+	/**
+	 * Returns user token and refresh token in this order.
+	 */
 	String[] generateJwtTokens(User user);
 	
 	String getSubject(String token);

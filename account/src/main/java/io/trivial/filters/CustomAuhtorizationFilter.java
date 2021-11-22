@@ -33,13 +33,10 @@ public class CustomAuhtorizationFilter extends OncePerRequestFilter {
 	@Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) 
     		throws ServletException, IOException {
-		
-		System.out.println("9812764168732481");
-		
         if (request.getMethod().equalsIgnoreCase(SecurityConstant.HTTP_METHOD_OPTIONS)) {
             response.setStatus(HttpStatus.OK.value());
         } else {
-            String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            String authHeader = request.getHeader(SecurityConstant.USER_TOKEN_KEY);
             if (authHeader == null || !authHeader.startsWith(SecurityConstant.TOKEN_PREFIX)) {
                 filterChain.doFilter(request, response);
                 return;
