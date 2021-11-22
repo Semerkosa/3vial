@@ -17,4 +17,5 @@ server:
     port: 8082
 
 arguments:
-    baseUrl: https://ob.nordigen.com/
+    baseUrl: https://ob.nordigen.com
+    accessToken: token
