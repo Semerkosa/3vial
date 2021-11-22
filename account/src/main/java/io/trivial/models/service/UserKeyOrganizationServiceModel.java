@@ -1,12 +1,12 @@
 package io.trivial.models.service;
 
-//import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
 public class UserKeyOrganizationServiceModel {
 
-//    @Expose
+    @Expose
     private List<KeyOrganizationServiceModel> keysOrganization;
 
     public UserKeyOrganizationServiceModel() {
