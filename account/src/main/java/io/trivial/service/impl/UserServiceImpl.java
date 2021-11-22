@@ -2,7 +2,6 @@ package io.trivial.service.impl;
 
 import io.trivial.enums.PrivilegeEnum;
 import io.trivial.enums.RoleEnum;
-import io.trivial.models.entites.KeyOrganization;
 import io.trivial.models.entites.Privilege;
 import io.trivial.models.entites.Role;
 import io.trivial.models.entites.User;

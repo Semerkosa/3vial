@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.trivial.models.entites.User;
 
+@Deprecated
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private final AuthenticationManager authenticationManager;
@@ -36,12 +37,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		String username = request.getParameter("email");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		System.out.println(username);
+		System.out.println("Email and passwords!");
+		System.out.println(email);
 		System.out.println(password);
 		UsernamePasswordAuthenticationToken authenticationToken
-			= new UsernamePasswordAuthenticationToken(username, password);
+			= new UsernamePasswordAuthenticationToken(email, password);
 		return authenticationManager.authenticate(authenticationToken);
 	}
 
