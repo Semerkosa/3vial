@@ -2,7 +2,7 @@ package com.jointrivial.sourcemanager.nordigen.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jointrivial.sourcemanager.nordigen.api.NordigenAccountInfoAPI;
+import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +24,8 @@ public class ApplicationBeanConfiguration {
     }
 
     @Bean
-    public NordigenAccountInfoAPI nordigenAccountInfoAPI() {
-        return new NordigenAccountInfoAPI();
+    public NordigenSourceLinkAPI nordigenAccountInfoAPI() {
+        return new NordigenSourceLinkAPI();
     }
 
 }
