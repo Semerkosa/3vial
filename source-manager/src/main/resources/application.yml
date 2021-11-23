@@ -24,4 +24,5 @@ server:
 
 arguments.source-manager:
     baseUrl: https://ob.nordigen.com/
-    accessToken: "${TRIVIAL_NORDIGEN_ACCESS_TOKEN}"
+    secretId: "${TRIVIAL_NORDIGEN_SECRET_ID}"
+    secretKey: "${TRIVIAL_NORDIGEN_SECRET_KEY}"
