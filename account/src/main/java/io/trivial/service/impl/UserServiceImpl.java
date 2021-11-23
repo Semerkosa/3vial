@@ -95,26 +95,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserKeyOrganizationServiceModel addSource(String email, String sourceJson) {
 
-        User foundedUser = this.userRepository.findUserByEmail(email).orElse(null);
+        User foundUser = this.userRepository.findUserByEmail(email).orElse(null);
 
-        //TODO Add check if the user exists
-        System.out.println(sourceJson);
-        System.out.println("=====");
-
+        if (foundUser == null) {
+            throw new UsernameNotFoundException("User not found!");
+        }
 
         UserKeyOrganizationServiceModel listSources = gson
                 .fromJson(sourceJson, UserKeyOrganizationServiceModel.class);
-        for(KeyOrganizationServiceModel keyOrg: listSources.getKeysOrganization()) {
 
-        }
         List<KeyOrganization> sourceEntities =
                 modelMapper.map(listSources.getKeysOrganization(),
                         new TypeToken<List<KeyOrganization>>() {
                         }.getType());
 
-//        foundedUser.setKeysOrganization(sourceEntities);
-//
-//        userRepository.save(foundedUser);
+        for (KeyOrganization keyOrg : sourceEntities) {
+            foundUser.getKeysOrganization().add(keyOrg);
+        }
+
+        User savedUser = userRepository.save(foundUser);
+
+        listSources.setKeysOrganization(modelMapper.map(savedUser.getKeysOrganization(),
+                new TypeToken<List<KeyOrganizationServiceModel>>() {
+                }.getType()));
 
         return listSources;
     }
@@ -129,6 +132,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (this.userRepository.count() == 0) {
             userForSave.setRole(RoleEnum.ADMIN.name());
             userForSave.setPrivilege(PrivilegeEnum.SUPER_ADMIN.name());
+        } else {
+            userForSave.setRole(RoleEnum.USER.name());
+            userForSave.setPrivilege(PrivilegeEnum.FREE_USER.name());
         }
     }
 
