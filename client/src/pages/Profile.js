@@ -59,7 +59,7 @@ const Profile = () => {
     }
 
     const selectBankHandler = (selectedBank) => {
-        setBankValue(selectedBank);
+        setBankValue(selectedBank.value);
     }
 
     return (
