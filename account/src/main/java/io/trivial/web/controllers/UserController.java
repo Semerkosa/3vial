@@ -1,6 +1,7 @@
 package io.trivial.web.controllers;
 
 
+import io.trivial.constants.SecurityConstant;
 import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
 import io.trivial.models.view.UserKeyOrganizationViewModel;
@@ -67,8 +68,9 @@ public class UserController {
             @RequestHeader("User-Token") String token,
             @RequestHeader("Key-Organization") String keyOrganizationJson) {
 
-        // ToDo Identify user by token
-        String email = "test";
+        token = token.substring(SecurityConstant.TOKEN_PREFIX.length());
+
+        String email = jwtToken.getSubject(token);
 
         UserKeyOrganizationServiceModel sources =
                 userService.addSource(email, keyOrganizationJson);
