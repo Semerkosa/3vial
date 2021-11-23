@@ -3,9 +3,11 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../App';
 import { LOGIN_URL } from '../ApplicationVariables';
 import React from 'react';
-import  { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
+    let navigate = useNavigate();
+    let location = useLocation();
     const { token, setToken } = useContext(UserContext);
     const [userLoginData, setUserLoginData] = useState({ email: '', password: '' });
     const loginHandler = (userEmail, userPassword) => {
@@ -22,15 +24,15 @@ const Login = () => {
         const loginData = { email: userEmail, password: userPassword };
         setUserLoginData(loginData);
         loginRequestHandler(loginData);
+        if (location.state != null) {
+            navigate(location.state.location.pathname.concat(location.state.location.search));
+        } else {
+            navigate('/');
+        }
     };
-    if (token !== '') {
-        return <Navigate to="/balances" />;
-    } else {
-        return <div>
-            <LoginForm onLogin={loginHandler} />
-        </div>;
-    }
-
+    return <div>
+        <LoginForm onLogin={loginHandler} />
+    </div>;
 };
 
 export default Login;
