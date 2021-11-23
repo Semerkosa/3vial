@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ApplicationRoutes, VERIFY_REQUSITION } from '../ApplicationVariables';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const CompleteAddSource = () => {
+    const { token } = useContext(UserContext);
     const [searchParams] = useSearchParams();
     const referenceId = searchParams.get('referenceId');
     const userToken=searchParams.get('userToken');
@@ -29,8 +31,8 @@ const CompleteAddSource = () => {
                 }
             });
         };
-        verifyRequisition();
-    }, [referenceId, userToken]);
+       token===userToken? verifyRequisition():setMessage('Invalid token!');
+    }, [referenceId, userToken,token]);
 
     useEffect(() => {
         let timer = setTimeout(() => {
