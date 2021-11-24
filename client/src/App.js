@@ -12,7 +12,7 @@ import Home from './pages/Home';
 export const UserContext = React.createContext();
 function App() {
   const [token, setToken] = useState('');
-  let isLoggedIn = () => token !== '';
+  let isLoggedIn = () => token !== '' && token !== null;
   function RequireAuth({ children, redirectTo }) {
     let location = { location: useLocation() };
     return isLoggedIn() ? children : <Navigate to={redirectTo} replace={true} state={location} />;
