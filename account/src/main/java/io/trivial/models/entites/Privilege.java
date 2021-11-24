@@ -1,7 +1,6 @@
 package io.trivial.models.entites;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Deprecated
 @Entity

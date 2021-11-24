@@ -56,11 +56,11 @@ const Profile = () => {
 
     const selectCountryHandler = (selectedCountry) => {
         setCountry(selectedCountry);
-    }
+    };
 
     const selectBankHandler = (selectedBank) => {
         setBankValue(selectedBank.value);
-    }
+    };
 
     return (
         <>

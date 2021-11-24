@@ -1,8 +1,10 @@
 package io.trivial.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     UserServiceModel register(UserServiceModel inUser);
 
@@ -10,4 +12,5 @@ public interface UserService {
 
 	UserServiceModel getUserByEmail(String email);
 
+	UserKeyOrganizationServiceModel addSource(String email, String sourceJson);
 }

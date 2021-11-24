@@ -1,7 +1,7 @@
 package com.jointrivial.sourcemanager.nordigen.service.impl;
 
 import com.google.gson.Gson;
-import com.jointrivial.sourcemanager.nordigen.api.NordigenAccountInfoAPI;
+import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
 import com.jointrivial.sourcemanager.nordigen.model.service.BankServiceModel;
 import com.jointrivial.sourcemanager.nordigen.model.view.BankViewModel;
 import com.jointrivial.sourcemanager.nordigen.service.BankService;
@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 @Service
 public class BankServiceImpl implements BankService {
     private final Gson gson;
-    private final NordigenAccountInfoAPI nordigenAccountInfoAPI;
+    private final NordigenSourceLinkAPI nordigenSourceLinkAPI;
 
-    public BankServiceImpl(Gson gson, NordigenAccountInfoAPI nordigenAccountInfoAPI) {
+    public BankServiceImpl(Gson gson, NordigenSourceLinkAPI nordigenSourceLinkAPI) {
         this.gson = gson;
-        this.nordigenAccountInfoAPI = nordigenAccountInfoAPI;
+        this.nordigenSourceLinkAPI = nordigenSourceLinkAPI;
     }
 
     @Override
     public List<BankViewModel> getAllBankIDsAndNamesForCountry(String country) throws IOException, URISyntaxException, InterruptedException{
-        String banksJson = nordigenAccountInfoAPI.getAllBanksForCountry(country);
+        String banksJson = nordigenSourceLinkAPI.getAllBanksForCountry(country);
 
         // TODO handle exception properly
         if (banksJson == null) {
@@ -33,6 +33,8 @@ public class BankServiceImpl implements BankService {
         }
 
         BankServiceModel[] bankServiceModels = this.gson.fromJson(banksJson, BankServiceModel[].class);
+
+        // TODO also return logo link
 
         return Arrays.stream(bankServiceModels)
                 .map(bsm -> new BankViewModel(bsm.getId(), bsm.getName()))

@@ -1,7 +1,5 @@
 package io.trivial.utils;
 
-import io.trivial.enums.PrivilegeEnum;
-import io.trivial.enums.RoleEnum;
 import io.trivial.models.entites.Privilege;
 import io.trivial.models.entites.Role;
 import io.trivial.models.service.AddressServiceModel;

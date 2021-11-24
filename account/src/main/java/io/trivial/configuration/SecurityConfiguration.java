@@ -1,6 +1,5 @@
 package io.trivial.configuration;
 
-import io.trivial.filter.CustomAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,38 +11,51 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import io.trivial.filters.CustomAuhtorizationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    public SecurityConfiguration(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-
-    }
-
+	private final UserDetailsService userDetailsService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final CustomAuhtorizationFilter customAuhtorizationFilter;
+	 
+	@Autowired
+	public SecurityConfiguration (UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, 
+			CustomAuhtorizationFilter customAuhtorizationFilter) {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.userDetailsService = userDetailsService;
+		this.customAuhtorizationFilter = customAuhtorizationFilter;
+	}
+	
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userDetailsService).passwordEncoder(this.bCryptPasswordEncoder);
-    }
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(this.bCryptPasswordEncoder);
+	}
 
-    @Override
+	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-
+		System.out.println("Method -> configure(HttpSecurity http)");
+        http
+        	.csrf().disable()
+        	.cors()
+        .and()
+        	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        	.authorizeRequests()
+        	.antMatchers("**")  // TODO(issue #233): figure out how to limit to just login and register
+        	.permitAll()
+        	.anyRequest()
+        	.authenticated()
+        .and()
+        	.addFilterBefore(this.customAuhtorizationFilter, UsernamePasswordAuthenticationFilter.class);     
     }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 }
