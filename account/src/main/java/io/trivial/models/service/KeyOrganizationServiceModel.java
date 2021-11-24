@@ -1,8 +1,13 @@
 package io.trivial.models.service;
 
+import com.google.gson.annotations.Expose;
+
 public class KeyOrganizationServiceModel {
 
+    @Expose
     private String organizationName;
+
+    @Expose
     private String organizationKey;
 
     public KeyOrganizationServiceModel() {
