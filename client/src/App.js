@@ -31,13 +31,13 @@ function App() {
             :
             <>
               <NavLink to={ApplicationRoutes.Register_Route}>Register</NavLink>
-              <NavLink to={ApplicationRoutes.Logout}>Login</NavLink>
+              <NavLink to={ApplicationRoutes.Login_Route}>Login</NavLink>
             </>
           }
         </nav>
         <hr />
         <Routes>
-          <Route index path="/" element={<Home />}></Route>
+          <Route index path={ApplicationRoutes.Home_Route} element={<Home />}></Route>
           <Route path={ApplicationRoutes.Login_Route} element={!isLoggedIn() ? <Login />
             : <Navigate to={ApplicationRoutes.Balances_Route} replace={true} />} />
           <Route path={ApplicationRoutes.Register_Route} element={!isLoggedIn() ? <Register />
@@ -54,5 +54,5 @@ function App() {
     </UserContext.Provider >
   );
 }
-/* http://localhost:3000/complete_add_source?userToken=567&referenceId=123  */
+
 export default App;
