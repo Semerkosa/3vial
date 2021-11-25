@@ -4,6 +4,7 @@ public class NordigenConnectionIdServiceModel {
 
     private String referenceId;
     private String requisitionId;
+    private String bankName;
 
     public String getReferenceId() {
         return referenceId;
@@ -19,5 +20,13 @@ public class NordigenConnectionIdServiceModel {
 
     public void setRequisitionId(String requisitionId) {
         this.requisitionId = requisitionId;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

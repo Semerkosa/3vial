@@ -11,6 +11,7 @@ import com.jointrivial.sourcemanager.nordigen.service.BankService;
 import com.jointrivial.sourcemanager.nordigen.service.CountryService;
 import com.jointrivial.sourcemanager.nordigen.service.NordigenConnectionIdService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -82,10 +83,9 @@ public class NordigenController {
         return new ResponseEntity<>(authorizationLinkViewModel, HttpStatus.OK);
     }
 
-    // think of a better name xD
     @GetMapping(value = "/verify_requisition",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStatus(
+    public HttpStatus verifyRequisition(
             @RequestHeader("User-Token") String userToken,
             @RequestHeader("Reference-Id") String referenceId) throws IOException, InterruptedException {
 
@@ -95,11 +95,7 @@ public class NordigenController {
 
         RequisitionServiceModel requisitionJson = this.gson.fromJson(requisitionById, RequisitionServiceModel.class);
 
-        String institution_id = requisitionJson.getInstitution_id();
-        List<String> accounts = requisitionJson.getAccounts();
-
-
-        return null;
+        return this.nordigenConnectionIdService.verifyRequisition(requisitionJson,currentSourceIdentifier,userToken);
     }
 
 }

@@ -5,6 +5,8 @@ import io.trivial.models.binding.UserLoginBindingModel;
 import io.trivial.models.binding.UserRegisterBindingModel;
 import io.trivial.models.entites.User;
 import io.trivial.models.service.UserServiceModel;
+import io.trivial.models.view.KeyOrganisationViewModelList;
+import io.trivial.models.view.KeyOrganizationViewModel;
 import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.JwtToken;
@@ -41,7 +43,6 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtToken jwtToken;
-
     @Autowired
     public UserController(ModelMapper modelMapper, UserService userService,
     		AuthenticationManager authenticationManager, JwtToken jwtToken) {
@@ -72,5 +73,9 @@ public class UserController {
         ResponseEntity<UserKeyOrganizationViewModel> response =
         		new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
         return response;
+    }
+    @PostMapping("/account/provider_api_keys")
+    public void postProviderApiKeys(@RequestBody KeyOrganisationViewModelList keyOrganizationList){
+
     }
 }
