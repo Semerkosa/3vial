@@ -52,6 +52,8 @@ const RegisterForm = (props) => {
         if (!formIsValid) {
             return;
         }
+
+        props.onRegister(enteredEmail, enteredPassword);
     }
 
     return (
