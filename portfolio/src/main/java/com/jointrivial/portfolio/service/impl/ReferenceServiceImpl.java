@@ -43,7 +43,8 @@ public class ReferenceServiceImpl implements ReferenceService {
     @Override
     public UserBalancesViewModel calculateAmountInWantedCurrency(String currency, UserBalancesServiceModel balances) throws URISyntaxException, IOException, InterruptedException {
         if (balances == null || balances.getUserBalances() == null) {
-            throw new IllegalInputDataForReferenceException("Reference service received invalid input balances!");
+            // empty balances means user has no accounts linked yet
+            return new UserBalancesViewModel();
         }
         if (currency == null || currency.isEmpty() || currency.isBlank()) {
             throw new IllegalInputDataForReferenceException("Reference service received invalid input currency!");
