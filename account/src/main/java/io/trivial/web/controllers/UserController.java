@@ -1,24 +1,14 @@
-package io.trivial.web.controlles;
+package io.trivial.web.controllers;
+
 
 import io.trivial.constants.SecurityConstant;
-import io.trivial.models.binding.UserLoginBindingModel;
-import io.trivial.models.binding.UserRegisterBindingModel;
-import io.trivial.models.entites.User;
+import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
 import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.JwtToken;
 import io.trivial.service.UserService;
 
-import static org.springframework.http.HttpStatus.OK;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @RequestMapping("/user")
@@ -51,26 +38,45 @@ public class UserController {
         this.jwtToken = jwtToken;
     }
 
-    @GetMapping (
+    @GetMapping(
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserViewModel> getUserById(@PathVariable String id) {
         UserServiceModel returnedUser = this.userService.getUserById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.set("token", "9s78dhfs78tfaysd6ftausdygf6asd67");
-        ResponseEntity<UserViewModel> response = 
-        		new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
+        ResponseEntity<UserViewModel> response =
+                new ResponseEntity<UserViewModel>(this.modelMapper.map(returnedUser, UserViewModel.class), headers, HttpStatus.OK);
         return response;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping (
+    @GetMapping(
             value = "/account/provider_api_keys",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserKeyOrganizationViewModel> getUserOrganizationByToken(@RequestHeader("User-Token") String token) {
         UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
         ResponseEntity<UserKeyOrganizationViewModel> response =
-        		new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
+                new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
         return response;
     }
+
+    @PostMapping(
+            value = "/account/provider_api_keys"
+    )
+    public ResponseEntity<UserKeyOrganizationViewModel> addSource(
+            @RequestHeader("User-Token") String token,
+            @RequestHeader("Key-Organization") String keyOrganizationJson) {
+
+        token = token.substring(SecurityConstant.TOKEN_PREFIX.length());
+
+        String email = jwtToken.getSubject(token);
+
+        UserKeyOrganizationServiceModel sources =
+                userService.addSource(email, keyOrganizationJson);
+
+        return new ResponseEntity<>(modelMapper
+                .map(sources, UserKeyOrganizationViewModel.class), HttpStatus.OK);
+    }
+
 }

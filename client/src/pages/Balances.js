@@ -7,7 +7,8 @@ import { BALANCES_URL } from '../ApplicationVariables';
 
 const Balances = () => {
     const { token, setToken } = useContext(UserContext);
-    const [balancesData, setBalancesData] = useState([]);
+    const [balancesData, setBalancesData] = useState({userBalances: [], wantedCurrency: ''});
+    const [areBalancesFetched, setAreBalancesFetched] = useState(false);
     const [currency, setCurrency] = useState('');
     console.log(token);
     const balancesHandler = async () => {
@@ -18,8 +19,9 @@ const Balances = () => {
         let urlBalancesCurrencyRequest = BALANCES_URL + '?currency=' + currency;
         const response = await fetch(urlBalancesCurrencyRequest, requestOptions);
         const data = await response.json();
+        const preTransformedBalances = data.userBalances != null ? data.userBalances : [];
         const transformedBalances = {
-            userBalances: data.userBalances.map((balanceData) => {
+            userBalances: preTransformedBalances.map((balanceData) => {
                 return {
                     organizationName: balanceData.organizationName,
                     balances: balanceData.balances.map((balance) => {
@@ -35,6 +37,7 @@ const Balances = () => {
             }), wantedCurrency: currency
         };
         setBalancesData(transformedBalances);
+        setAreBalancesFetched(true);
     };
     const selectCurrencyHandler = selectedCurrency => {
         setCurrency(selectedCurrency);
@@ -43,8 +46,12 @@ const Balances = () => {
         <div>
             <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
             <Button type="button" onClick={balancesHandler}>Get Balances</Button>
-            {balancesData.length !== 0 && <Providers items={balancesData.userBalances}
-                wantedCurrency={balancesData.wantedCurrency} />}
+            {balancesData.userBalances.length !== 0 &&
+              <Providers items={balancesData.userBalances} wantedCurrency={balancesData.wantedCurrency}/>
+            }
+            {(balancesData.userBalances.length === 0) && areBalancesFetched &&
+              <h2>You don't have any linked accounts yet</h2>
+            }
         </div>
     );
 };
