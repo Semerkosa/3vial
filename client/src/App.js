@@ -31,7 +31,7 @@ function App() {
             :
             <>
               <NavLink to={ApplicationRoutes.Register_Route}>Register</NavLink>
-              <NavLink to={ApplicationRoutes.Logout}>Login</NavLink>
+              <NavLink to={ApplicationRoutes.Login_Route}>Login</NavLink>
             </>
           }
         </nav>
