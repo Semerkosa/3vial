@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
 import com.jointrivial.sourcemanager.nordigen.model.entity.SourceIdentifier;
 import com.jointrivial.sourcemanager.nordigen.model.service.RequisitionServiceModel;
+import com.jointrivial.sourcemanager.nordigen.model.service.SourceIdentifierServiceModel;
 import com.jointrivial.sourcemanager.nordigen.model.view.AuthorizationLinkViewModel;
 import com.jointrivial.sourcemanager.nordigen.repository.SourceIdentifierRepository;
 import com.jointrivial.sourcemanager.nordigen.service.SourceIdentifierService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,11 +20,13 @@ public class SourceIdentifierServiceImpl implements SourceIdentifierService {
     private final Gson gson;
     private final NordigenSourceLinkAPI api;
     private final SourceIdentifierRepository sourceIdentifierRepository;
+    private final ModelMapper mapper;
 
-    public SourceIdentifierServiceImpl(Gson gson, NordigenSourceLinkAPI api, SourceIdentifierRepository sourceIdentifierRepository) {
+    public SourceIdentifierServiceImpl(Gson gson, NordigenSourceLinkAPI api, SourceIdentifierRepository sourceIdentifierRepository, ModelMapper mapper) {
         this.gson = gson;
         this.api = api;
         this.sourceIdentifierRepository = sourceIdentifierRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -46,5 +50,13 @@ public class SourceIdentifierServiceImpl implements SourceIdentifierService {
         this.sourceIdentifierRepository.saveAndFlush(source);
 
         return new AuthorizationLinkViewModel(requisitionServiceModel.getLink());
+    }
+
+    @Override
+    public SourceIdentifierServiceModel getSourceIdentifierByReferenceId(String referenceId) {
+
+        SourceIdentifier sourceIdentifierByReferenceId = this.sourceIdentifierRepository.getSourceIdentifierByReferenceId(referenceId);
+
+        return this.mapper.map(sourceIdentifierByReferenceId,SourceIdentifierServiceModel.class);
     }
 }

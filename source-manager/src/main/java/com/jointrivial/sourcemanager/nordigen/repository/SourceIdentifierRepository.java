@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SourceIdentifierRepository extends JpaRepository<SourceIdentifier, String> {
 
+    SourceIdentifier getSourceIdentifierByReferenceId(String referenceId);
 }
