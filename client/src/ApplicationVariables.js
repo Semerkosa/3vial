@@ -1,11 +1,11 @@
 export const ApplicationRoutes = {
     Home_Route: '/',
-    Login_Route: '/login',
-    Register_Route: '/register',
-    Balances_Route: '/balances',
-    Profile_Route: '/profile',
-    Verify_Add_New_Source:'/complete_add_source',
-    Logout:'/logout'
+    Login_Route: '/ui/login',
+    Register_Route: '/ui/register',
+    Balances_Route: '/ui/balances',
+    Profile_Route: '/ui/profile',
+    Verify_Add_New_Source:'/ui/complete_add_source',
+    Logout:'/ui/logout'
 };
 
 export const BALANCES_URL = 'http://localhost:8083/portfolio/balances';
