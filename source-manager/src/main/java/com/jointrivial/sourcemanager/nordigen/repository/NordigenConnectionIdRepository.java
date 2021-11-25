@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NordigenConnectionIdRepository extends JpaRepository<NordigenConnectionId, String> {
 
-    NordigenConnectionId getSourceIdentifierByReferenceId(String referenceId);
+    NordigenConnectionId getRequisitionIdByReferenceId(String referenceId);
 }

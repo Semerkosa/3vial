@@ -56,7 +56,7 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
     @Override
     public NordigenConnectionIdServiceModel getSourceIdentifierByReferenceId(String referenceId) {
 
-        NordigenConnectionId nordigenConnectionIdByReferenceId = this.nordigenConnectionIdRepository.getSourceIdentifierByReferenceId(referenceId);
+        NordigenConnectionId nordigenConnectionIdByReferenceId = this.nordigenConnectionIdRepository.getRequisitionIdByReferenceId(referenceId);
 
         return this.mapper.map(nordigenConnectionIdByReferenceId, NordigenConnectionIdServiceModel.class);
     }
