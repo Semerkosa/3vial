@@ -1,6 +1,6 @@
 package com.jointrivial.sourcemanager.nordigen.model.service;
 
-public class SourceIdentifierServiceModel {
+public class NordigenConnectionIdServiceModel {
 
     private String referenceId;
     private String requisitionId;
