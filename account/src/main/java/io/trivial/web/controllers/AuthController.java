@@ -1,10 +1,8 @@
-package io.trivial.web.controlles;
+package io.trivial.web.controllers;
 
 import static org.springframework.http.HttpStatus.OK;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,8 +52,9 @@ public class AuthController {
     public ResponseEntity<UserServiceModel> login(@Valid @RequestBody UserLoginBindingModel user) {
         String email = this.authenticate(user.getEmail(), user.getPassword());
         UserServiceModel returnedUser = this.userService.getUserByEmail(email);
-        HttpHeaders jwtHeader = this.getHeader(returnedUser);
-        return new ResponseEntity<>(returnedUser, jwtHeader, OK);
+        HttpHeaders headers = this.getHeader(returnedUser);
+        headers.set("Access-Control-Expose-Headers", "User-Token");
+        return new ResponseEntity<>(returnedUser, headers, OK);
     }
     
     @PostMapping(
