@@ -36,6 +36,7 @@ const Profile = () => {
                 headers: {
                     'User-Token': token,
                     'Bank-Id': bankValue.value,
+                    'Bank-Name': bankValue.label,
                     'Redirect-Link-Prefix': 'http://localhost:3000/ui/complete_add_source'
                 }
             };
