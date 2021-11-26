@@ -1,7 +1,6 @@
 package com.jointrivial.portfolio.service.impl;
 
 import com.google.gson.Gson;
-import com.jointrivial.portfolio.exceptions.IllegalInputDataForAssetsException;
 import com.jointrivial.portfolio.model.service.balance.UserBalancesServiceModel;
 import com.jointrivial.portfolio.service.AssetService;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public UserBalancesServiceModel getAllBalances(String keyOrganization) throws URISyntaxException, IOException, InterruptedException {
         if (keyOrganization == null || keyOrganization.isEmpty() || keyOrganization.isBlank()) {
-            throw new IllegalInputDataForAssetsException("Invalid key-organization!");
+           return new UserBalancesServiceModel();
         }
         HttpClient client = HttpClient.newHttpClient();
 

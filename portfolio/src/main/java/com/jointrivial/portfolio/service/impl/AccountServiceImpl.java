@@ -18,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String getAllKeyOrganizations(String userToken) throws IOException, InterruptedException, URISyntaxException {
         if (userToken == null || userToken.isEmpty() || userToken.isBlank()) {
-            throw new IllegalUserTokenException("Invalid user token!");
+            throw new IllegalUserTokenException("User token is empty!");
         }
         HttpClient client = HttpClient.newHttpClient();
 

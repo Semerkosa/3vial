@@ -2,7 +2,7 @@ package com.jointrivial.portfolio.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jointrivial.portfolio.exceptions.IllegalInputDataForReferenceException;
+import com.jointrivial.portfolio.exceptions.IllegalInputCurrencyException;
 import com.jointrivial.portfolio.model.service.balance.UserBalancesServiceModel;
 import com.jointrivial.portfolio.model.view.balance.BalanceViewModel;
 import com.jointrivial.portfolio.model.view.balance.UserBalancesViewModel;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,8 +22,6 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.Map.entry;
 
 @Service
 public class ReferenceServiceImpl implements ReferenceService {
@@ -47,7 +44,7 @@ public class ReferenceServiceImpl implements ReferenceService {
             return new UserBalancesViewModel();
         }
         if (currency == null || currency.isEmpty() || currency.isBlank()) {
-            throw new IllegalInputDataForReferenceException("Reference service received invalid input currency!");
+            throw new IllegalInputCurrencyException("Input currency is empty!");
         }
         Set<String> currencies = balances.getUserBalances().stream()
                 .flatMap(e -> e.getBalances().stream().map(k -> k.getBalanceAmount().getCurrency()))
@@ -59,22 +56,13 @@ public class ReferenceServiceImpl implements ReferenceService {
                 .GET()
                 .build();
         UserBalancesViewModel userBalancesViewModel = modelMapper.map(balances, UserBalancesViewModel.class);
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            Map<String, BigDecimal> referenceData = gson.fromJson(response.body(), new TypeToken<Map<String, BigDecimal>>() {
-            }.getType());
-            userBalancesViewModel.getUserBalances().stream()
-                    .flatMap(e -> e.getBalances().stream().map(BalanceViewModel::getBalanceAmount))
-                    .forEach(a -> a.setAmountInWantedCurrency(a.getAmount().multiply(referenceData.get(a.getCurrency())).setScale(2, RoundingMode.HALF_UP)));
-        } catch (Exception ignored) {
-            Map<String, BigDecimal> referenceData = Map.ofEntries(
-                    entry("EUR", BigDecimal.valueOf(1.95583)),
-                    entry("GBP", BigDecimal.valueOf(2.31099))
-            );
-            userBalancesViewModel.getUserBalances().stream()
-                    .flatMap(e -> e.getBalances().stream().map(BalanceViewModel::getBalanceAmount))
-                    .forEach(a -> a.setAmountInWantedCurrency(a.getAmount().multiply(referenceData.get(a.getCurrency())).setScale(2, RoundingMode.HALF_UP)));
-        }
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Map<String, BigDecimal> referenceData = gson.fromJson(response.body(), new TypeToken<Map<String, BigDecimal>>() {
+        }.getType());
+        userBalancesViewModel.getUserBalances().stream()
+                .flatMap(e -> e.getBalances().stream().map(BalanceViewModel::getBalanceAmount))
+                .forEach(a -> a.setAmountInWantedCurrency(a.getAmount().multiply(referenceData.get(a.getCurrency())).setScale(2, RoundingMode.HALF_UP)));
+
         return userBalancesViewModel;
     }
 }
