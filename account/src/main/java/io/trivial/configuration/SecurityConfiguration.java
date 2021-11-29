@@ -1,5 +1,6 @@
 package io.trivial.configuration;
 
+import io.trivial.constants.SecurityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import io.trivial.filters.CustomAuhtorizationFilter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -45,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         	.authorizeRequests()
-        	.antMatchers("**")  // TODO(issue #233): figure out how to limit to just login and register
+        	.antMatchers(SecurityConstant.PUBLIC_URLS)  // TODO(issue #233): figure out how to limit to just login and register
         	.permitAll()
         	.anyRequest()
         	.authenticated()
