@@ -23,6 +23,6 @@ server:
         contextPath: /source_manager
 
 arguments.source-manager:
-    baseUrl: https://ob.nordigen.com/
+    baseUrl: https://ob.nordigen.com
     secretId: "${TRIVIAL_NORDIGEN_SECRET_ID}"
     secretKey: "${TRIVIAL_NORDIGEN_SECRET_KEY}"

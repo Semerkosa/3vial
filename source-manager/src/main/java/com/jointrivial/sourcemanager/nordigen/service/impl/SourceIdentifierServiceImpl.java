@@ -28,7 +28,8 @@ public class SourceIdentifierServiceImpl implements SourceIdentifierService {
     @Override
     public AuthorizationLinkViewModel getAuthorizationLink(String userToken, String bankId, String redirectLinkPrefix) throws IOException, InterruptedException {
         String reference = UUID.randomUUID().toString();
-        String redirectUrl = redirectLinkPrefix + "?userToken=" + userToken + "&referenceId=" + reference;
+        // TODO: See if the prefix link has '/' in the end
+        String redirectUrl = redirectLinkPrefix + "/" + userToken;
 
         String requisitionJson = this.api.createRequisition(bankId, reference, redirectUrl);
 
