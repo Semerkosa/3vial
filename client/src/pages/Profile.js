@@ -46,7 +46,7 @@ const Profile = () => {
             window.location = data.link;
         };
 
-        if (bankValue !== null) {
+        if (bankValue !== null && bankValue !== undefined) {
             createRequisition()
         }
     };
@@ -60,7 +60,7 @@ const Profile = () => {
     };
 
     const selectBankHandler = (selectedBank) => {
-        setBankValue(selectedBank.value);
+        setBankValue(selectedBank);
     };
 
     return (
