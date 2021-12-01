@@ -2,7 +2,6 @@ package com.jointrivial.sourcemanager.nordigen.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
 import com.jointrivial.sourcemanager.nordigen.model.entity.NordigenConnectionId;
@@ -17,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,12 +25,14 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
     private final NordigenSourceLinkAPI api;
     private final NordigenConnectionIdRepository nordigenConnectionIdRepository;
     private final ModelMapper mapper;
+    private final NordigenSourceLinkAPI nordigen;
 
-    public NordigenConnectionIdServiceImpl(Gson gson, NordigenSourceLinkAPI api, NordigenConnectionIdRepository nordigenConnectionIdRepository, ModelMapper mapper) {
+    public NordigenConnectionIdServiceImpl(Gson gson, NordigenSourceLinkAPI api, NordigenConnectionIdRepository nordigenConnectionIdRepository, ModelMapper mapper, NordigenSourceLinkAPI nordigen) {
         this.gson = gson;
         this.api = api;
         this.nordigenConnectionIdRepository = nordigenConnectionIdRepository;
         this.mapper = mapper;
+        this.nordigen = nordigen;
     }
 
     @Override
@@ -45,6 +44,7 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
 
         if (requisitionJson == null) {
             // TODO
+            System.out.println('m');
         }
 
         RequisitionServiceModel requisitionServiceModel =
@@ -69,12 +69,16 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
     }
 
     @Override
-    public HttpStatus verifyRequisition(RequisitionServiceModel requisitionJson, NordigenConnectionIdServiceModel currentSourceIdentifier, String userToken) {
+    public HttpStatus verifyRequisition(String referenceId, String userToken) throws IOException, InterruptedException {
+
+        NordigenConnectionIdServiceModel currentSourceIdentifier = this.getSourceIdentifierByReferenceId(referenceId);
+
+        String requisitionById = this.nordigen.getRequisitionById(currentSourceIdentifier.getRequisitionId());
 
         JsonObject keysOrganisationJson = new JsonObject();
 
         JsonArray jsonArray = new JsonArray();
-        requisitionJson.getAccounts().forEach(e->{
+        this.gson.fromJson(requisitionById, RequisitionServiceModel.class).getAccounts().forEach(e->{
 
             JsonObject current = new JsonObject();
             current.addProperty("organizationName",currentSourceIdentifier.getBankName());
@@ -83,6 +87,7 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
 
         });
 
+        keysOrganisationJson.add("keysOrganisation",jsonArray);
         //Beautify the JSON
         String json = new Gson().toJson(keysOrganisationJson);
         json = json.replaceAll("\\\\","");

@@ -13,5 +13,5 @@ public interface NordigenConnectionIdService {
 
     NordigenConnectionIdServiceModel getSourceIdentifierByReferenceId(String referenceId);
 
-    HttpStatus verifyRequisition(RequisitionServiceModel requisitionJson, NordigenConnectionIdServiceModel currentSourceIdentifier, String token);
+    HttpStatus verifyRequisition(String referenceId, String token) throws IOException, InterruptedException;
 }

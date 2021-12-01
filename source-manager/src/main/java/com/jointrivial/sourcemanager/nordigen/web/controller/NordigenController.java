@@ -27,17 +27,11 @@ public class NordigenController {
     private final CountryService countryService;
     private final BankService bankService;
     private final NordigenConnectionIdService nordigenConnectionIdService;
-    private final NordigenSourceLinkAPI nordigen;
-    private final ModelMapper mapper;
-    private final Gson gson;
 
     public NordigenController(CountryService countryService, BankService bankService, NordigenConnectionIdService nordigenConnectionIdService, NordigenSourceLinkAPI nordigen, ModelMapper mapper, Gson gson) {
         this.countryService = countryService;
         this.bankService = bankService;
         this.nordigenConnectionIdService = nordigenConnectionIdService;
-        this.nordigen = nordigen;
-        this.mapper = mapper;
-        this.gson = gson;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -83,19 +77,14 @@ public class NordigenController {
         return new ResponseEntity<>(authorizationLinkViewModel, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/verify_requisition",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpStatus verifyRequisition(
             @RequestHeader("User-Token") String userToken,
             @RequestHeader("Reference-Id") String referenceId) throws IOException, InterruptedException {
 
-        NordigenConnectionIdServiceModel currentSourceIdentifier = this.nordigenConnectionIdService.getSourceIdentifierByReferenceId(referenceId);
-
-        String requisitionById = this.nordigen.getRequisitionById(currentSourceIdentifier.getRequisitionId());
-
-        RequisitionServiceModel requisitionJson = this.gson.fromJson(requisitionById, RequisitionServiceModel.class);
-
-        return this.nordigenConnectionIdService.verifyRequisition(requisitionJson,currentSourceIdentifier,userToken);
+        return this.nordigenConnectionIdService.verifyRequisition(referenceId,userToken);
     }
 
 }
