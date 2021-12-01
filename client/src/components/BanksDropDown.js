@@ -37,7 +37,10 @@ const BanksDropDown = (props) => {
 
             const transfromedBanks = data.map(bank => {
                 return {
-                    label: bank.name,
+                    label: <div style={{ margin: '0 20px', padding: 0 }}><div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src={bank.logo} height="30px" width="30px" />
+                        <span style={{ marginLeft: 10 }}>{bank.name}</span>
+                    </div><hr style={{ marginBottom: 0, padding: 0 }} /></div>,
                     value: bank.id
                 };
             });
@@ -63,7 +66,7 @@ const BanksDropDown = (props) => {
 
 
     return (
-        <div style={{ width: '200px' }}>
+        <div style={{ maxWidth: '400px' }}>
             {!error && <Fragment>
                 <p>Select Bank...</p>
                 <Select options={banks} onChange={bankChangeHandler} />
