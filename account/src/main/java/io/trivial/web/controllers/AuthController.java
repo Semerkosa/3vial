@@ -53,7 +53,7 @@ public class AuthController {
         String email = this.authenticate(user.getEmail(), user.getPassword());
         UserServiceModel returnedUser = this.userService.getUserByEmail(email);
         HttpHeaders headers = this.getHeader(returnedUser);
-        headers.set("Access-Control-Expose-Headers", "User-Token");
+        headers.set("Access-Control-Expose-Headers", "User-Token,User-Token-Refresh");
         return new ResponseEntity<>(returnedUser, headers, OK);
     }
     
