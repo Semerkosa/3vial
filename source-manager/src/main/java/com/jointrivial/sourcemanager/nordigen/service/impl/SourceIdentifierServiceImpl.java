@@ -2,6 +2,8 @@ package com.jointrivial.sourcemanager.nordigen.service.impl;
 
 import com.google.gson.Gson;
 import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
+import com.jointrivial.sourcemanager.enums.ErrorMessages;
+import com.jointrivial.sourcemanager.exceptions.NordigenRequisitionNotFoundException;
 import com.jointrivial.sourcemanager.nordigen.model.entity.SourceIdentifier;
 import com.jointrivial.sourcemanager.nordigen.model.service.RequisitionServiceModel;
 import com.jointrivial.sourcemanager.nordigen.model.view.AuthorizationLinkViewModel;
@@ -33,7 +35,7 @@ public class SourceIdentifierServiceImpl implements SourceIdentifierService {
         String requisitionJson = this.api.createRequisition(bankId, reference, redirectUrl);
 
         if (requisitionJson == null) {
-            // TODO
+            throw new NordigenRequisitionNotFoundException(ErrorMessages.NORDIGEN_REQUISITION_NOT_FOUND.getErrorMessage());
         }
 
         RequisitionServiceModel requisitionServiceModel =

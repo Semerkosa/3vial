@@ -3,6 +3,8 @@ package com.jointrivial.sourcemanager.nordigen.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jointrivial.sourcemanager.nordigen.config.ApplicationProperties;
+import com.jointrivial.sourcemanager.enums.ErrorMessages;
+import com.jointrivial.sourcemanager.exceptions.NordigenAuthorizationException;
 import com.jointrivial.sourcemanager.nordigen.model.service.NordigenAccessTokenServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,7 +38,7 @@ public abstract class BaseNordigen {
                 "secret_id=%s&secret_key=%s", secretId, secretKey);
 
         request = HttpRequest.newBuilder()
-                .uri(URI.create(getBaseUrl() +  GET_ACCESS_TOKEN_URL))
+                .uri(URI.create(getBaseUrl() + GET_ACCESS_TOKEN_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(bodyUrlEncodedString))
                 .build();
@@ -50,6 +52,11 @@ public abstract class BaseNordigen {
             NordigenAccessTokenServiceModel tokenServiceModel = gson.fromJson(response.body(), NordigenAccessTokenServiceModel.class);
 
             return "Bearer " + tokenServiceModel.getAccess();
+        }
+
+        if (response.statusCode() == 401) {
+            throw new NordigenAuthorizationException(ErrorMessages
+                    .NORDIGEN_AUTHENTICATION_FAILED.getErrorMessage());
         }
 
         // TODO exception handling
