@@ -52,11 +52,16 @@ const Profile = () => {
 
     const selectSourceHandler = (sourceType) => {
         setSource(sourceType);
+
+        if (sourceType === 'Bank') {
+            setCountry('');
+            setBankValue(null);
+        }
     };
 
     const selectCountryHandler = (selectedCountry) => {
         setCountry(selectedCountry);
-        selectBankHandler('');
+        setBankValue(null);
     };
 
     const selectBankHandler = (selectedBank) => {
@@ -70,8 +75,8 @@ const Profile = () => {
             </ol>
             <SourceTypesDropDown onSelectSourceType={selectSourceHandler}></SourceTypesDropDown>
             {source === 'Bank' && <CountriesDropDown onSelectCountry={selectCountryHandler} />}
-            {country !== '' && <BanksDropDown countryCode={country} onSelectBank={selectBankHandler} />}
-            {bankValue !== '' && <Button type='submit' onClick={addNewSourceHandler}>Add source</Button>}
+            {source === 'Bank' && country !== '' && <BanksDropDown countryCode={country} onSelectBank={selectBankHandler} />}
+            {source === 'Bank' && country !== '' && bankValue !== null && <Button type='submit' onClick={addNewSourceHandler}>Add source</Button>}
         </>
     );
 };
