@@ -37,7 +37,7 @@ public class BankServiceImpl implements BankService {
         // TODO also return logo link
 
         return Arrays.stream(bankServiceModels)
-                .map(bsm -> new BankViewModel(bsm.getId(), bsm.getName()))
+                .map(bsm -> new BankViewModel(bsm.getId(), bsm.getName(), bsm.getLogo()))
                 .collect(Collectors.toList());
     }
 }
