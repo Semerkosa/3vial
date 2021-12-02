@@ -4,6 +4,8 @@ package io.trivial.web.controllers;
 import io.trivial.constants.SecurityConstant;
 import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
+import io.trivial.models.view.KeyOrganisationViewModelList;
+import io.trivial.models.view.KeyOrganizationViewModel;
 import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.JwtToken;
@@ -28,7 +30,6 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtToken jwtToken;
-
     @Autowired
     public UserController(ModelMapper modelMapper, UserService userService,
     		AuthenticationManager authenticationManager, JwtToken jwtToken) {
@@ -60,6 +61,7 @@ public class UserController {
                 new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
         return response;
     }
+
 
     @PostMapping(
             value = "/account/provider_api_keys"
