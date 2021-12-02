@@ -8,6 +8,7 @@ import Balances from './pages/Balances';
 import Profile from './pages/Profile';
 import CompleteAddSource from './pages/CompleteAddSource';
 import Home from './pages/Home';
+import CookieConsentPopup from './CookieConsentPopup';
 
 export const UserContext = React.createContext();
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path={ApplicationRoutes.Logout} />
         </Routes>
       </Router>
+      <CookieConsentPopup />
     </UserContext.Provider >
   );
 }
