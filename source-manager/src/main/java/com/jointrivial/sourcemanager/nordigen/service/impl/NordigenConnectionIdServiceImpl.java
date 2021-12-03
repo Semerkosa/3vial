@@ -3,6 +3,8 @@ package com.jointrivial.sourcemanager.nordigen.service.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.jointrivial.sourcemanager.enums.ErrorMessages;
+import com.jointrivial.sourcemanager.exceptions.NordigenRequisitionNotFoundException;
 import com.jointrivial.sourcemanager.nordigen.api.NordigenSourceLinkAPI;
 import com.jointrivial.sourcemanager.nordigen.model.entity.NordigenConnectionId;
 import com.jointrivial.sourcemanager.nordigen.model.service.NordigenConnectionIdServiceModel;
@@ -43,8 +45,8 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
         String requisitionJson = this.api.createRequisition(bankId, reference, redirectUrl);
 
         if (requisitionJson == null) {
-            // TODO
             System.out.println('m');
+            throw new NordigenRequisitionNotFoundException(ErrorMessages.NORDIGEN_REQUISITION_NOT_FOUND.getErrorMessage());
         }
 
         RequisitionServiceModel requisitionServiceModel =
