@@ -6,13 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "source_identifiers")
-public class SourceIdentifier {
+@Table(name = "nordigen_connection_ids")
+public class NordigenConnectionId {
 
     private String referenceId;
     private String requisitionId;
+    private String bankName;
 
-    public SourceIdentifier() {
+    public NordigenConnectionId() {
     }
 
     @Id
@@ -21,7 +22,7 @@ public class SourceIdentifier {
         return referenceId;
     }
 
-    public SourceIdentifier setReferenceId(String referenceId) {
+    public NordigenConnectionId setReferenceId(String referenceId) {
         this.referenceId = referenceId;
         return this;
     }
@@ -31,8 +32,18 @@ public class SourceIdentifier {
         return requisitionId;
     }
 
-    public SourceIdentifier setRequisitionId(String requisitionId) {
+    public NordigenConnectionId setRequisitionId(String requisitionId) {
         this.requisitionId = requisitionId;
+        return this;
+    }
+
+    @Column(name = "bank_name")
+    public String getBankName() {
+        return bankName;
+    }
+
+    public NordigenConnectionId setBankName(String bankName) {
+        this.bankName = bankName;
         return this;
     }
 }

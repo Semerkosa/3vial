@@ -2,7 +2,6 @@ package com.jointrivial.sourcemanager.nordigen.model.service;
 
 import com.google.gson.annotations.Expose;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class RequisitionServiceModel extends BaseServiceModel {
