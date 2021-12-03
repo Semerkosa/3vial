@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationVariables';
@@ -8,18 +8,30 @@ import Balances from './pages/Balances';
 import Profile from './pages/Profile';
 import CompleteAddSource from './pages/CompleteAddSource';
 import Home from './pages/Home';
+import Logout from './pages/Logout';
 import CookieConsentPopup from './CookieConsentPopup';
+import { Cookies, useCookies } from 'react-cookie';
 
 export const UserContext = React.createContext();
 function App() {
-  const [token, setToken] = useState('');
-  let isLoggedIn = () => token !== '' && token !== null;
+  const [cookies, setCookie, removeCookie] = useCookies(['3vial-User-Token','3vial-User-Token-Refresh']);
+  const [token, setToken] = useState(() => {
+    console.log(cookies['3vial-User-Token']);
+    if (cookies['3vial-User-Token'] !== undefined) {
+      return (cookies['3vial-User-Token']);
+    }
+    return null;
+  });
+  const isLoggedIn = () => {
+    return (token !== '' && token !== null);
+  };
   function RequireAuth({ children, redirectTo }) {
     let location = { location: useLocation() };
     return isLoggedIn() ? children : <Navigate to={redirectTo} replace={true} state={location} />;
   }
+
   return (
-    <UserContext.Provider value={{ token, setToken }}>
+    <UserContext.Provider value={{ token, setToken, cookies, setCookie, removeCookie }}>
       <h1>Trivial</h1>
       <Router>
         <nav>
@@ -49,7 +61,8 @@ function App() {
             <Profile /></RequireAuth>} />
           <Route path={ApplicationRoutes.Verify_Add_New_Source} element={<RequireAuth redirectTo={ApplicationRoutes.Login_Route}>
             <CompleteAddSource /></RequireAuth>} />
-          <Route path={ApplicationRoutes.Logout} />
+          <Route path={ApplicationRoutes.Logout} element={<RequireAuth redirectTo={ApplicationRoutes.Login_Route}>
+            <Logout /></RequireAuth>} />
         </Routes>
       </Router>
       <CookieConsentPopup />

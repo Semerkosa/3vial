@@ -16,3 +16,5 @@ export const NORDIGEN_CREATE_REQUISITION_URL = 'http://localhost:8087/source_man
 export const BANKS_URL = 'http://localhost:8087/source_manager/banks';
 export const PROVIDER_API_KEYS='http://localhost:8084/user/account/provider_api_keys';
 export const VERIFY_REQUSITION = 'http://localhost:8087/source_manager/verify_requisition';
+export const LOGOUT_URL='http://localhost:8084/user/logout';
+export const REFRESH_TOKEN_URL = 'http://localhost:8084/refresh/token';
