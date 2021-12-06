@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, Fragment } from "react";
+import { useCallback, useEffect, useState, Fragment, useRef } from "react";
 import Select from "react-select";
 import { BANKS_URL } from "../ApplicationVariables";
 
@@ -15,7 +15,13 @@ const BanksDropDown = (props) => {
 
     let urlBanksInCountry = BANKS_URL + '/' + props.countryCode;
 
+    const selectBankRef = useRef();
+
     const fetchBanksHandler = useCallback(async () => {
+
+        if (selectBankRef.current) {
+            selectBankRef.current.clearValue();
+        }
 
         setError(null);
         try {
@@ -37,7 +43,12 @@ const BanksDropDown = (props) => {
 
             const transfromedBanks = data.map(bank => {
                 return {
-                    label: bank.name,
+                    label: <div style={{ margin: '0 20px', padding: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img src={bank.logo} height="30px" width="30px" />
+                            <span style={{ marginLeft: 10 }}>{bank.name}</span>
+                        </div>                        
+                    </div>,
                     value: bank.id
                 };
             });
@@ -63,10 +74,10 @@ const BanksDropDown = (props) => {
 
 
     return (
-        <div style={{ width: '200px' }}>
+        <div style={{ maxWidth: '400px' }}>
             {!error && <Fragment>
                 <p>Select Bank...</p>
-                <Select options={banks} onChange={bankChangeHandler} />
+                <Select ref={selectBankRef} options={banks} onChange={bankChangeHandler} />
             </Fragment>}
             {error && <Fragment>
                 <p>Select Bank...</p>
