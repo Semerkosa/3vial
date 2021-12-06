@@ -40,7 +40,8 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
     @Override
     public AuthorizationLinkViewModel getAuthorizationLink(String userToken, String bankId, String bankName, String redirectLinkPrefix) throws IOException, InterruptedException {
         String reference = UUID.randomUUID().toString();
-        String redirectUrl = redirectLinkPrefix + "?userToken=" + userToken + "&referenceId=" + reference;
+        // TODO: See if the prefix link comes with '/' in the end:
+        String redirectUrl = redirectLinkPrefix + "/" + userToken;
 
         String requisitionJson = this.api.createRequisition(bankId, reference, redirectUrl);
 
