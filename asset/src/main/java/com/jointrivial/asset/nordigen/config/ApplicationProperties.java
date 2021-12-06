@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationProperties {
 
     private String baseUrl;
-    private String accessToken;
+    private String secretId;
+    private String secretKey;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -19,12 +20,21 @@ public class ApplicationProperties {
         return this;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getSecretId() {
+        return secretId;
     }
 
-    public ApplicationProperties setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public ApplicationProperties setSecretId(String secretId) {
+        this.secretId = secretId;
+        return this;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public ApplicationProperties setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
         return this;
     }
 }

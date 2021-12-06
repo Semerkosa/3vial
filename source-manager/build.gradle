@@ -22,6 +22,8 @@ dependencies {
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 test {

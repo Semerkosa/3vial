@@ -2,7 +2,7 @@ spring:
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
         password: "${TRIVIAL_DB_PASSWORD}"
-        url: jdbc:mysql://localhost:3306/3vial_app?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+        url: jdbc:mysql://localhost:3306/3vial_app_asset?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
         username: root
     jpa:
         database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -18,4 +18,5 @@ server:
 
 arguments:
     baseUrl: https://ob.nordigen.com
-    accessToken: token
+    secretId: "${TRIVIAL_NORDIGEN_SECRET_ID}"
+    secretKey: "${TRIVIAL_NORDIGEN_SECRET_KEY}"

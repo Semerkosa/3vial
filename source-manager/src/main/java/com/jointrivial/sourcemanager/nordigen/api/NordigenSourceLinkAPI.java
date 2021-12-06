@@ -52,7 +52,6 @@ public class NordigenSourceLinkAPI extends BaseNordigen {
     }
 
     public String getRequisitionById(String id) throws IOException, InterruptedException {
-        System.err.println("IN THE \"accounts\" IN THAT RESPONSE ---> ARE THERE ANY ACCOUNT_IDS?");
         return baseGetHttpRequest(getBaseUrl() + REQUISITION_URL + id + "/");
     }
 
@@ -61,14 +60,5 @@ public class NordigenSourceLinkAPI extends BaseNordigen {
     // - offset(the initial index from which to return the results)
     public String getAllRequisitions() throws IOException, InterruptedException {
         return baseGetHttpRequest(getBaseUrl() + REQUISITION_URL);
-    }
-
-    public String createBankAuthorizationLinkForRequisition(String requisitionId, String bankId) throws IOException, InterruptedException {
-        String bodyUrlEncodedString = String.format(
-                "aspsp_id=%s", bankId);
-
-        String linkUrl = getBaseUrl() + REQUISITION_URL + requisitionId + "/links/";
-
-        return basePostHttpRequest(linkUrl, bodyUrlEncodedString, "application/x-www-form-urlencoded");
     }
 }
