@@ -1,12 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import Button from '../components/Button';
 import CurrencyDropDown from '../components/CurrencyDropDown';
 import Providers from '../components/Providers/Providers';
-import { UserContext } from '../App';
+
 import { BALANCES_URL } from '../ApplicationVariables';
+import AuthConsumer from '../authentication';
 
 const Balances = () => {
-    const { token, setToken } = useContext(UserContext);
+    const { token} = AuthConsumer();
     const [balancesData, setBalancesData] = useState({ userBalances: [], wantedCurrency: '' });
     const [areBalancesFetched, setAreBalancesFetched] = useState(false);
     const [currency, setCurrency] = useState('');

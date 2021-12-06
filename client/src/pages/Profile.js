@@ -2,12 +2,12 @@ import Button from '../components/Button';
 import SourceTypesDropDown from '../components/SourceTypesDropDown';
 import CountriesDropDown from '../components/CountriesDropDown';
 import BanksDropDown from '../components/BanksDropDown';
-import { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../App';
+import { useState, useEffect } from 'react';
 import { PROVIDER_API_KEYS, NORDIGEN_CREATE_REQUISITION_URL } from '../ApplicationVariables';
+import AuthConsumer from '../authentication';
 
 const Profile = () => {
-    const { token } = useContext(UserContext);
+    const { token ,isLoggedIn } = AuthConsumer();
     const [source, setSource] = useState('');
     const [country, setCountry] = useState('');
     const [bankValue, setBankValue] = useState('');
@@ -24,7 +24,7 @@ const Profile = () => {
             const providers = data.keysOrganization.map(e => e.organizationName);
             setProviders(providers);
         };
-        if (token !== '') {
+        if (isLoggedIn()) {
             fetchProviderNames();
         }
     }, [token]);
@@ -47,7 +47,7 @@ const Profile = () => {
         };
 
         if (bankValue !== null && bankValue !== undefined) {
-            createRequisition()
+            createRequisition();
         }
     };
 
@@ -71,6 +71,7 @@ const Profile = () => {
 
     return (
         <>
+            <p>Currently connected sources:</p>
             <ol>
                 {providers.map(provider => (<li key={provider}>{provider}</li>))}
             </ol>

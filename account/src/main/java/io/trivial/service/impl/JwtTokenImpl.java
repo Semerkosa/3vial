@@ -38,12 +38,12 @@ public class JwtTokenImpl implements JwtToken {
         		.withIssuedAt(new Date())
         		.withSubject(user.getEmail())
         		.withArrayClaim(SecurityConstant.AUTHORITIES, claims)
-        		.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 100))
+        		.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
         		.sign(HMAC512(SECRET.getBytes()));
 		String refreshToken = JWT.create()
 				.withIssuer(SecurityConstant.TRIVIAL)
 				.withSubject(user.getEmail())
-				.withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 100))
+				.withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
 				.sign(HMAC512(SECRET.getBytes()));
 		String[] tokens = new String[2];
 		tokens[0] = accessToken;
