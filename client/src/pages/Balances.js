@@ -1,16 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import Button from '../components/Button';
 import CurrencyDropDown from '../components/CurrencyDropDown';
 import Providers from '../components/Providers/Providers';
-import { UserContext } from '../App';
+
 import { BALANCES_URL } from '../ApplicationVariables';
+import AuthConsumer from '../authentication';
 
 const Balances = () => {
-    const { token, setToken } = useContext(UserContext);
-    const [balancesData, setBalancesData] = useState({userBalances: [], wantedCurrency: ''});
+    const { token} = AuthConsumer();
+    const [balancesData, setBalancesData] = useState({ userBalances: [], wantedCurrency: '' });
     const [areBalancesFetched, setAreBalancesFetched] = useState(false);
     const [currency, setCurrency] = useState('');
-    console.log(token);
     const balancesHandler = async () => {
         const requestOptions = {
             method: 'GET',
@@ -47,10 +47,10 @@ const Balances = () => {
             <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
             <Button type="button" onClick={balancesHandler}>Get Balances</Button>
             {balancesData.userBalances.length !== 0 &&
-              <Providers items={balancesData.userBalances} wantedCurrency={balancesData.wantedCurrency}/>
+                <Providers items={balancesData.userBalances} wantedCurrency={balancesData.wantedCurrency} />
             }
             {(balancesData.userBalances.length === 0) && areBalancesFetched &&
-              <h2>You don't have any linked accounts yet</h2>
+                <h2>You don't have any linked accounts yet</h2>
             }
         </div>
     );

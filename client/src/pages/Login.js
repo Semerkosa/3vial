@@ -1,36 +1,29 @@
 import LoginForm from '../components/LoginForm';
-import { useState, useContext } from 'react';
-import { UserContext } from '../App';
-import { LOGIN_URL } from '../ApplicationVariables';
+import { useState } from 'react';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import AuthConsumer from '../authentication';
 
 const Login = () => {
     let navigate = useNavigate();
     let location = useLocation();
-    const { token, setToken } = useContext(UserContext);
+    const { login } = AuthConsumer();
     const [userLoginData, setUserLoginData] = useState({ email: '', password: '' });
+    const [message, setMessage] = useState('');
     const loginHandler = (userEmail, userPassword) => {
-        const loginRequestHandler = async (loginData) => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(loginData)
-            };
-            const response = await fetch(LOGIN_URL, requestOptions);
-            var tokenString = response.headers.get('User-Token');
-            setToken(tokenString);
-        };
         const loginData = { email: userEmail, password: userPassword };
         setUserLoginData(loginData);
-        loginRequestHandler(loginData);
-        if (location.state != null) {
-            navigate(location.state.location.pathname.concat(location.state.location.search));
-        } else {
-            navigate('/');
-        }
+        let redirect = location.state ? location.state.location.pathname.concat(location.state.location.search) : '/';
+        const onSuccess = () => {
+            return navigate(redirect);
+        };
+        const onFailure = (error) => {
+          setMessage(error.name + ':  ' + error.message);
+        };
+        login(loginData, onSuccess, onFailure);
     };
     return <div>
+        {message && <p>{message}</p>}
         <LoginForm onLogin={loginHandler} />
     </div>;
 };

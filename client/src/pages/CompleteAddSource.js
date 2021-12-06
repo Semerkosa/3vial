@@ -1,14 +1,15 @@
-import { useState, useEffect,useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ApplicationRoutes, VERIFY_REQUSITION } from '../ApplicationVariables';
 import { Navigate } from 'react-router-dom';
-import { UserContext } from '../App';
+import AuthConsumer from '../authentication';
 
 const CompleteAddSource = () => {
-    const { token } = useContext(UserContext);
+    const { token } = AuthConsumer();
     const [searchParams] = useSearchParams();
     const referenceId = searchParams.get('referenceId');
-    const userToken=searchParams.get('userToken');
+    const userToken = searchParams.get('userToken');
+    const errorMessage = searchParams.get('error');
     const [message, setMessage] = useState('');
     const [redirect, setRedirect] = useState(10);
     useEffect(() => {
@@ -21,18 +22,29 @@ const CompleteAddSource = () => {
                 signal: controller.signal
             };
             await fetch(VERIFY_REQUSITION, requestOptions)
-            .then(response => {
-                response.text().then((text) => setMessage(text));
-            }).catch((error) => {
-                if (error.name === 'AbortError') {
-                    alert('Request timeout exceeded! Operation aborted!');
-                }else{
-                    throw error;
-                }
-            });
+                .then(response => {
+                    if (response.ok) {
+                        response.text().then((text) => setMessage(text));
+                    } else {
+                        setMessage('Error ' + response.status);
+                        console.log(response.text());
+                    }
+
+                }).catch((error) => {
+                    if (error.name === 'AbortError') {
+                        alert('Request timeout exceeded! Operation aborted!');
+                    } else {
+                        throw error;
+                    }
+                });
         };
-       token===userToken? verifyRequisition():setMessage('Invalid token!');
-    }, [referenceId, userToken,token]);
+        if (errorMessage) {
+            setMessage(errorMessage);
+        } else {
+            (token === userToken) ? verifyRequisition() : setMessage('Invalid token!');
+        }
+
+    }, []);
 
     useEffect(() => {
         let timer = setTimeout(() => {
