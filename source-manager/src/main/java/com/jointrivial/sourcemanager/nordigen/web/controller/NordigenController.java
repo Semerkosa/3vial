@@ -11,7 +11,6 @@ import com.jointrivial.sourcemanager.nordigen.service.BankService;
 import com.jointrivial.sourcemanager.nordigen.service.CountryService;
 import com.jointrivial.sourcemanager.nordigen.service.NordigenConnectionIdService;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

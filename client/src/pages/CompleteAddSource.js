@@ -56,7 +56,7 @@ const CompleteAddSource = () => {
     return (
         <div>
             <p>{message}</p>
-            <small>You will be redirected in: {redirect}</small>
+            <small>You will be redirected to "Profile" in: {redirect}</small>
             {redirect === 0 && (<Navigate to={ApplicationRoutes.Profile_Route} replace={true} />)}
         </div>
     );

@@ -9,6 +9,7 @@ import io.trivial.models.entites.User;
 import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.KeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
+import io.trivial.models.view.KeyOrganisationViewModelList;
 import io.trivial.repositories.PrivilegeRepository;
 import io.trivial.repositories.RoleRepository;
 import io.trivial.repositories.UserRepository;
@@ -93,19 +94,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserKeyOrganizationServiceModel addSource(String email, String sourceJson) {
-
+    public void addSource(String email, KeyOrganisationViewModelList keyOrganizationList) {
         User foundUser = this.userRepository.findUserByEmail(email).orElse(null);
 
         if (foundUser == null) {
             throw new UsernameNotFoundException("User not found!");
         }
 
-        UserKeyOrganizationServiceModel listSources = gson
-                .fromJson(sourceJson, UserKeyOrganizationServiceModel.class);
-
         List<KeyOrganization> sourceEntities =
-                modelMapper.map(listSources.getKeysOrganization(),
+                modelMapper.map(keyOrganizationList.getKeyOrganization(),
                         new TypeToken<List<KeyOrganization>>() {
                         }.getType());
 
@@ -113,13 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             foundUser.getKeysOrganization().add(keyOrg);
         }
 
-        User savedUser = userRepository.save(foundUser);
-
-        listSources.setKeysOrganization(modelMapper.map(savedUser.getKeysOrganization(),
-                new TypeToken<List<KeyOrganizationServiceModel>>() {
-                }.getType()));
-
-        return listSources;
+        userRepository.save(foundUser);
     }
 
     /* PRIVATE METHODS */
