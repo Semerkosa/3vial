@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams,useParams } from 'react-router-dom';
 import { ApplicationRoutes, VERIFY_REQUSITION } from '../ApplicationVariables';
 import { Navigate } from 'react-router-dom';
 import AuthConsumer from '../authentication';
-
 const CompleteAddSource = () => {
     const { token } = AuthConsumer();
     const [searchParams] = useSearchParams();
-    const referenceId = searchParams.get('referenceId');
-    const userToken = searchParams.get('userToken');
+    let params = useParams();
+    const referenceId = searchParams.get('ref');
+    const userToken = params.token;
     const errorMessage = searchParams.get('error');
     const [message, setMessage] = useState('');
     const [redirect, setRedirect] = useState(10);
