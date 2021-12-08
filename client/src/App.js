@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './authentication';
 import { RequireAuth } from './components/RequireAuth';
 import { ApplicationRoutes } from './ApplicationVariables';
-import Nav from './components/Nav';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Balances from './pages/Balances';
 import Profile from './pages/Profile';
+import Overview from './pages/Overview';
 import CompleteAddSource from './pages/CompleteAddSource';
 import Logout from './pages/Logout';
 import CookieConsentPopup from './CookieConsentPopup';
@@ -18,7 +20,7 @@ function App() {
     <AuthProvider>
       <h1>Trivial</h1>
       <Router>
-        <Nav />
+        <Header />
         <Routes>
           <Route index path={ApplicationRoutes.Home_Route} element={<Home />}></Route>
           <Route path={ApplicationRoutes.Login_Route} element={<Login />} />
@@ -33,6 +35,11 @@ function App() {
               <Profile />
             </RequireAuth>
           } />
+          <Route path={ApplicationRoutes.Overview_Route} element={
+            <RequireAuth redirectTo={ApplicationRoutes.Login_Route}>
+              <Overview />
+            </RequireAuth>
+          } />
           <Route path={ApplicationRoutes.Verify_Add_New_Source} element={
             <RequireAuth redirectTo={ApplicationRoutes.Login_Route}>
               <CompleteAddSource />
@@ -45,6 +52,7 @@ function App() {
           } />
           <Route path='*' element={()=>'Page not found!'}></Route>
         </Routes>
+        <Footer />
       </Router>
       <CookieConsentPopup />
     </AuthProvider >
