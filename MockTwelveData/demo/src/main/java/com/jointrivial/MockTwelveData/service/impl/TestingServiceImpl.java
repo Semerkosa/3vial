@@ -10,20 +10,19 @@ import java.util.HashMap;
 public class TestingServiceImpl implements TestingService {
 
 
-    private final HashMap<String,Double> references;
+    private final HashMap<String, Double> references;
 
     public TestingServiceImpl() {
-        this.references= new HashMap<String, Double>() {{
+        this.references= new HashMap<>() {{
             put("EUR", 1.95583);
             put("GBP", 2.31385);
         }};
     }
 
     @Override
-    public TwelveDataStockViewModel getPriceBySymbol(String thicker) {
+    public TwelveDataStockViewModel getPriceBySymbol(String ticker) {
+        String symbol = ticker.split("-")[0];
 
-        String symbol = thicker.split("-")[0];
-
-        return new TwelveDataStockViewModel(symbol,this.references.get(symbol));
+        return new TwelveDataStockViewModel(symbol, references.getOrDefault(symbol, 0.0));
     }
 }
