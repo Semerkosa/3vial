@@ -1,9 +1,13 @@
+import Nav from './Nav';
+
 const Header = () => {
     return (
         <header>
-            <h1>Welcome to Trivial</h1>
+            <div className='o-page-content-wrapper'>
+                <Nav />
+            </div>
         </header>
     )
 }
 
-export default Header
+export default Header;

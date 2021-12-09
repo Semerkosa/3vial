@@ -4,7 +4,9 @@ export const ApplicationRoutes = {
     Register_Route: '/ui/register',
     Balances_Route: '/ui/balances',
     Profile_Route: '/ui/profile',
+    Overview_Route: '/ui/overview',
     Verify_Add_New_Source:'/ui/complete_add_source/:token',
+
     Logout:'/ui/logout'
 };
 
