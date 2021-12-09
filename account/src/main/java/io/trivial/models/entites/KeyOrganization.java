@@ -14,7 +14,9 @@ public class KeyOrganization extends BaseEntity {
     public KeyOrganization() {
     }
 
-    @Column(name = "organization_name", nullable = false, unique = true)
+    // "organization_name" cannot be unique, because there could be multiple accounts linked to a single organization,
+    // each with its own unique "organization_key"
+    @Column(name = "organization_name", nullable = false)
     public String getOrganizationName() {
         return organizationName;
     }
