@@ -26,3 +26,6 @@ arguments.source-manager:
     baseUrl: https://ob.nordigen.com
     secretId: "${TRIVIAL_NORDIGEN_SECRET_ID}"
     secretKey: "${TRIVIAL_NORDIGEN_SECRET_KEY}"
+    yodleeBaseUrl: https://sandbox.api.yodlee.uk/ysl
+    yodleeClientId: "${TRIVIAL_YODLEE_CLIENT_ID}"
+    yodleeSecret: "${TRIVIAL_YODLEE_SECRET}"
