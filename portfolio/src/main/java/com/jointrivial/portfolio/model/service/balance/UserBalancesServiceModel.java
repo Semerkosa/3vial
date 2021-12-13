@@ -14,4 +14,15 @@ public class UserBalancesServiceModel {
         this.userBalances = userBalances;
         return this;
     }
+
+    @Override
+    public String toString() {
+        String balances = "";
+        for (BalanceRootServiceModel userBalance : userBalances) {
+            balances += userBalance + ", ";
+        }
+        return "UserBalancesServiceModel{" +
+                "userBalances=" + balances +
+                '}';
+    }
 }

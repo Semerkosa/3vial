@@ -6,20 +6,20 @@ import com.jointrivial.asset.nordigen.models.services.balances.BalanceRootServic
 import com.jointrivial.asset.nordigen.models.services.keysOrganization.KeyOrganizationServiceModel;
 import com.jointrivial.asset.nordigen.models.services.keysOrganization.UserKeyOrganizationServiceModel;
 import com.jointrivial.asset.nordigen.models.views.balances.*;
-import com.jointrivial.asset.nordigen.service.AccountService;
+import com.jointrivial.asset.nordigen.service.NordigenAccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
-public class AccountServiceImpl implements AccountService {
+public class NordigenAccountServiceImpl implements NordigenAccountService {
 
     private final Gson gson;
     private final ModelMapper modelMapper;
     private final NordigenAccountInfoAPI nordigenAccountInfoAPI;
 
-    public AccountServiceImpl(Gson gson, ModelMapper modelMapper, NordigenAccountInfoAPI nordigenAccountInfoAPI) {
+    public NordigenAccountServiceImpl(Gson gson, ModelMapper modelMapper, NordigenAccountInfoAPI nordigenAccountInfoAPI) {
         this.gson = gson;
         this.modelMapper = modelMapper;
         this.nordigenAccountInfoAPI = nordigenAccountInfoAPI;
@@ -42,7 +42,8 @@ public class AccountServiceImpl implements AccountService {
 
             // TODO handle exception properly
             if (accountBalancesJson == null) {
-                return null;
+                userBalances.addBalances(new BalanceRootViewModel());
+                continue;
             }
 
             BalanceRootServiceModel balanceRootServiceModel =

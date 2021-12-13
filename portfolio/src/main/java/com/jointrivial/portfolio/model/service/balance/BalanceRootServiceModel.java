@@ -1,11 +1,14 @@
 package com.jointrivial.portfolio.model.service.balance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BalanceRootServiceModel {
 
     private String organizationName;
-    private List<BalanceServiceModel> balances;
+    // This is the list of balances for the given organization.
+    // Cannot be null.
+    private List<BalanceServiceModel> balances = new ArrayList<>();
 
     public String getOrganizationName() {
         return organizationName;
@@ -21,7 +24,24 @@ public class BalanceRootServiceModel {
     }
 
     public BalanceRootServiceModel setBalances(List<BalanceServiceModel> balances) {
-        this.balances = balances;
+        if (balances != null) {
+            this.balances = balances;
+        }
         return this;
+    }
+
+    @Override
+    public String toString() {
+        String b = "[";
+        if (balances != null) {
+            for (BalanceServiceModel balance : balances) {
+                b += balance + ", ";
+            }
+        }
+        b += "]";
+        return "BalanceRootServiceModel{" +
+                "organizationName='" + organizationName + '\'' +
+                ", balances=" + b +
+                '}';
     }
 }

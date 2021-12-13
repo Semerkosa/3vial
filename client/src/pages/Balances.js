@@ -24,15 +24,17 @@ const Balances = () => {
             userBalances: preTransformedBalances.map((balanceData) => {
                 return {
                     organizationName: balanceData.organizationName,
-                    balances: balanceData.balances.map((balance) => {
-                        return {
-                            balanceAmount: {
-                                amount: balance.balanceAmount.amount,
-                                currency: balance.balanceAmount.currency,
-                                amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
-                            }
-                        };
-                    })
+                    balances: balanceData.balances != null
+                        ?   balanceData.balances.map((balance) => {
+                                return {
+                                    balanceAmount: {
+                                        amount: balance.balanceAmount.amount,
+                                        currency: balance.balanceAmount.currency,
+                                        amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
+                                    }
+                                };
+                            })
+                        :   []
                 };
             }), wantedCurrency: currency
         };

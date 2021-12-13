@@ -12,4 +12,11 @@ public class BalanceServiceModel {
         this.balanceAmount = balanceAmount;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "BalanceServiceModel{" +
+                "balanceAmount=" + balanceAmount +
+                '}';
+    }
 }
