@@ -71,7 +71,7 @@ public class YodleeApi {
     }
 
     /**
-     * Registers the user in Yodlee. Every use has to be registered with a login name
+     * Registers the user in Yodlee. Every user has to be registered with a login name
      * which will be the unique identifier that Yodlee uses to distinguish the different users.
      * @param userData the data (in JSON) format that Yodlee accepts for a to-be registered user.
      *                 Currently only loginName is necessary. For example:
