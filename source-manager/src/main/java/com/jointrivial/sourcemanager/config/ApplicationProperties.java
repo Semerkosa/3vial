@@ -1,4 +1,4 @@
-package com.jointrivial.sourcemanager.nordigen.config;
+package com.jointrivial.sourcemanager.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,9 @@ public class ApplicationProperties {
     private String baseUrl;
     private String secretId;
     private String secretKey;
+    private String yodleeBaseUrl;
+    private String yodleeClientId;
+    private String yodleeSecret;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -35,6 +38,33 @@ public class ApplicationProperties {
 
     public ApplicationProperties setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+        return this;
+    }
+
+    public String getYodleeBaseUrl() {
+        return yodleeBaseUrl;
+    }
+
+    public ApplicationProperties setYodleeBaseUrl(String yodleeBaseUrl) {
+        this.yodleeBaseUrl = yodleeBaseUrl;
+        return this;
+    }
+
+    public String getYodleeClientId() {
+        return yodleeClientId;
+    }
+
+    public ApplicationProperties setYodleeClientId(String yodleeClientId) {
+        this.yodleeClientId = yodleeClientId;
+        return this;
+    }
+
+    public String getYodleeSecret() {
+        return yodleeSecret;
+    }
+
+    public ApplicationProperties setYodleeSecret(String yodleeSecret) {
+        this.yodleeSecret = yodleeSecret;
         return this;
     }
 }

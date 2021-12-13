@@ -2,7 +2,7 @@ package com.jointrivial.sourcemanager.nordigen.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jointrivial.sourcemanager.nordigen.config.ApplicationProperties;
+import com.jointrivial.sourcemanager.config.ApplicationProperties;
 import com.jointrivial.sourcemanager.enums.ErrorMessages;
 import com.jointrivial.sourcemanager.exceptions.NordigenAuthorizationException;
 import com.jointrivial.sourcemanager.nordigen.model.service.NordigenAccessTokenServiceModel;
