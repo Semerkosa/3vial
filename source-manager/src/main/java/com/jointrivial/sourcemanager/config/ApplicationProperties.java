@@ -13,6 +13,7 @@ public class ApplicationProperties {
     private String yodleeBaseUrl;
     private String yodleeClientId;
     private String yodleeSecret;
+    private String yodleeAdminLoginName;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -65,6 +66,15 @@ public class ApplicationProperties {
 
     public ApplicationProperties setYodleeSecret(String yodleeSecret) {
         this.yodleeSecret = yodleeSecret;
+        return this;
+    }
+
+    public String getYodleeAdminLoginName() {
+        return yodleeAdminLoginName;
+    }
+
+    public ApplicationProperties setYodleeAdminLoginName(String yodleeAdminLoginName) {
+        this.yodleeAdminLoginName = yodleeAdminLoginName;
         return this;
     }
 }

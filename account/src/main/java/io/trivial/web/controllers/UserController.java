@@ -27,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtToken jwtToken;
+
     @Autowired
     public UserController(ModelMapper modelMapper, UserService userService,
                           AuthenticationManager authenticationManager, JwtToken jwtToken) {
@@ -34,6 +35,16 @@ public class UserController {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtToken = jwtToken;
+    }
+
+    @GetMapping
+    public ResponseEntity<UserViewModel> getUserByToken(@RequestHeader("User-Token") String userToken) {
+
+        String email = jwtToken.getSubject(userToken);
+
+        UserServiceModel returnedUser = this.userService.getUserByEmail(email);
+
+        return new ResponseEntity<>(this.modelMapper.map(returnedUser, UserViewModel.class), HttpStatus.OK);
     }
 
     @GetMapping(

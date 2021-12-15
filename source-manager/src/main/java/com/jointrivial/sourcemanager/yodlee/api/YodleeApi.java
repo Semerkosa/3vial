@@ -34,10 +34,11 @@ public class YodleeApi {
 
     /**
      * Generates a token to access Yodlee's endpoints.
+     *
      * @param loginName the unique identifier of the user in Yodlee
      * @return the token
      */
-    private String getAccessToken(String loginName) throws URISyntaxException, IOException, InterruptedException {
+    public String getAccessToken(String loginName) throws URISyntaxException, IOException, InterruptedException {
 
         String clientId = properties.getYodleeClientId();
         String clientSecret = properties.getYodleeSecret();
@@ -73,24 +74,25 @@ public class YodleeApi {
     /**
      * Registers the user in Yodlee. Every user has to be registered with a login name
      * which will be the unique identifier that Yodlee uses to distinguish the different users.
-     * @param userData the data (in JSON) format that Yodlee accepts for a to-be registered user.
-     *                 Currently only loginName is necessary. For example:
-     *                 {
+     *
+     * @param userData  the data (in JSON) format that Yodlee accepts for a to-be registered user.
+     *                  Currently only loginName is necessary. For example:
+     *                  {
      *                  "user": {
-     *                              "loginName": "trivial_testUser1"
-     *                          }
+     *                  "loginName": "trivial_testUser1"
      *                  }
-     * @param loginName the unique identifier of the user in Yodlee
+     *                  }
+     * @param token the token generated with the user's loginName
      * @return Object with two properties:
-     *          statusCode - the code of the response from Yodlee
-     *          body - the body of the response from Yodlee
+     * statusCode - the code of the response from Yodlee
+     * body - the body of the response from Yodlee
      */
-    public YodleeResponse registerUser(String userData, String loginName) throws URISyntaxException, IOException, InterruptedException {
+    public YodleeResponse registerUser(String userData, String token) throws URISyntaxException, IOException, InterruptedException {
 
 
         request = HttpRequest.newBuilder()
                 .uri(new URI(getBaseUrl() + REGISTER_URI))
-                .header("Authorization", "Bearer " + getAccessToken(loginName))
+                .header("Authorization", "Bearer " + token)
                 .header("Api-Version", API_VERSION)
                 .POST(HttpRequest.BodyPublishers.ofString(userData))
                 .build();
@@ -103,16 +105,17 @@ public class YodleeApi {
 
     /**
      * Gets all accounts that correspond to the user identified by the loginName.
-     * @param loginName the unique identifier of the user in Yodlee
+     *
+     * @param token the token generated with the user's loginName
      * @return Object with two properties:
-     *          statusCode - the code of the response from Yodlee
-     *          body - the body of the response from Yodlee
+     * statusCode - the code of the response from Yodlee
+     * body - the body of the response from Yodlee
      */
-    public YodleeResponse getUserAccounts(String loginName) throws InterruptedException, IOException, URISyntaxException {
+    public YodleeResponse getUserAccounts(String token) throws InterruptedException, IOException, URISyntaxException {
 
         request = HttpRequest.newBuilder()
                 .uri(new URI(getBaseUrl() + ACCOUNTS_URI))
-                .header("Authorization", "Bearer " + getAccessToken(loginName))
+                .header("Authorization", "Bearer " + token)
                 .header("Api-Version", API_VERSION)
                 .GET()
                 .build();
@@ -126,19 +129,22 @@ public class YodleeApi {
      * Gets the accounts that correspond to the user identified by the loginName
      * and to the request id which is returned when the accounts are successfully linked.
      * When the user links his source (broker, bank) a new request id is created.
+     *
      * @param requestId the unique identifier of the accounts linked
-     * @param loginName the unique identifier of the user in Yodlee
+     * @param token     the token generated with the user's loginName
      * @return Object with two properties:
-     *          statusCode - the code of the response from Yodlee
-     *          body - the body of the response from Yodlee
+     * statusCode - the code of the response from Yodlee
+     * body - the body of the response from Yodlee
      */
-    public YodleeResponse getUserAccountsByRequestId(String requestId, String loginName) throws URISyntaxException, IOException, InterruptedException {
+    public YodleeResponse getUserAccountsByRequestId(String requestId,
+                                                     String token
+    ) throws URISyntaxException, IOException, InterruptedException {
 
         String queryParam = "?requestId=" + requestId;
 
         request = HttpRequest.newBuilder()
                 .uri(new URI(getBaseUrl() + ACCOUNTS_URI + queryParam))
-                .header("Authorization", "Bearer " + getAccessToken(loginName))
+                .header("Authorization", "Bearer " + token)
                 .header("Api-Version", API_VERSION)
                 .GET()
                 .build();
