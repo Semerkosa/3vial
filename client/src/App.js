@@ -18,7 +18,6 @@ import CookieConsentPopup from './CookieConsentPopup';
 function App() {
   return (
     <AuthProvider>
-      <h1>Trivial</h1>
       <Router>
         <Header />
         <Routes>
