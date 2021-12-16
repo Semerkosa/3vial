@@ -5,7 +5,6 @@ import AddedAccounts from '../components/Overview/AddedAccounts';
 import RecentTransactions from '../components/Overview/RecentTransactions';
 import AddNewSourceButtonImg from '../assets/add-new-source-section/Add New Source Button.svg';
 import { useEffect, useState } from 'react';
-import AuthConsumer from '../authentication';
 import SelectSourceTypeModal from '../components/SelectSourceTypeModal';
 import SelectBankModal from '../components/SelectBankModal';
 import SelectCountryModal from '../components/SelectCountryModal';
