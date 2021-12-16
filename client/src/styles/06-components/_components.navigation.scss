@@ -1,6 +1,22 @@
-.navigation {
-    a {
-        text-decoration: none;
-        margin-right: 20px;
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap");
+
+.c-navigation {
+    ul {
+        padding: 0;
+        position: relative;
+
+        a {
+            text-decoration: none;
+            color: #969aa4;
+            font-family: "DM Sans", sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 16px;
+            margin-right: 32px;
+
+            &.active {
+                color: $primary-600;
+            }
+        }
     }
 }
