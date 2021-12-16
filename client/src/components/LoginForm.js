@@ -35,7 +35,7 @@ const LoginForm = (props) => {
         event.preventDefault();
 
         setIsSubmitClicked(true);
-        
+
         if (!formIsValid) {
             return;
         }
@@ -45,7 +45,6 @@ const LoginForm = (props) => {
 
     return (
         <form onSubmit={submitHandler} method="POST">
-            <div>
                 <h2>Login</h2>
                 <div>
                     <label htmlFor="email">Email:</label>
@@ -67,13 +66,9 @@ const LoginForm = (props) => {
                     {passwordInputHasError &&
                         <p style={{ color: 'red', fontSize: 12 }}>Password must be at least 6 characters long!</p>}
                 </div>
-                {isSubmitClicked && isEmpty(enteredEmail) && isEmpty(enteredPassword) && 
-                <p style={{ color: 'red', fontSize: 12 }}>Input fields cannot be empty!</p>}
-                <div>
-                    <Button type="submit">Login</Button>
-                </div>
-
-            </div>
+                {isSubmitClicked && isEmpty(enteredEmail) && isEmpty(enteredPassword) &&
+                    <p style={{ color: 'red', fontSize: 12 }}>Input fields cannot be empty!</p>}
+                <Button type="submit">Login</Button>
         </form>
     )
 }
