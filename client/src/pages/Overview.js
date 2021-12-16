@@ -7,19 +7,22 @@ import AddNewSourceButtonImg from '../assets/add-new-source-section/Add New Sour
 import { useEffect, useState } from 'react';
 import AuthConsumer from '../authentication';
 import SelectSourceTypeModal from '../components/SelectSourceTypeModal';
-import SelectSourceModal from '../components/SelectSourceModal';
+import SelectBankModal from '../components/SelectBankModal';
 
 const Overview = () => {
     const { token, isLoggedIn } = AuthConsumer();
     const [selectSourceTypeModalIsOpen, setIsSelectSourceTypeModalOpen] = useState(false);
     const [selectSourceModalIsOpen, setIsSelectSourceModalOpen] = useState(false);
     const [sourceType, setSourceType] = useState('');
+   
     const selectSourceTypeHandler = (sourceType) => {
         console.log('Source type selected: ' + sourceType);
         setSourceType(sourceType);
         setIsSelectSourceModalOpen(true);
     };
-
+    const closeSelectSourceModal = () => {
+        setIsSelectSourceModalOpen(false);
+    };
     return (
         <>
             <main className='c-overview-main'>
@@ -33,7 +36,7 @@ const Overview = () => {
                 <section className='c-overview-add-new-source'>
                     <div className='o-page-content-wrapper add-new-source'>
                         <h5 className='add-new-source-text'>Accounts</h5>
-                        <button className={selectSourceTypeModalIsOpen?'add-new-source-button add-new-source-button-active':'add-new-source-button'}
+                        <button className={selectSourceTypeModalIsOpen ? 'add-new-source-button add-new-source-button-active' : 'add-new-source-button'}
                             onClick={() => setIsSelectSourceTypeModalOpen(!selectSourceTypeModalIsOpen)}>
                             <img src={AddNewSourceButtonImg} alt='+' />
                             Add New Source
@@ -47,11 +50,10 @@ const Overview = () => {
                         <RecentTransactions />
                     </div>
                 </section>
-                {selectSourceModalIsOpen && <SelectSourceModal />}
+                {selectSourceModalIsOpen && sourceType === 'Bank' && <SelectBankModal close={closeSelectSourceModal} />}
             </main>
         </>
     );
 };
-
 
 export default Overview;
