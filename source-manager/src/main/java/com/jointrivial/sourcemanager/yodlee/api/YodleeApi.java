@@ -137,10 +137,11 @@ public class YodleeApi {
      * body - the body of the response from Yodlee
      */
     public YodleeResponse getUserAccountsByRequestId(String requestId,
-                                                     String token
+                                                     String token,
+                                                     String providerAccountId
     ) throws URISyntaxException, IOException, InterruptedException {
 
-        String queryParam = "?requestId=" + requestId;
+        String queryParam = "?requestId=" + requestId + "&providerAccountId=" + providerAccountId;
 
         request = HttpRequest.newBuilder()
                 .uri(new URI(getBaseUrl() + ACCOUNTS_URI + queryParam))
