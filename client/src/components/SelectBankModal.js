@@ -4,7 +4,7 @@ import AuthConsumer from '../authentication';
 import { useState, useEffect } from 'react';
 import { NORDIGEN_CREATE_REQUISITION_URL } from '../ApplicationVariables';
 import { BANKS_URL } from '../ApplicationVariables';
-const SelectBankModal = ({ close }) => {
+const SelectBankModal = ({ close,countryCode }) => {
     const { token } = AuthConsumer();
     const [banks, setBanks] = useState([]);
     const [query, setQuery] = useState('');
@@ -12,7 +12,7 @@ const SelectBankModal = ({ close }) => {
     useEffect(() => {
         async function fetchBanks() {
             try {
-                const urlBanksInCountry = BANKS_URL + '/BG';
+                const urlBanksInCountry = BANKS_URL + '/'+countryCode;
                 const response = await fetch(urlBanksInCountry);
                 if (!response.ok) {
                     throw new Error('Something went wrong! Data could not be fetched!');

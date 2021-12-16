@@ -12,11 +12,11 @@ const SelectSourceTypeModal = ({ click }) => {
             <div className="clip-path"></div>
             <div className="source-type-modal-content">
                 <div className='flex-container-row-center-flex-start' onClick={() => click('Bank')}>
-                    <img src={Group33692} alt='' /><span>Banks, Stock brokerages and pension funds</span>
+                    <img src={Group33692} alt='' /><span>Banks and pension funds</span>
                 </div>
                 <hr />
                 <div className='flex-container-row-center-flex-start' onClick={() => click('Crypto')}>
-                    <img src={Group33693} alt='' /><span>Crypto exchanges and wallets</span>
+                    <img src={Group33693} alt='' /><span>Stock brokerages, crypto exchanges and wallets</span>
                 </div>
                 <hr />
                 <div className='flex-container-row-center-flex-start' onClick={() => click('Stock options')}>
