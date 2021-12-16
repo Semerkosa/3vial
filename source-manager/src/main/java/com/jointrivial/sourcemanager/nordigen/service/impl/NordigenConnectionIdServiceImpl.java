@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.UUID;
 
+import static com.jointrivial.sourcemanager.nordigen.constants.ApiURLs.*;
+
 @Service
 public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdService {
 
@@ -101,7 +103,7 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, json);
         Request post_provider_api_keys = new Request.Builder()
-                .url("http://localhost:8084/user/account/provider_api_keys")
+                .url(ACCOUNT_PROVIDE_API_KEYS)
                 .method("POST", body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("User-Token", userToken)
