@@ -24,4 +24,12 @@ public class BalanceAmountServiceModel {
         this.currency = currency;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "BalanceAmountServiceModel{" +
+                "amount=" + amount +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
 }

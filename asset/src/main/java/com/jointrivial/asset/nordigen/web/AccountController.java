@@ -1,7 +1,7 @@
 package com.jointrivial.asset.nordigen.web;
 
 import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewModel;
-import com.jointrivial.asset.nordigen.service.AccountService;
+import com.jointrivial.asset.nordigen.service.NordigenAccountService;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import java.io.IOException;
 @RequestMapping("/asset")
 public class AccountController {
 
-    private final AccountService accountService;
+    private final NordigenAccountService nordigenAccountService;
 
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
+    public AccountController(NordigenAccountService nordigenAccountService) {
+        this.nordigenAccountService = nordigenAccountService;
     }
 
     @GetMapping(value = "/balances",
@@ -23,7 +23,7 @@ public class AccountController {
     public ResponseEntity<UserBalancesViewModel> getAllAccountBalances
             (@RequestHeader("Key-Organization") String keyOrganizationJson) throws IOException, InterruptedException {
 
-        UserBalancesViewModel accountBalances = this.accountService.getUserBalances(keyOrganizationJson);
+        UserBalancesViewModel accountBalances = this.nordigenAccountService.getUserBalances(keyOrganizationJson);
 
         // TODO add exc handler
 

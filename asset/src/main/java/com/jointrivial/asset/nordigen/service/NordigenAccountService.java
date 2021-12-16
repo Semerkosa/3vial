@@ -4,7 +4,7 @@ import com.jointrivial.asset.nordigen.models.views.balances.UserBalancesViewMode
 
 import java.io.IOException;
 
-public interface AccountService {
+public interface NordigenAccountService {
 
     UserBalancesViewModel getUserBalances(String keyOrganizationJson) throws IOException, InterruptedException;
 }
