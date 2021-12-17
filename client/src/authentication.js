@@ -14,6 +14,9 @@ function useAuth() {
         let decoded = jwt_decode(userToken);
         return decoded.exp;
     };
+    const decodeToken = () => {
+        return token !== null ? jwt_decode(token) : null;
+    };
     const [tokenExpire, setTokenExpire] = React.useState(() => {
         if (cookies['3vial-User-Token'] !== undefined) {
             const userToken = cookies['3vial-User-Token'];
@@ -42,6 +45,9 @@ function useAuth() {
         token,
         isTokenExpired() {
             return checkTokenExpiration();
+        },
+        getUserInfoFromToken() {
+            return decodeToken();
         },
         isLoggedIn() {
             return (token !== '' && token !== null && token !== undefined);
@@ -98,7 +104,7 @@ function useAuth() {
                     onFailure(error);
                 });
         },
-        refreshToken(onSuccess,onFailure) {
+        refreshToken(onSuccess, onFailure) {
             const request = new Request(REFRESH_TOKEN_URL, {
                 method: 'GET',
                 credentials: 'include',

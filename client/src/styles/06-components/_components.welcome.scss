@@ -1,0 +1,84 @@
+
+
+.c-welcome-section {
+    display: inline;
+
+    .o-page-content-wrapper {
+        height: 140px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        justify-content: space-between;
+
+        .greeting {
+            display: flex;
+            flex-direction: column;
+
+            h4 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-family: $manrope;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 36px;
+                line-height: 48px;
+                color: #2E2C34;
+                width: 100%;
+            }
+
+            p {
+                margin-bottom: 0;
+                margin-top: 0;
+                font-family: $manrope;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                color: #84818A;
+                width: 100%;
+
+                span {
+                    font-family: $manrope;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: #9031DB;
+                    cursor: default;
+                }
+            }
+        }
+
+        .current-date {
+            display: flex;
+            flex-direction: column;
+
+            .day {
+                font-family: $manrope;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 28px;
+                text-align: right;
+                color: #84818A;
+                margin-bottom: 5px;
+
+            }
+
+            .date {
+
+                font-family: $manrope;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+                text-align: right;
+                color: #2E2C34;
+                margin-bottom: 10px;
+                margin-top: 0;
+            }
+        }
+    }
+}
