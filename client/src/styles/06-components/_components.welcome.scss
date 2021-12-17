@@ -1,4 +1,6 @@
 .c-welcome-section {
+
+
     display: inline;
 
     .o-page-content-wrapper {
@@ -9,6 +11,7 @@
         padding-top: 30px;
         padding-bottom: 30px;
         justify-content: space-between;
+
 
         .greeting {
             display: flex;
@@ -52,7 +55,6 @@
         .current-date {
             display: flex;
             flex-direction: column;
-
             .day {
                 font-family: Manrope;
                 font-style: normal;
@@ -62,9 +64,11 @@
                 text-align: right;
                 color: #84818A;
                 margin-bottom: 5px;
+               
             }
 
             .date {
+
                 font-family: Manrope;
                 font-style: normal;
                 font-weight: 600;
