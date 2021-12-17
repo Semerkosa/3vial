@@ -1,9 +1,11 @@
 @import "01-settings/settings.colors";
+@import "01-settings/settings.typography";
 
 @import "02-tools/tools.animations";
 
 @import "03-generic/generic.normalize";
 
+@import "04-elements/elements.body";
 @import "04-elements/elements.buttons";
 @import "04-elements/elements.forms";
 
@@ -13,5 +15,6 @@
 @import "06-components/components.navigation";
 @import "06-components/components.header";
 @import "06-components/components.add_new_source";
+@import "06-components/components.footer";
 
 @import "99-utilities/utilities.text";
