@@ -1,6 +1,6 @@
+
+
 .c-welcome-section {
-
-
     display: inline;
 
     .o-page-content-wrapper {
@@ -12,7 +12,6 @@
         padding-bottom: 30px;
         justify-content: space-between;
 
-
         .greeting {
             display: flex;
             flex-direction: column;
@@ -20,7 +19,7 @@
             h4 {
                 margin-top: 0;
                 margin-bottom: 0;
-                font-family: Manrope;
+                font-family: $manrope;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 36px;
@@ -32,7 +31,7 @@
             p {
                 margin-bottom: 0;
                 margin-top: 0;
-                font-family: Manrope;
+                font-family: $manrope;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 14px;
@@ -41,7 +40,7 @@
                 width: 100%;
 
                 span {
-                    font-family: Manrope;
+                    font-family: $manrope;
                     font-style: normal;
                     font-weight: 600;
                     font-size: 14px;
@@ -55,8 +54,9 @@
         .current-date {
             display: flex;
             flex-direction: column;
+
             .day {
-                font-family: Manrope;
+                font-family: $manrope;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 20px;
@@ -64,12 +64,12 @@
                 text-align: right;
                 color: #84818A;
                 margin-bottom: 5px;
-               
+
             }
 
             .date {
 
-                font-family: Manrope;
+                font-family: $manrope;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 14px;
