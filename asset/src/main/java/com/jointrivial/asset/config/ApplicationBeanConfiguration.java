@@ -1,7 +1,8 @@
-package com.jointrivial.asset.nordigen.config;
+package com.jointrivial.asset.config;
 
 import com.google.gson.*;
 import com.jointrivial.asset.nordigen.api.NordigenAccountInfoAPI;
+import com.jointrivial.asset.yodlee.api.YodleeApi;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.*;
 
@@ -26,4 +27,8 @@ public class ApplicationBeanConfiguration {
         return new NordigenAccountInfoAPI();
     }
 
+    @Bean
+    public YodleeApi yodleeApi() {
+        return new YodleeApi();
+    }
 }

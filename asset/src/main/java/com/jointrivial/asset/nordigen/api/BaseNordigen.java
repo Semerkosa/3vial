@@ -2,7 +2,7 @@ package com.jointrivial.asset.nordigen.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jointrivial.asset.nordigen.config.ApplicationProperties;
+import com.jointrivial.asset.config.ApplicationProperties;
 import com.jointrivial.asset.nordigen.models.services.NordigenAccessTokenServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
