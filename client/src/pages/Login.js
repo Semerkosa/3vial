@@ -22,10 +22,10 @@ const Login = () => {
         };
         login(loginData, onSuccess, onFailure);
     };
-    return <>
+    return <div>
         {message && <p>{message}</p>}
         <LoginForm onLogin={loginHandler} />
-    </>;
+    </div>;
 };
 
 export default Login;
