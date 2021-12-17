@@ -1,3 +1,16 @@
-button{
-  cursor: pointer;
+button {
+    cursor: pointer;
+}
+
+.button-primary {
+    background-color: $primary-600;
+    padding: 8px 10px;
+    border-radius: 32px;
+    border: none;
+    color: white;
+
+    font-family: $manrope;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
 }

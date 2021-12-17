@@ -22,7 +22,7 @@ const Login = () => {
         };
         login(loginData, onSuccess, onFailure);
     };
-    return <div>
+    return <div className='o-page-content-wrapper'>
         {message && <p>{message}</p>}
         <LoginForm onLogin={loginHandler} />
     </div>;

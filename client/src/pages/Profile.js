@@ -85,7 +85,7 @@ const Profile = () => {
     };
 
     return (
-        <>
+        <div className='o-page-content-wrapper'>
             <p>Currently connected sources:</p>
             <ol>
                 {providers.map(provider => (<li key={provider}>{provider}</li>))}
@@ -95,7 +95,7 @@ const Profile = () => {
             {source === 'Bank' && country !== '' && <BanksDropDown countryCode={country} onSelectBank={selectBankHandler} />}
             {error && <><span style={{ color: 'red', fontSize: 12 }}>{error}<br/></span></>}
             {source === 'Bank' && country !== '' && bankValue !== null && <Button type='submit' onClick={addNewSourceHandler}>Add source</Button>}
-        </>
+        </div>
     );
 };
 

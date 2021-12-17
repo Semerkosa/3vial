@@ -45,7 +45,7 @@ const Balances = () => {
         setCurrency(selectedCurrency);
     };
     return (
-        <div>
+        <div className='o-page-content-wrapper'>
             <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
             <Button type="button" onClick={balancesHandler}>Get Balances</Button>
             {balancesData.userBalances.length !== 0 &&
