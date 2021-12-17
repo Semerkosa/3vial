@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.UUID;
 
+import static com.jointrivial.sourcemanager.nordigen.constants.ApiURLs.*;
+
 @Service
 public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdService {
 
@@ -82,12 +84,10 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
 
         JsonArray jsonArray = new JsonArray();
         this.gson.fromJson(requisitionById, RequisitionServiceModel.class).getAccounts().forEach(e->{
-
             JsonObject current = new JsonObject();
-            current.addProperty("organizationName",currentSourceIdentifier.getBankName());
-            current.addProperty("organizationKey",e);
+            current.addProperty("organizationName", currentSourceIdentifier.getBankName());
+            current.addProperty("organizationKey", e);
             jsonArray.add(current);
-
         });
 
         keysOrganisationJson.add("keysOrganisation",jsonArray);
@@ -98,24 +98,25 @@ public class NordigenConnectionIdServiceImpl implements NordigenConnectionIdServ
         json = json.replace("]\"", "]");
 
 
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        OkHttpClient accountService = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType,json);
-        Request request = new Request.Builder()
-                .url("http://localhost:8084/user/account/provider_api_keys")
+        RequestBody body = RequestBody.create(mediaType, json);
+        Request post_provider_api_keys = new Request.Builder()
+                .url(ACCOUNT_PROVIDE_API_KEYS)
                 .method("POST", body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("User-Token", userToken)
                 .build();
 
+        Response response;
         try {
-            Response response = client.newCall(request).execute();
+            response = accountService.newCall(post_provider_api_keys).execute();
         } catch (IOException e) {
             e.printStackTrace();
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return HttpStatus.OK;
+        return HttpStatus.valueOf(response.code());
     }
 }

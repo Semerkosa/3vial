@@ -26,7 +26,7 @@ public class TwelveFinanceServiceImpl implements TwelveFinanceService {
     @Override
     public ReferencesViewModel getCurrentPrice(String currency,List<String> symbols) {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder response = new StringBuilder();
 
         ReferencesViewModel output = new ReferencesViewModel();
 
@@ -35,20 +35,20 @@ public class TwelveFinanceServiceImpl implements TwelveFinanceService {
 
         for (String symbol : symbols) {
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request =  HttpRequest.newBuilder()
-                    .uri(URI.create(String.format(TEST_URL,symbol+"-"+currency)))
+            HttpClient twelveDataService = HttpClient.newHttpClient();
+            HttpRequest getExchangeRate =  HttpRequest.newBuilder()
+                    .uri(URI.create(String.format(TEST_URL, symbol + "-" + currency)))
                     .build();
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            twelveDataService.sendAsync(getExchangeRate, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
-                    .thenAccept(sb::append)
+                    .thenAccept(response::append)
                     .join();
 
+            BigDecimal decimal = new BigDecimal(new JSONObject(response.toString()).get("rate").toString());
 
-
-            TwelveDataStockViewModel current = new TwelveDataStockViewModel(symbol, new BigDecimal(new JSONObject(sb.toString()).get("rate").toString()));
+            TwelveDataStockViewModel current = new TwelveDataStockViewModel(symbol, decimal);
             output.addModel(current);
-            sb.setLength(0);
+            response.setLength(0);
         }
 
         return output;

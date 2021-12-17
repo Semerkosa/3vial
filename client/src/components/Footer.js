@@ -2,7 +2,7 @@ const Footer = () => {
     return (
         <footer>
             <div className='o-page-content-wrapper'>
-                All rights reserved. Trivial 2021 &#10084;
+                <p>All rights reserved. Trivial 2021 &#128156;</p>
             </div>
         </footer>
     );

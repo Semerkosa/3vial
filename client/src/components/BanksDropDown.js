@@ -43,12 +43,7 @@ const BanksDropDown = (props) => {
 
             const transfromedBanks = data.map(bank => {
                 return {
-                    label: <div style={{ margin: '0 20px', padding: 0 }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src={bank.logo} height="30px" width="30px" />
-                            <span style={{ marginLeft: 10 }}>{bank.name}</span>
-                        </div>                        
-                    </div>,
+                    label: bank.name,
                     value: bank.id
                 };
             });

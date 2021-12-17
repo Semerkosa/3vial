@@ -24,15 +24,17 @@ const Balances = () => {
             userBalances: preTransformedBalances.map((balanceData) => {
                 return {
                     organizationName: balanceData.organizationName,
-                    balances: balanceData.balances.map((balance) => {
-                        return {
-                            balanceAmount: {
-                                amount: balance.balanceAmount.amount,
-                                currency: balance.balanceAmount.currency,
-                                amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
-                            }
-                        };
-                    })
+                    balances: balanceData.balances != null
+                        ?   balanceData.balances.map((balance) => {
+                                return {
+                                    balanceAmount: {
+                                        amount: balance.balanceAmount.amount,
+                                        currency: balance.balanceAmount.currency,
+                                        amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
+                                    }
+                                };
+                            })
+                        :   []
                 };
             }), wantedCurrency: currency
         };
@@ -43,7 +45,7 @@ const Balances = () => {
         setCurrency(selectedCurrency);
     };
     return (
-        <div>
+        <div className='o-page-content-wrapper'>
             <h1>Get Balances <CurrencyDropDown onSelectCurrency={selectCurrencyHandler} /></h1>
             <Button type="button" onClick={balancesHandler}>Get Balances</Button>
             {balancesData.userBalances.length !== 0 &&

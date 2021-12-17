@@ -1,11 +1,8 @@
 package io.trivial.web.controllers;
 
 
-import io.trivial.constants.SecurityConstant;
-import io.trivial.models.service.UserKeyOrganizationServiceModel;
 import io.trivial.models.service.UserServiceModel;
 import io.trivial.models.view.KeyOrganisationViewModelList;
-import io.trivial.models.view.KeyOrganizationViewModel;
 import io.trivial.models.view.UserKeyOrganizationViewModel;
 import io.trivial.models.view.UserViewModel;
 import io.trivial.service.JwtToken;
@@ -30,13 +27,24 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtToken jwtToken;
+
     @Autowired
     public UserController(ModelMapper modelMapper, UserService userService,
-    		AuthenticationManager authenticationManager, JwtToken jwtToken) {
+                          AuthenticationManager authenticationManager, JwtToken jwtToken) {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtToken = jwtToken;
+    }
+
+    @GetMapping
+    public ResponseEntity<UserViewModel> getUserByToken(@RequestHeader("User-Token") String userToken) {
+
+        String email = jwtToken.getSubject(userToken);
+
+        UserServiceModel returnedUser = this.userService.getUserByEmail(email);
+
+        return new ResponseEntity<>(this.modelMapper.map(returnedUser, UserViewModel.class), HttpStatus.OK);
     }
 
     @GetMapping(
@@ -56,7 +64,8 @@ public class UserController {
             value = "/account/provider_api_keys",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserKeyOrganizationViewModel> getUserOrganizationByToken(@RequestHeader("User-Token") String token) {
-        UserServiceModel returnedUser = this.userService.getUserByEmail("ivan@example.com");
+        String email = jwtToken.getSubject(token);
+        UserServiceModel returnedUser = this.userService.getUserByEmail(email);
         ResponseEntity<UserKeyOrganizationViewModel> response =
                 new ResponseEntity<UserKeyOrganizationViewModel>(this.modelMapper.map(returnedUser, UserKeyOrganizationViewModel.class), HttpStatus.OK);
         return response;
@@ -66,19 +75,15 @@ public class UserController {
     @PostMapping(
             value = "/account/provider_api_keys"
     )
-    public ResponseEntity<UserKeyOrganizationViewModel> addSource(
+    public HttpStatus addSource(
             @RequestHeader("User-Token") String token,
-            @RequestHeader("Key-Organization") String keyOrganizationJson) {
-
-        token = token.substring(SecurityConstant.TOKEN_PREFIX.length());
-
+            @RequestBody KeyOrganisationViewModelList keyOrganizationList) {
         String email = jwtToken.getSubject(token);
 
-        UserKeyOrganizationServiceModel sources =
-                userService.addSource(email, keyOrganizationJson);
+        userService.addSource(email, keyOrganizationList);
 
-        return new ResponseEntity<>(modelMapper
-                .map(sources, UserKeyOrganizationViewModel.class), HttpStatus.OK);
+        return HttpStatus.OK;
     }
+
 
 }

@@ -49,11 +49,12 @@ const Register = () => {
 
 
     return (
-        <Fragment>
-            <RegisterForm onRegister={registerHandler} />
-            {error && <p style={{ color: 'red', fontSize: 12 }}>{error}</p>}
-        </Fragment>
-
+        <div className='o-page-content-wrapper'>
+            <Fragment>
+                <RegisterForm onRegister={registerHandler} />
+                {error && <p style={{ color: 'red', fontSize: 12 }}>{error}</p>}
+            </Fragment>
+        </div>
     );
 };
 

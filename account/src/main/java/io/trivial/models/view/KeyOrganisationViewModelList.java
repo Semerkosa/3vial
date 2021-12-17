@@ -7,7 +7,6 @@ import java.util.List;
 
 public class KeyOrganisationViewModelList {
 
-
     private List<KeyOrganizationViewModel> keyOrganization;
 
     @JsonCreator
@@ -21,5 +20,17 @@ public class KeyOrganisationViewModelList {
 
     public void setKeyOrganization(List<KeyOrganizationViewModel> keyOrganization) {
         this.keyOrganization = keyOrganization;
+    }
+
+    @Override
+    public String toString() {
+        String keys = "{";
+        for (KeyOrganizationViewModel keyOrganizationViewModel : keyOrganization) {
+            keys += keyOrganizationViewModel.toString() + ", ";
+        }
+        keys += "}";
+        return "KeyOrganisationViewModelList{" +
+                "keyOrganization=" + keys +
+                '}';
     }
 }

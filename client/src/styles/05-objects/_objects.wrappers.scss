@@ -1,6 +1,10 @@
 .o-page-content-wrapper {
-    max-width: 1200px;
+    max-width: 1380px;
     margin: 0 auto;
+
+    @media all and (max-width: 1440px) {
+        margin: 0 30px;
+    }
 }
 
 .o-accounts-wrapper{

@@ -4,6 +4,6 @@ import com.jointrivial.MockTwelveData.web.model.TwelveDataStockViewModel;
 
 public interface TestingService{
 
-    TwelveDataStockViewModel getPriceBySymbol(String symbol);
+    TwelveDataStockViewModel getPriceBySymbol(String ticker);
 
 }
