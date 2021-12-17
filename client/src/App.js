@@ -22,7 +22,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route index path={ApplicationRoutes.Home_Route} element={<Home />}></Route>
+          <Route index path={ApplicationRoutes.Home_Route} element={<Home/>}/>
           <Route path={ApplicationRoutes.Login_Route} element={<Login />} />
           <Route path={ApplicationRoutes.Register_Route} element={<Register />} />
           <Route path={ApplicationRoutes.Balances_Route} element={
@@ -50,7 +50,7 @@ function App() {
               <Logout />
             </RequireAuth>
           } />
-          <Route path='*' element={()=>'Page not found!'}></Route>
+          <Route path='*' element={() => 'Page not found!'}/>
         </Routes>
         <Footer />
       </Router>

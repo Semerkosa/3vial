@@ -1,7 +1,44 @@
-/* ==========================================================================
-   #TEXT-UTILITIES
-   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+
 
 .u-text-upper {
   text-transform: uppercase !important;
+}
+
+.u-inter-600{
+
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: center;
+
+}
+
+.u-inter-500{
+
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+.u-manrope-600{
+
+  font-family: Manrope,sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+
 }

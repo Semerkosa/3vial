@@ -1,0 +1,132 @@
+@import "../../styles/01-settings/settings.colors";
+
+.o-account-card{
+
+
+  border: 1px solid $border-grey;
+
+
+  background: $absolute-white;
+  box-shadow: 0px 23px 44px rgba(176, 183, 195, 0.14);
+  border-radius: 8px;
+  max-width: 330px;
+
+  padding-left: 12px;
+  padding-right: 12px;
+
+  &-title{
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-column-gap: 15px;
+    padding: 21px 25px;
+
+    border-bottom: 1px solid $border-grey;
+    &-logo{
+
+      min-width: 91px;
+      min-height: 17px;
+      background: url("../../assets/wise.svg") no-repeat;
+    }
+
+    &-percent{
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 5px;
+      color: $success-green;
+
+      align-items: center;
+
+      &-arrow{
+
+        background: url("../../assets/arrows/upper-arrow.svg") no-repeat;
+        min-width: 16px;
+        min-height: 11px;
+        display: inline-block;
+      }
+    }
+  }
+
+  &-row{
+
+    &-even{
+      background: #F8F8F9;
+      border-radius: 12px;
+      display: grid;
+
+      align-items: center;
+      padding: 15px 27px 15px 25px;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    display: grid;
+
+    align-items: center;
+    padding: 15px 27px 15px 25px;
+    grid-template-columns: 2fr 1fr 1fr;
+
+    &-symbol{
+
+    }
+
+    &-percent{
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-left: 30px;
+
+      align-items: center;
+      grid-column-gap: 4px;
+      background: $back-ground-green;
+      border-radius: 30px;
+
+      padding: 4px 7px;
+
+      color: $green-600;
+
+
+      &-arrow{
+
+        background: url("../../assets/arrows/mini-arrow.svg") no-repeat;
+
+        min-width: 5px;
+        min-height: 5px;
+      }
+    }
+
+  }
+
+  &-expand{
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: min-content min-content;
+    align-items: center;
+    grid-column-gap: 10px;
+    justify-content: center;
+
+
+    &-button{
+
+      background-color: transparent;
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      padding-top: 15px;
+      padding-bottom: 20px;
+
+      color: $primary-600;
+
+    }
+
+    &-arrow{
+
+      background: url("../../assets/arrows/expand-arrow.svg") no-repeat;
+
+      min-width: 8px;
+      min-height: 12px;
+    }
+  }
+}

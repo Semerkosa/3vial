@@ -2,3 +2,15 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.o-accounts-wrapper{
+
+    display: grid;
+    grid-template-columns: max-content max-content max-content 2fr;
+
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
