@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class YodleeApi {
 
@@ -27,6 +28,7 @@ public class YodleeApi {
     private static final String TOKEN_URI = "/auth/token";
     public static final String REGISTER_URI = "/user/register";
     public static final String ACCOUNTS_URI = "/accounts";
+    public static final String HOLDINGS_URI = "/holdings";
 
     private String getBaseUrl() {
         return properties.getYodleeBaseUrl();
@@ -145,6 +147,35 @@ public class YodleeApi {
 
         request = HttpRequest.newBuilder()
                 .uri(new URI(getBaseUrl() + ACCOUNTS_URI + queryParam))
+                .header("Authorization", "Bearer " + token)
+                .header("Api-Version", API_VERSION)
+                .GET()
+                .build();
+
+        response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return new YodleeResponse(response.statusCode(), response.body());
+
+    }
+
+
+    /**
+     *
+     * @param token the token generated with the user's loginName
+     * @param accountId the account id for which the holding information is needed
+     * @return Object with two properties:
+     *          statusCode - the code of the response from Yodlee
+     *          body - the body of the response from Yodlee
+     */
+    public YodleeResponse getUserHoldingsByAccountId(
+                                                     String token,
+                                                     String accountId
+    ) throws URISyntaxException, IOException, InterruptedException {
+
+        String queryParam = "?accountId=" + accountId;
+
+        request = HttpRequest.newBuilder()
+                .uri(new URI(getBaseUrl() + HOLDINGS_URI + queryParam))
                 .header("Authorization", "Bearer " + token)
                 .header("Api-Version", API_VERSION)
                 .GET()
