@@ -9,8 +9,11 @@ import messagesDot from '../assets/header/messages-dot.svg'
 import services from '../assets/header/services.svg';
 import avatar from '../assets/header/avatar.png';
 import arrowDropDown from '../assets/header/arrow-drop-down.svg';
+import AuthConsumer from '../authentication';
 
 const Header = () => {
+    const { isLoggedIn } = AuthConsumer();
+
     let userFirstName = 'Eric';
 
     function hasMessages() {
@@ -23,7 +26,6 @@ const Header = () => {
                 <img src={messages} />
             </a>)
         }
-
     };
 
     return (
@@ -41,38 +43,40 @@ const Header = () => {
                     <Nav />
                 </div>
 
-                <div className='c-header__right-part'>
-                    <div className='c-header__currencies-dropdown'>
-                        {/* Replace with CurrencyDropDown component */}
-                        <button>
-                            <span className='c-header__currency'>USD</span>
-                            <img src={horizontalArrow} />
-                        </button>
-                    </div>
-                    
-                    <div className='c-header__user-services'>
-                        <a className='c-header__notification' href='/'>
-                            <img src={notification} />
-                        </a>
-                        {hasMessages()}
-                        <a className='c-header__services' href='/'>
-                            <img src={services} />
-                        </a>
-                    </div>
-
-                    <div className='c-header__user-profile'>
-                        <div className='c-header__user-avatar'>
-                            <img src={avatar} />
-                        </div>
-                        <div className='c-header__user-profile-dropdown'>
+                {isLoggedIn() ?
+                    <div className='c-header__right-part'>
+                        <div className='c-header__currencies-dropdown'>
+                            {/* Replace with CurrencyDropDown component */}
                             <button>
-                                <span className='c-header__user-first-name'>{userFirstName}</span>
-                                <img src={arrowDropDown} />
+                                <span className='c-header__currency'>USD</span>
+                                <img src={horizontalArrow} />
                             </button>
                         </div>
-                    </div>
 
-                </div>
+                        <div className='c-header__user-services'>
+                            <a className='c-header__notification' href='/'>
+                                <img src={notification} />
+                            </a>
+                            {hasMessages()}
+                            <a className='c-header__services' href='/'>
+                                <img src={services} />
+                            </a>
+                        </div>
+
+                        <div className='c-header__user-profile'>
+                            <div className='c-header__user-avatar'>
+                                <img src={avatar} />
+                            </div>
+                            <div className='c-header__user-profile-dropdown'>
+                                <button>
+                                    <span className='c-header__user-first-name'>{userFirstName}</span>
+                                    <img src={arrowDropDown} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    <div></div>}
             </div>
         </header>
     )

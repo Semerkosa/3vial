@@ -94,9 +94,7 @@ const RegisterForm = (props) => {
             </div>
             {isSubmitClicked && isEmpty(enteredEmail) && isEmpty(enteredPassword) && isEmpty(enteredPasswordConfirm) &&
                 <p style={{ color: 'red', fontSize: 12 }}>Input fields cannot be empty!</p>}
-            <div>
                 <Button type="submit">Register</Button>
-            </div>
         </form>
     )
 }
