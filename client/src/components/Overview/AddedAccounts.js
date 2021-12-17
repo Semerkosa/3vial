@@ -1,7 +1,7 @@
 import AddedAccountCard from "./AddedAccountCard";
 import RecentTransactions from "./RecentTransactions";
 import AuthConsumer from "../../authentication";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {BALANCES_URL} from "../../ApplicationVariables";
 
 const AddedAccounts = () => {
@@ -22,20 +22,26 @@ const AddedAccounts = () => {
             userBalances: preTransformedBalances.map((balanceData) => {
                 return {
                     organizationName: balanceData.organizationName,
-                    balances: balanceData.balances.map((balance) => {
-                        return {
-                            balanceAmount: {
-                                amount: balance.balanceAmount.amount,
-                                currency: balance.balanceAmount.currency,
-                                amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
-                            }
-                        };
-                    })
+                    balances: balanceData.balances != null
+                        ? balanceData.balances.map((balance) => {
+                            return {
+                                balanceAmount: {
+                                    amount: balance.balanceAmount.amount,
+                                    currency: balance.balanceAmount.currency,
+                                    amountInWantedCurrency: balance.balanceAmount.amountInWantedCurrency
+                                }
+                            };
+                        })
+                        : []
                 };
             }), wantedCurrency: ""
         };
         setBalancesData(transformedBalances);
     };
+
+    useEffect(() => {
+        balancesHandler();
+    }, []);
 
     let cards = []
     console.log( balancesData.userBalances.length)
